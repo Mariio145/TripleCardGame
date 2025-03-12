@@ -282,6 +282,7 @@ public class UnoGameState : IGameState
                 if (index >= cards.Count) break;
                 Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
+                tasks.Add(cards[index].DOLocalRotate(Vector3.zero, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
             }
         }

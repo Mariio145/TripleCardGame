@@ -20,6 +20,11 @@ public class VirusForwardModel : IForwardModel
         //Robar tantas cartas como te falten para tener 3
         VirusPlayerStatus player = virusGs.PlayersStatus[virusGs.GetPlayerTurnIndex()];
         
+        /*foreach (VirusPlayerStatus playerUpdate in virusGs.PlayersStatus)
+        {
+            playerUpdate.VisualBody.UpdateBody();
+        }*/
+        
         while (player.Hand.Count != player.HandGObject.GetComponentsInChildren<VisualVirusCard>().Length)
         {
             await Task.Yield();
@@ -27,17 +32,9 @@ public class VirusForwardModel : IForwardModel
         
         for (int i = player.HandGObject.GetComponentsInChildren<VisualVirusCard>().Length; i < 3; i++)
         {
-            player.Hand.Enqueue(virusGs.DrawCardFromDrawDeck(player.HandGObject).Result);
+            player.Hand.Enqueue(await virusGs.DrawCardFromDrawDeck(player.HandGObject));
             virusGs.UpdateHands();
             await Task.Delay(200); //Tiempo entre acciones
-        }
-        
-        
-
-        foreach (VirusPlayerStatus playerUpdate in virusGs.PlayersStatus)
-        {
-            Debug.Log("Count pero en forwardModel: " + playerUpdate.Body.Count);
-            playerUpdate.VisualBody.UpdateBody();
         }
         
         gameState.ChangeTurnIndex();

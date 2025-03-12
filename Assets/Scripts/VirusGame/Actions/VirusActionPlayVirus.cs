@@ -12,14 +12,17 @@ public class VirusActionPlayVirus : VirusAction
         _virusColor = virusColor;
         CardIndex = indexCard;
     }
-    public override Task<bool> PlayAction(IGameState gameState)
+    public override async Task<bool> PlayAction(IGameState gameState)
     {
-        if (gameState is not VirusGameState virusGs) return Task.FromResult(false);
+        if (gameState is not VirusGameState virusGs) return false;
         
         VirusPlayerStatus playerTarget = virusGs.PlayersStatus[PlayerTarget];
         VirusPlayerStatus playerSelf = virusGs.PlayersStatus[virusGs.GetPlayerTurnIndex()];
         VirusOrgan organ = playerTarget.SearchOrganColor(ColorTarget);
-
+        
+        List<Task> tasks = new();
+        
+        Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex).VisualCard.gameObject);
         switch (organ.Status)
         {
             case Status.Infected:
@@ -27,25 +30,25 @@ public class VirusActionPlayVirus : VirusAction
                 virusGs.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus, TreatmentType.None, virusGs.discardGo));
                 virusGs.DiscardDeck.Add(new VirusCard(ColorTarget, VirusType.Organ, TreatmentType.None, virusGs.discardGo));
                 playerTarget.RemoveOrgan(ColorTarget);
-                playerTarget.VisualBody.RemoveOrgan(ColorTarget);
+                tasks.Add(playerTarget.VisualBody.RemoveVirusAnimation(ColorTarget));
+                tasks.Add(playerTarget.VisualBody.RemoveOrganAnimation(ColorTarget));
+                await Task.WhenAll(tasks);
                 break;
             case Status.Normal:
                 organ.Status = Status.Infected;
                 organ.VirusColor = _virusColor;
-                playerTarget.VisualBody.AddVirusToOrgan(ColorTarget, _virusColor);
+                await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, _virusColor);
                 break;
             case Status.Vaccinated:
                 organ.Status = Status.Normal;
                 virusGs.DiscardDeck.Add(new VirusCard(organ.MedicineColor, VirusType.Medicine, TreatmentType.None, virusGs.discardGo));
                 virusGs.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus, TreatmentType.None, virusGs.discardGo));
                 organ.MedicineColor = VirusColor.None;
-                playerTarget.VisualBody.RemoveMedicineFromOrgan(ColorTarget);
+                await playerTarget.VisualBody.RemoveMedicine1Animation(ColorTarget);
                 break;
         }
         
-        Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex).VisualCard.gameObject);
-        
-        return Task.FromResult(true);
+        return true;
     }
     
     public override bool TestAction(IObservation observation)

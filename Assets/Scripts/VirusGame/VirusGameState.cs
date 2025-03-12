@@ -78,16 +78,16 @@ public class VirusGameState : IGameState
         return card;
     }
     
-    public void DiscardCard(Card card)
+    public async Task DiscardCard(Card card)
     {
-        DiscardCard((VirusCard)card);
+        await DiscardCard((VirusCard)card);
     }
 
-    public void DiscardCard(VirusCard card)
+    private async Task DiscardCard(VirusCard card)
     {
         card.VisualCard.ChangeParent(discardGo.transform, false);
-        card.VisualCard.SetPosition(new Vector3(Random.Range(-0.1f, 0.1f), 0.01f * DiscardDeck.RemainingCards(), Random.Range(-0.1f, 0.1f)), true);
         DiscardDeck.Add(card);
+        await card.VisualCard.SetPosition(new Vector3(Random.Range(-0.1f, 0.1f), 0.005f * DiscardDeck.RemainingCards(), Random.Range(-0.1f, 0.1f)), true);
     }
     
 
@@ -227,7 +227,7 @@ public class VirusGameState : IGameState
         Renderer renderer = cards[0].GetComponent<Renderer>();
         
         float cardLenght = renderer.bounds.size.x;
-        float cardHeight = renderer.bounds.size.y;
+        const float cardHeight = 0.005f;
         float cardWidth = renderer.bounds.size.z;
 
         int index = 0;

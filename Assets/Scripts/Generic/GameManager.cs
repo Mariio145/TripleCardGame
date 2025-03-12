@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public enum GameToPlay
 {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        DOTween.SetTweensCapacity(500, 50);
         TimeToThink = timeToThink;
         _players = new List<Player> {perspectivePlayer.GetComponent<Player>()};
 
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         while (!_gameState.IsTerminal() || true)
         {
-            await Task.Delay(500);
+            await Task.Delay(250);
             //await WaitForSpace();
             Player playerTurn = _gameState.GetPlayer();
 

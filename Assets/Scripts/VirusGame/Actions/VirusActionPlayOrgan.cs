@@ -15,12 +15,11 @@ public class VirusActionPlayOrgan : VirusAction
     {
         if (gameState is not VirusGameState virusGs) return false;
         VirusPlayerStatus player = virusGs.PlayersStatus[PlayerSelf];
+
+        Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, CardIndex).VisualCard.gameObject);
         
         player.AddOrgan(ColorSelf);
-        //player.VisualBody.AddOrgan(ColorSelf);
-        
-        Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, CardIndex).VisualCard.gameObject);
-        await Task.Delay(2000);
+        await player.VisualBody.PlaceOrganAnimation(ColorSelf);
         
         return true;
     }

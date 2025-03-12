@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class VisualCard : MonoBehaviour
     public float hoverHeight = 0.5f;
 
     private Vector3 _originalPosition;
-    [SerializeField]private Vector3 _targetPosition;
+    [SerializeField]private Vector3 targetPosition;
 
     public void Awake()
     {
@@ -23,51 +24,71 @@ public class VisualCard : MonoBehaviour
         _collider.enabled = false;
         gameObject.name = "Card";
         _originalPosition = transform.localPosition;
-        _targetPosition = _originalPosition;
+        targetPosition = _originalPosition;
         meshFilter.mesh = ResourcesLoader.Instance.cardMesh;
     }
 
-    public void SetPosition(Vector3 position, bool randomRotate = false)
+    public async Task SetPosition(Vector3 position, bool randomRotate = false)
     {
         _originalPosition = position;
-        _targetPosition = _originalPosition;
-        MoveToTarget(randomRotate);
+        targetPosition = _originalPosition;
+        await MoveToTarget(randomRotate);
     }
     
-    private void MoveToTarget(bool randomRotate = false)
+    private async Task MoveToTarget(bool randomRotate = false)
     {
-        transform.DOLocalMove(_targetPosition, 0.5f);
         if (randomRotate) transform.DOLocalRotate(new Vector3(0 , transform.localRotation.y + Random.Range(-15f, 15f), transform.localRotation.z), 0.5f).SetEase(Ease.OutQuad);
         else transform.DOLocalRotate(new Vector3(0, transform.localRotation.y, transform.localRotation.z), 0.5f).SetEase(Ease.OutQuad);
         // new Vector3 (0, transform.rotation.eulerAngles.y, 180)
+        await transform.DOLocalMove(targetPosition, 0.5f).AsyncWaitForCompletion();
     }
 
     public virtual void ChangeSprite()
     { }
 
-    public void ChangeParent(Transform parent, bool enableCollider)
+    public async void ChangeParent(Transform parent, bool enableCollider)
     {
         transform.SetParent(parent);
-        _targetPosition = Vector3.zero;
+        targetPosition = Vector3.zero;
         //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
         
         if (parent.GetComponent<VisualHand>() is not null)
             parent.GetComponent<VisualHand>().UpdateHandPosition();
 
         if (enableCollider) _collider.enabled = true;
-        MoveToTarget();
+        await MoveToTarget();
+    }
+    
+    public void ChangeUnoParent(Transform parent, bool enableCollider, Vector3 position = default)
+    {
+        transform.SetParent(parent);
+        targetPosition = position;
+        //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
+        
+        if (parent.GetComponent<VisualHand>() is not null)
+            parent.GetComponent<VisualHand>().UpdateHandPosition();
+
+        if (enableCollider) _collider.enabled = true;
+        UnoPlayCardAnim();
+    }
+    
+    private void UnoPlayCardAnim()
+    {
+        transform.DOLocalMove(targetPosition, 0.5f).SetEase(Ease.InQuad);
+        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+        // new Vector3 (0, transform.rotation.eulerAngles.y, 180)
     }
 
     public void OnMouseEnter()
     {
-        _targetPosition = _originalPosition + Vector3.up * hoverHeight;
-        MoveToTarget();
+        targetPosition = _originalPosition + Vector3.up * hoverHeight;
+        _ = MoveToTarget();
     }
 
     public void OnMouseExit()
     {
-        _targetPosition = _originalPosition;
-        MoveToTarget();
+        targetPosition = _originalPosition;
+        _ = MoveToTarget();
     }
 
     protected virtual void OnMouseDown()

@@ -18,16 +18,14 @@ public class VirusActionOrganThief : VirusAction
 
         VirusOrgan organToReceive = playerTarget.SearchOrganColor(ColorTarget);
         
+        await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
+        
         //Se añade el organo y se elimina del otro jugador
         playerSelf.AddOrgan(organToReceive);
         playerTarget.RemoveOrgan(ColorTarget);
         
-        playerSelf.VisualBody.UpdateBody();
-        playerTarget.VisualBody.UpdateBody();
-        
-        virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
-
-        await Task.Delay(100);
+        await playerTarget.VisualBody.RemoveOrganComplete(organToReceive.OrganColor);
+        await playerSelf.VisualBody.PlaceOrganComplete(organToReceive.OrganColor, organToReceive.MedicineColor, organToReceive.MedicineColor2, organToReceive.VirusColor);
 
         return true;
     }

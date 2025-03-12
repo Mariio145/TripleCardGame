@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using DG.Tweening;
 
 public class VisualVirusBody : MonoBehaviour
 {
@@ -14,246 +16,38 @@ public class VisualVirusBody : MonoBehaviour
     public OrganGameObject redOrgan, blueOrgan, greenOrgan, yellowOrgan, rainbowOrgan;
     public VirusPlayerStatus PlayerStatus;
 
+    private static readonly Vector3 TokenOutOfCamera = new(0, 0, 0.25f);
+    private static readonly Vector3 VirusScale = new(0.1f, 0.1f, 0.1f);
+
     public void Awake()
     {
-        redOrgan.gameObject.SetActive(false);
-        blueOrgan.gameObject.SetActive(false);
-        greenOrgan.gameObject.SetActive(false);
-        yellowOrgan.gameObject.SetActive(false);
-        rainbowOrgan.gameObject.SetActive(false);
+        redOrgan.gameObject.transform.localPosition = TokenOutOfCamera;
+        blueOrgan.gameObject.transform.localPosition = TokenOutOfCamera;
+        greenOrgan.gameObject.transform.localPosition = TokenOutOfCamera;
+        yellowOrgan.gameObject.transform.localPosition = TokenOutOfCamera;
+        rainbowOrgan.gameObject.transform.localPosition = TokenOutOfCamera;
         
-        redOrgan.medicineMesh.enabled = false;
-        redOrgan.medicineMesh2.enabled = false;
-        redOrgan.virusMesh.enabled = false;
-        blueOrgan.medicineMesh.enabled = false;
-        blueOrgan.medicineMesh2.enabled = false;
-        blueOrgan.virusMesh.enabled = false;
-        greenOrgan.medicineMesh.enabled = false;
-        greenOrgan.medicineMesh2.enabled = false;
-        greenOrgan.virusMesh.enabled = false;
-        yellowOrgan.medicineMesh.enabled = false;
-        yellowOrgan.medicineMesh2.enabled = false;
-        yellowOrgan.virusMesh.enabled = false;
-        rainbowOrgan.medicineMesh.enabled = false;
-        rainbowOrgan.medicineMesh2.enabled = false;
-        rainbowOrgan.virusMesh.enabled = false;
+        redOrgan.medicineMesh.gameObject.transform.localScale = Vector3.zero;
+        redOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
+        redOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
+        blueOrgan.medicineMesh.gameObject.transform.localScale = Vector3.zero;
+        blueOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
+        blueOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
+        greenOrgan.medicineMesh.gameObject.transform.localScale = Vector3.zero;
+        greenOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
+        greenOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
+        yellowOrgan.medicineMesh.gameObject.transform.localScale = Vector3.zero;
+        yellowOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
+        yellowOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
+        rainbowOrgan.medicineMesh.gameObject.transform.localScale = Vector3.zero;
+        rainbowOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
+        rainbowOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
     }
 
-    public void AddOrgan(VirusColor organColor)
-    {
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.gameObject.SetActive(true);
-                break;
-            case VirusColor.Blue:
-                blueOrgan.gameObject.SetActive(true);
-                break;
-            case VirusColor.Green:
-                greenOrgan.gameObject.SetActive(true);
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.gameObject.SetActive(true);
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.gameObject.SetActive(true);
-                break;
-        }
-    }
-
-    public void RemoveOrgan(VirusColor organColor)
-    {
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.medicineMesh.enabled = false;
-                redOrgan.virusMesh.enabled = false;
-                redOrgan.gameObject.SetActive(false);
-                break;
-            case VirusColor.Blue:
-                blueOrgan.medicineMesh.enabled = false;
-                blueOrgan.virusMesh.enabled = false;
-                blueOrgan.gameObject.SetActive(false);
-                break;
-            case VirusColor.Green:
-                greenOrgan.medicineMesh.enabled = false;
-                greenOrgan.virusMesh.enabled = false;
-                greenOrgan.gameObject.SetActive(false);
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.medicineMesh.enabled = false;
-                yellowOrgan.virusMesh.enabled = false;
-                yellowOrgan.gameObject.SetActive(false);
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.medicineMesh.enabled = false;
-                rainbowOrgan.virusMesh.enabled = false;
-                rainbowOrgan.gameObject.SetActive(false);
-                break;
-        }
-    }
-
-    public void AddMedicineToOrgan(VirusColor organColor, VirusColor medicineColor)
-    {
-        Material medColor = medicineColor switch
-        {
-            VirusColor.Red => ResourcesLoader.Instance.redMedMat,
-            VirusColor.Blue => ResourcesLoader.Instance.blueMedMat,
-            VirusColor.Green => ResourcesLoader.Instance.greenMedMat,
-            VirusColor.Yellow => ResourcesLoader.Instance.yellowMedMat,
-            VirusColor.Rainbow => ResourcesLoader.Instance.rainbowMedMat,
-            _ => new Material(Shader.Find("Standard"))
-        };
-
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.medicineMesh.enabled = true;
-                redOrgan.medicineMesh.material = medColor;
-                break;
-            case VirusColor.Blue:
-                blueOrgan.medicineMesh.enabled = true;
-                blueOrgan.medicineMesh.material = medColor;
-                break;
-            case VirusColor.Green:
-                greenOrgan.medicineMesh.enabled = true;
-                greenOrgan.medicineMesh.material = medColor;
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.medicineMesh.enabled = true;
-                yellowOrgan.medicineMesh.material = medColor;
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.medicineMesh.enabled = true;
-                rainbowOrgan.medicineMesh.material = medColor;
-                break;
-        }
-    }
-
-    public void RemoveMedicineFromOrgan(VirusColor organColor)
-    {
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.medicineMesh.enabled = false;
-                break;
-            case VirusColor.Blue:
-                blueOrgan.medicineMesh.enabled = false;
-                break;
-            case VirusColor.Green:
-                greenOrgan.medicineMesh.enabled = false;
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.medicineMesh.enabled = false;
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.medicineMesh.enabled = false;
-                break;
-        }
-    }
-
-    public void AddVirusToOrgan(VirusColor organColor, VirusColor virusColor)
-    {
-        Material virColor = virusColor switch
-        {
-            VirusColor.Red => ResourcesLoader.Instance.redMedMat,
-            VirusColor.Blue => ResourcesLoader.Instance.blueMedMat,
-            VirusColor.Green => ResourcesLoader.Instance.greenMedMat,
-            VirusColor.Yellow => ResourcesLoader.Instance.yellowMedMat,
-            VirusColor.Rainbow => ResourcesLoader.Instance.rainbowMedMat,
-            _ => new Material(Shader.Find("Standard"))
-        };
-
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.virusMesh.enabled = true;
-                redOrgan.virusMesh.material = virColor;
-                break;
-            case VirusColor.Blue:
-                blueOrgan.virusMesh.enabled = true;
-                blueOrgan.virusMesh.material = virColor;
-                break;
-            case VirusColor.Green:
-                greenOrgan.virusMesh.enabled = true;
-                greenOrgan.virusMesh.material = virColor;
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.virusMesh.enabled = true;
-                yellowOrgan.virusMesh.material = virColor;
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.virusMesh.enabled = true;
-                rainbowOrgan.virusMesh.material = virColor;
-                break;
-        }
-    }
-
-    public void RemoveVirusFromOrgan(VirusColor organColor)
-    {
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.virusMesh.enabled = false;
-                break;
-            case VirusColor.Blue:
-                blueOrgan.virusMesh.enabled = false;
-                break;
-            case VirusColor.Green:
-                greenOrgan.virusMesh.enabled = false;
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.virusMesh.enabled = false;
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.virusMesh.enabled = false;
-                break;
-        }
-    }
-
-    public void ImmunizeOrgan(VirusColor organColor, VirusColor medicineColor)
-    {
-        Material medColor = medicineColor switch
-        {
-            VirusColor.Red => ResourcesLoader.Instance.redMedMat,
-            VirusColor.Blue => ResourcesLoader.Instance.blueMedMat,
-            VirusColor.Green => ResourcesLoader.Instance.greenMedMat,
-            VirusColor.Yellow => ResourcesLoader.Instance.yellowMedMat,
-            VirusColor.Rainbow => ResourcesLoader.Instance.rainbowMedMat,
-            _ => new Material(Shader.Find("Standard"))
-        };
-
-        switch (organColor)
-        {
-            case VirusColor.Red:
-                redOrgan.medicineMesh2.enabled = true;
-                redOrgan.medicineMesh2.material = medColor;
-                break;
-            case VirusColor.Blue:
-                blueOrgan.medicineMesh2.enabled = true;
-                blueOrgan.medicineMesh2.material = medColor;
-                break;
-            case VirusColor.Green:
-                greenOrgan.medicineMesh2.enabled = true;
-                greenOrgan.medicineMesh2.material = medColor;
-                break;
-            case VirusColor.Yellow:
-                yellowOrgan.medicineMesh2.enabled = true;
-                yellowOrgan.medicineMesh2.material = medColor;
-                break;
-            case VirusColor.Rainbow:
-                rainbowOrgan.medicineMesh2.enabled = true;
-                rainbowOrgan.medicineMesh2.material = medColor;
-                break;
-        }
-    }
-
-    public void UpdateBody()
+    /*public void UpdateBody()
     {
         List<VirusColor> allColors = new ((Enum.GetValues(typeof(VirusColor)) as VirusColor[])!);
         allColors.Remove(VirusColor.None);
-        
-        Debug.Log("Count pero en visualVirus: " + PlayerStatus.Body.Count);
         
         foreach (VirusOrgan organ in PlayerStatus.Body)
         {
@@ -280,5 +74,150 @@ public class VisualVirusBody : MonoBehaviour
         {
             RemoveOrgan(color);
         }
+    }*/
+    
+    /*
+     *
+     * ANIMATIONS
+     *
+     */
+
+    public async Task PlaceOrganAnimation(VirusColor color)
+    {
+        OrganGameObject organ = GetOrganObject(color);
+        
+        await organ.gameObject.transform.DOLocalMove(Vector3.zero, 1f).SetEase(Ease.InQuint).AsyncWaitForCompletion();
     }
+
+    public async Task RemoveOrganAnimation(VirusColor color)
+    {
+        OrganGameObject organ = GetOrganObject(color);
+        
+        await organ.gameObject.transform.DOLocalMove(TokenOutOfCamera, 1f).SetEase(Ease.InQuint).AsyncWaitForCompletion();
+    }
+
+    public async Task PlaceMedicine1Animation(VirusColor organTarget, VirusColor medicineColor)
+    {
+        Material medColor = GetMedicineMaterial(medicineColor);
+        
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        organ.medicineMesh.material = medColor;
+        await organ.medicineMesh.gameObject.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
+    }
+    
+    public async Task PlaceMedicine2Animation(VirusColor organTarget, VirusColor medicineColor)
+    {
+        Material medColor = GetMedicineMaterial(medicineColor);
+        
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        organ.medicineMesh2.material = medColor;
+        await organ.medicineMesh2.gameObject.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
+    }
+    
+    public async Task RemoveMedicine1Animation(VirusColor organTarget)
+    {
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        await organ.medicineMesh.gameObject.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InElastic).AsyncWaitForCompletion();
+    }
+
+    private async Task RemoveMedicine2Animation(VirusColor organTarget)
+    {
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        await organ.medicineMesh2.gameObject.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InElastic).AsyncWaitForCompletion();
+    }
+
+    public async Task PlaceVirusAnimation(VirusColor organTarget, VirusColor virusColor)
+    {
+        Material virColor = GetVirusMaterial(virusColor);
+        
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        organ.virusMesh.material = virColor;
+        await organ.virusMesh.gameObject.transform.DOScale(VirusScale, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
+    }
+
+    public async Task RemoveVirusAnimation(VirusColor organTarget)
+    {
+        OrganGameObject organ = GetOrganObject(organTarget);
+        
+        await organ.virusMesh.gameObject.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InElastic).AsyncWaitForCompletion();
+    }
+
+    public async Task RemoveOrganComplete(VirusColor organColor)
+    {
+        List<Task> tasks = new()
+        {
+            RemoveVirusAnimation(organColor),
+            RemoveMedicine1Animation(organColor),
+            RemoveMedicine2Animation(organColor),
+        };
+
+        await Task.WhenAll(tasks);
+        await RemoveOrganAnimation(organColor);
+    }
+    
+    public async Task PlaceOrganComplete(VirusColor organColor, VirusColor medColor = VirusColor.None, VirusColor medColor2 = VirusColor.None, VirusColor virColor = VirusColor.None)
+    {
+        List<Task> tasks = new();
+        
+        await PlaceOrganAnimation(organColor);
+
+        if (virColor is not VirusColor.None) tasks.Add(PlaceVirusAnimation(organColor, virColor));
+        if (medColor is not VirusColor.None) tasks.Add(PlaceMedicine1Animation(organColor, medColor));
+        if (medColor2 is not VirusColor.None) tasks.Add(PlaceMedicine2Animation(organColor, medColor2));
+        
+        await Task.WhenAll(tasks);
+    }
+    
+    
+
+    private OrganGameObject GetOrganObject(VirusColor color)
+    {
+        OrganGameObject organ = color switch
+        {
+            VirusColor.Red => redOrgan,
+            VirusColor.Blue => blueOrgan,
+            VirusColor.Green => greenOrgan,
+            VirusColor.Yellow => yellowOrgan,
+            VirusColor.Rainbow => rainbowOrgan,
+            _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+        };
+        
+        return organ;
+    }
+
+    private Material GetMedicineMaterial(VirusColor color)
+    {
+        Material material = color switch
+        {
+            VirusColor.Red => ResourcesLoader.Instance.redMedMat,
+            VirusColor.Blue => ResourcesLoader.Instance.blueMedMat,
+            VirusColor.Green => ResourcesLoader.Instance.greenMedMat,
+            VirusColor.Yellow => ResourcesLoader.Instance.yellowMedMat,
+            VirusColor.Rainbow => ResourcesLoader.Instance.rainbowMedMat,
+            _ => new Material(Shader.Find("Standard"))
+        };
+
+        return material;
+    }
+
+    private Material GetVirusMaterial(VirusColor color)
+    {
+        Material material = color switch
+        {
+            VirusColor.Red => ResourcesLoader.Instance.redVirMat,
+            VirusColor.Blue => ResourcesLoader.Instance.blueVirMat,
+            VirusColor.Green => ResourcesLoader.Instance.greenVirMat,
+            VirusColor.Yellow => ResourcesLoader.Instance.yellowVirMat,
+            VirusColor.Rainbow => ResourcesLoader.Instance.rainbowVirMat,
+            _ => new Material(Shader.Find("Standard"))
+        };
+    
+        return material;
+    }
+    
 }

@@ -7,11 +7,15 @@ public class VirusActionLatexGlove : VirusAction
     {
         CardIndex = indexCard;
     }
-    public override Task<bool> PlayAction(IGameState gameState)
+    public override async Task<bool> PlayAction(IGameState gameState)
     {
-        if (gameState is not VirusGameState virusGs) return Task.FromResult(false);
+        if (gameState is not VirusGameState virusGs) return false;
         
         VirusPlayerStatus player = virusGs.PlayersStatus[virusGs.GetPlayerTurnIndex()];
+        
+        await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, CardIndex));
+        
+        List<Task> discardTasks = new();
 
         for (int i = 0; i < virusGs.PlayersStatus.Count; i++)
         {
@@ -21,13 +25,13 @@ public class VirusActionLatexGlove : VirusAction
 
             while (otherPlayer.Hand.Count > 0)
             {
-                virusGs.DiscardCard((VirusCard)otherPlayer.Hand.Dequeue());
+                discardTasks.Add(virusGs.DiscardCard(otherPlayer.Hand.Dequeue()));
             }
         }
-
-        virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, CardIndex));
         
-        return Task.FromResult(true);
+        await Task.WhenAll(discardTasks);
+        
+        return true;
     }
 
     public override bool TestAction(IObservation observation)

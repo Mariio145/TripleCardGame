@@ -6,7 +6,7 @@ public class VisualHand : MonoBehaviour
 {
     private List<VisualCard> _cards = new ();
     [SerializeField] private float handSize;
-    private const float CardWidth = 0.05f;
+    //private const float CardWidth = 0.1f;
 
 
     private void Start()
@@ -29,7 +29,7 @@ public class VisualHand : MonoBehaviour
         for (int i = 0; i < _cards.Count; i++)
         {
             float xPos = startPosition + cardSpacing * (i + 1);
-            _cards[i].SetPosition(new Vector3(xPos, 0, -CardWidth * i));
+            _ = _cards[i].SetPosition(new Vector3(xPos, 0.01f * i , 0));
         }
     }
 }

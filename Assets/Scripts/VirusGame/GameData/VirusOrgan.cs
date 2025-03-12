@@ -10,6 +10,7 @@
         OrganColor = organ;
         Status = Status.Normal;
         MedicineColor = VirusColor.None;
+        MedicineColor2 = VirusColor.None;
         VirusColor = VirusColor.None;
     }
 
@@ -19,6 +20,7 @@
         {
             Status = Status,
             MedicineColor = MedicineColor,
+            MedicineColor2 = MedicineColor2,
             VirusColor = VirusColor
         };
         return copyOrgan;

@@ -16,11 +16,15 @@ public class VirusActionDiscard : VirusAction
         if (gameState is not VirusGameState virusGs) return await Task.FromResult(false);
         
         VirusPlayerStatus player = virusGs.PlayersStatus[PlayerSelf];
+        
+        List<Task> discardTasks = new();
 
         foreach (int i in _indexesToDiscard)
         {
-            virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, i));
+            discardTasks.Add(virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, i)));
         }
+        
+        await Task.WhenAll(discardTasks);
         
         return await Task.FromResult(true);
     }

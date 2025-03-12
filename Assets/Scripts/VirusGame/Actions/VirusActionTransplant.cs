@@ -13,9 +13,9 @@ public class VirusActionTransplant : VirusAction
         CardIndex = indexCard;
     }
 
-    public override Task<bool> PlayAction(IGameState gameState)
+    public override async Task<bool> PlayAction(IGameState gameState)
     {
-        if (gameState is not VirusGameState virusGs) return Task.FromResult(false);
+        if (gameState is not VirusGameState virusGs) return false;
         
         VirusPlayerStatus playerSelf = virusGs.PlayersStatus[PlayerSelf];
         VirusPlayerStatus playerTarget = virusGs.PlayersStatus[PlayerTarget];
@@ -31,12 +31,21 @@ public class VirusActionTransplant : VirusAction
         playerTarget.AddOrgan(organToGive);
         playerTarget.RemoveOrgan(ColorTarget);
         
-        playerSelf.VisualBody.UpdateBody();
-        playerTarget.VisualBody.UpdateBody();
+        await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
         
-        virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
+        List<Task> tasks = new();
+        
+        tasks.Add(playerSelf.VisualBody.RemoveOrganComplete(organToGive.OrganColor));
+        tasks.Add(playerTarget.VisualBody.RemoveOrganComplete(organToReceive.OrganColor));
 
-        return Task.FromResult(true);
+        await Task.WhenAll(tasks);
+        
+        tasks.Add(playerSelf.VisualBody.PlaceOrganComplete(organToReceive.OrganColor, organToReceive.MedicineColor, organToReceive.MedicineColor2, organToReceive.VirusColor));
+        tasks.Add(playerTarget.VisualBody.PlaceOrganComplete(organToGive.OrganColor, organToGive.MedicineColor, organToGive.MedicineColor2, organToGive.VirusColor));
+        
+        await Task.WhenAll(tasks);
+        
+        return true;
     }
     
     public override bool TestAction(IObservation observation)

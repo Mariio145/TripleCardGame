@@ -18,11 +18,8 @@ public class UnoPlayCard : UnoAction
         if (gameState is not UnoGameState unoGs) return false;
         
         UnoPlayerStatus playerSelf = unoGs.PlayersStatus[unoGs.GetPlayerTurnIndex()];
-        Debug.Log("Supuesto tipo: " + _cardType);
         Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, _cardIndex);
-        Debug.Log("Real tipo: " + ((UnoCard)cardPlayed).Type);
-        cardPlayed.VisualCard.ChangeParent(unoGs.discardGo.transform, false);
-        cardPlayed.VisualCard.transform.localPosition += unoGs.topCard.VisualCard.transform.localPosition + new Vector3(0, 0, -0.1f);
+        cardPlayed.VisualCard.ChangeUnoParent(unoGs.discardGo.transform, false, unoGs.topCard.VisualCard.transform.localPosition - new Vector3(0, 0.002f, 0));
         unoGs.topCard = (UnoCard)cardPlayed;
 
         switch (_cardType)

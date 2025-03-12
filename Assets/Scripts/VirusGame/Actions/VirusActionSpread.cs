@@ -13,9 +13,9 @@ public class VirusActionSpread : VirusAction
         PlayerTarget = playerTarget;
         CardIndex = indexCard;
     }
-    public override Task<bool> PlayAction(IGameState gameState)
+    public override async Task<bool> PlayAction(IGameState gameState)
     {
-        if (gameState is not VirusGameState virusGs) return Task.FromResult(false);
+        if (gameState is not VirusGameState virusGs) return false;
         
         VirusPlayerStatus playerSelf = virusGs.PlayersStatus[PlayerSelf];
         VirusPlayerStatus playerTarget = virusGs.PlayersStatus[PlayerTarget];
@@ -23,19 +23,21 @@ public class VirusActionSpread : VirusAction
         VirusOrgan organToCure = playerSelf.SearchOrganColor(ColorSelf);
         VirusOrgan organToInfect = playerTarget.SearchOrganColor(ColorTarget);
         
+        await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
+        
         Debug.Log("ColorSelf: " + ColorSelf + " | ColorTarget: " + ColorTarget + "  | OrganSelf: " + organToCure + "  | OrganTarget:  " + organToInfect);
-
-        organToInfect.Status = Status.Infected;
-        organToInfect.VirusColor = organToCure.VirusColor;
-        playerTarget.VisualBody.AddVirusToOrgan(ColorTarget, organToCure.VirusColor);
         
         organToCure.Status = Status.Normal;
         organToCure.VirusColor = VirusColor.None;
-        playerSelf.VisualBody.RemoveVirusFromOrgan(ColorSelf);
+        await playerSelf.VisualBody.RemoveVirusAnimation(ColorSelf);
+
+        organToInfect.Status = Status.Infected;
+        organToInfect.VirusColor = organToCure.VirusColor;
+        await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, organToCure.VirusColor);
         
-        virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
+
         
-        return Task.FromResult(true);
+        return true;
     }
     
     public override bool TestAction(IObservation observation)
