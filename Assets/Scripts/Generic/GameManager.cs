@@ -33,7 +33,12 @@ public class GameManager : MonoBehaviour
     {
         DOTween.SetTweensCapacity(500, 50);
         TimeToThink = timeToThink;
-        _players = new List<Player> {perspectivePlayer.GetComponent<Player>()};
+        _players = new List<Player>();
+
+        foreach (Player humanPlayer in perspectivePlayer.GetComponents<Player>().Where(script => script.enabled))
+        {
+            _players.Add(humanPlayer);
+        }
 
         foreach (GameObject player in players)
         {

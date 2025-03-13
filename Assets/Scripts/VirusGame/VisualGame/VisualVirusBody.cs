@@ -11,10 +11,10 @@ public class VisualVirusBody : MonoBehaviour
     {
         public GameObject gameObject;
         public MeshRenderer medicineMesh, medicineMesh2, virusMesh;
+        public Light organLight;
     }
     
     public OrganGameObject redOrgan, blueOrgan, greenOrgan, yellowOrgan, rainbowOrgan;
-    public VirusPlayerStatus PlayerStatus;
 
     private static readonly Vector3 TokenOutOfCamera = new(0, 0, 0.25f);
     private static readonly Vector3 VirusScale = new(0.1f, 0.1f, 0.1f);
@@ -81,6 +81,63 @@ public class VisualVirusBody : MonoBehaviour
      * ANIMATIONS
      *
      */
+    public void ObscureOrgans()
+    {
+        redOrgan.organLight.enabled = false;
+        blueOrgan.organLight.enabled = false;
+        greenOrgan.organLight.enabled = false;
+        yellowOrgan.organLight.enabled = false;
+        rainbowOrgan.organLight.enabled = false;
+        
+        Destroy(redOrgan.gameObject.GetComponent<VisualVirusOrgan>());
+        Destroy(blueOrgan.gameObject.GetComponent<VisualVirusOrgan>());
+        Destroy(greenOrgan.gameObject.GetComponent<VisualVirusOrgan>());
+        Destroy(yellowOrgan.gameObject.GetComponent<VisualVirusOrgan>());
+        Destroy(rainbowOrgan.gameObject.GetComponent<VisualVirusOrgan>());
+    }
+
+    public void IluminateOrgans(List<VirusColor> colors, int index)
+    {
+        VisualVirusOrgan visualOrgan;
+        foreach (VirusColor color in colors)
+        {
+            switch (color)
+            {
+                case VirusColor.Red:
+                    visualOrgan = redOrgan.gameObject.AddComponent<VisualVirusOrgan>();
+                    visualOrgan.color = VirusColor.Red;
+                    visualOrgan.playerIndex = index;
+                    redOrgan.organLight.enabled = true;
+                    break;
+                case VirusColor.Blue:
+                    visualOrgan = blueOrgan.gameObject.AddComponent<VisualVirusOrgan>();
+                    visualOrgan.color = VirusColor.Blue;
+                    visualOrgan.playerIndex = index;
+                    blueOrgan.organLight.enabled = true;
+                    break;
+                case VirusColor.Rainbow:
+                    visualOrgan = rainbowOrgan.gameObject.AddComponent<VisualVirusOrgan>();
+                    visualOrgan.color = VirusColor.Rainbow;
+                    visualOrgan.playerIndex = index;
+                    rainbowOrgan.organLight.enabled = true;
+                    break;
+                case VirusColor.Yellow:
+                    visualOrgan = yellowOrgan.gameObject.AddComponent<VisualVirusOrgan>();
+                    visualOrgan.color = VirusColor.Yellow;
+                    visualOrgan.playerIndex = index;
+                    yellowOrgan.organLight.enabled = true;
+                    break;
+                case VirusColor.Green:
+                    visualOrgan = greenOrgan.gameObject.AddComponent<VisualVirusOrgan>();
+                    visualOrgan.color = VirusColor.Green;
+                    visualOrgan.playerIndex = index;
+                    greenOrgan.organLight.enabled = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
 
     public async Task PlaceOrganAnimation(VirusColor color)
     {

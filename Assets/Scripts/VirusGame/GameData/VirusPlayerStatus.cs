@@ -16,7 +16,6 @@ public class VirusPlayerStatus : PlayerStatus
 
         if (!isNew) return;
         VisualBody = gObject.transform.parent.GetComponentInChildren<VisualVirusBody>();
-        VisualBody.PlayerStatus = this;
     }
 
     public VirusPlayerStatus Clone()

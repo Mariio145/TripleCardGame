@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,11 +9,25 @@ public class VirusHumanPlayer : Player
 {
     private bool _playCard, _discardCard;
     public VisualVirusAction virusVisualAction;
+    private VirusColor _colorSelected;
+    private int _playerTarget;
+    
+    private static SynchronizationContext _mainThreadContext;
 
-
+    void Awake()
+    {
+        _mainThreadContext = SynchronizationContext.Current;
+    }
     public override IAction Think(IObservation observable, float thinkingTime)
     {
-        VisualVirusCard[] listCards = handSlot.GetComponentsInChildren<VisualVirusCard>();
+        VisualVirusCard[] listCards = null;
+
+        // Ejecutar en el hilo principal
+        _mainThreadContext.Send(_ =>
+        {
+            listCards = handSlot.GetComponentsInChildren<VisualVirusCard>();
+        }, null);
+        
         foreach (VisualVirusCard card in listCards)
         {
             card.selected = false;
@@ -27,7 +42,7 @@ public class VirusHumanPlayer : Player
 
             while (!_playCard && !_discardCard && thinkingTime > 0)
             {
-                //TODO
+                //TODO: SI PETA ES AQUI
                 //await Task.Yield();
             }
             
@@ -60,8 +75,7 @@ public class VirusHumanPlayer : Player
             }
 
             if (!observable.IsCardPlayable(selectedCard)) continue;
-
-            //TODO
+            
             return GetCardAction((VirusObservation)observable, selectedCard, cardSlot).Result;
         }
     }
@@ -75,9 +89,8 @@ public class VirusHumanPlayer : Player
         VirusColor color = card.GetColor();
         int currentPlayerIndex = observable.GetPlayerTurnIndex();
         VirusPlayerStatus currentPlayer = observable.PlayersStatus[currentPlayerIndex];
-        
-        VirusColor organTarget;
-        int playerTargetIndex;
+        _colorSelected = VirusColor.None;
+        _playerTarget = 0;
 
         switch (type)
         {
@@ -96,8 +109,18 @@ public class VirusHumanPlayer : Player
                     colorFilter.Add(VirusColor.Rainbow);
                     colorFilter.Add(color);
                 }
-                organTarget = await virusVisualAction.SelectOrganTarget(type, currentPlayer, colorFilter);
-                return new VirusActionPlayMedicine(organTarget, currentPlayerIndex, color, handIndex);
+                virusVisualAction.SelectOrganTarget(type, currentPlayer, colorFilter);
+                while (_colorSelected == VirusColor.None)
+                {
+                    await Task.Yield();
+                }
+                
+                foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                {
+                    player.VisualBody.ObscureOrgans();
+                }
+                
+                return new VirusActionPlayMedicine(_colorSelected, currentPlayerIndex, color, handIndex);
             //----------------------------VIRUS----------------------------
             case VirusType.Virus:
                 if (color == VirusColor.Rainbow)
@@ -110,10 +133,22 @@ public class VirusHumanPlayer : Player
                     colorFilter.Add(VirusColor.Rainbow);
                     colorFilter.Add(color);
                 }
+                //TODO: SE BUSCA EN TODOS LOS PLAYERS Y SE ILUMINAN TODOS
+
+                foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, TreatmentType.None , colorFilter))
+                    virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter);
                 
-                playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, TreatmentType.None , colorFilter);
-                organTarget = await virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerTargetIndex], colorFilter);
-                return new VirusActionPlayVirus(organTarget, playerTargetIndex, color, handIndex);
+                while (_colorSelected == VirusColor.None)
+                {
+                    await Task.Yield();
+                }
+                
+                foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                {
+                    player.VisualBody.ObscureOrgans();
+                }
+                
+                return new VirusActionPlayVirus(_colorSelected, _playerTarget, color, handIndex);
             //-----------------------------------------------------------------------------
             //----------------------------CARTAS DE TRATAMIENTO----------------------------
             //-----------------------------------------------------------------------------
@@ -130,11 +165,38 @@ public class VirusHumanPlayer : Player
                         {
                             colorFilter.Remove(organ.OrganColor);
                         }
-                        organSelf = await virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
-                        colorFilter.Add(organSelf);
-                        playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment, colorFilter, organSelf);
-                        organTarget = await virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerTargetIndex], colorFilter, treatment);
-                        return new VirusActionTransplant(organSelf, organTarget, currentPlayerIndex, playerTargetIndex, handIndex);
+                        virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
+                        while (_colorSelected == VirusColor.None) //TODO
+                        {
+                            await Task.Yield();
+                        }
+
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+                        
+                        colorFilter.Add(_colorSelected);
+
+                        organSelf = _colorSelected;
+                        
+                        //TODO: Hay que elegir a los players que si se puedan
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter, organSelf))
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
+
+                        _colorSelected = VirusColor.None;
+                        
+                        while (_colorSelected == VirusColor.None) //TODO: DE AQUI SACAMOS PLAYER Y ORGANO
+                        {
+                            await Task.Yield();
+                        }
+                        
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+                        
+                        return new VirusActionTransplant(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------LADRÓN DE ÓRGANOS-------------------
                     case TreatmentType.OrganThief:
@@ -145,15 +207,37 @@ public class VirusHumanPlayer : Player
                             colorFilter.Remove(organ.OrganColor);
                         }
                         
-                        playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment, colorFilter);
-                        organTarget = await virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerTargetIndex], colorFilter, treatment);
-                        return new VirusActionOrganThief(organTarget, currentPlayerIndex, playerTargetIndex, handIndex);
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter))
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
+                        
+                        while (_colorSelected == VirusColor.None)
+                        {
+                            await Task.Yield();
+                        }
+                        
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+                        
+                        return new VirusActionOrganThief(_colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------CONTAGIO----------------------------
                     // Simplificado, solo une un virus por carta
                     case TreatmentType.Spreading:
                         colorFilter = new List<VirusColor>();
-                        organSelf = await virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
+                        virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
+                        while (_colorSelected == VirusColor.None)
+                        {
+                            await Task.Yield();
+                        }
+                        
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+
+                        organSelf = _colorSelected;
                         VirusColor virusColor = currentPlayer.Body.Find(organ => organ.OrganColor == organSelf).VirusColor;
                         if (virusColor == VirusColor.Rainbow)
                         {
@@ -165,19 +249,32 @@ public class VirusHumanPlayer : Player
                             colorFilter.Add(VirusColor.Rainbow);
                             colorFilter.Add(virusColor);
                         }
+
+                        _colorSelected = VirusColor.None;
                         
-                        playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment, colorFilter);
-                        organTarget = await virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerTargetIndex], null, treatment);
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter))
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], null, treatment);
                         
-                        return new VirusActionSpread(organSelf, organTarget, currentPlayerIndex, playerTargetIndex, handIndex);
+                        while (_colorSelected == VirusColor.None)
+                        {
+                            await Task.Yield();
+                        }
+                        
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+                        
+                        return new VirusActionSpread(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------GUANTE DE LÁTEX---------------------
                     case TreatmentType.LatexGlove:
                         return new VirusActionLatexGlove(handIndex);
                     //----------------------------ERROR MÉDICO------------------------
                     case TreatmentType.MedicalError:
-                        playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment);
-                        return new VirusActionMedicalError(currentPlayerIndex, playerTargetIndex, handIndex);
+                        //TODO
+                        //playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment);
+                        return new VirusActionMedicalError(currentPlayerIndex, _playerTarget, handIndex);
                 }
                 break;
         }
@@ -200,5 +297,23 @@ public class VirusHumanPlayer : Player
             _discardCard = true;
             break;
         }
+    }
+    
+    /*
+     *
+     * HUMAN ACTIONS
+     * 
+     */
+    
+    public void SetColorAndPlayer(int numColor, int playerIndex)
+    {
+        /*  0 == Red,
+            1 == Blue,
+            2 == Rainbow,
+            3 == Yellow,
+            4 == Green,
+            5 == None   */
+        _colorSelected = (VirusColor)numColor;
+        _playerTarget = playerIndex;
     }
 }

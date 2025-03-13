@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677208649}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
   m_Name: 
@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d799c250d5d97df46acdc561799ce8b6, type: 3}
   m_Name: 
@@ -2313,16 +2313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae104d06dd1e4ed6a07527e7b8a5e65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redOrgan: {fileID: 419943542}
-  blueOrgan: {fileID: 530297561}
-  rainbowOrgan: {fileID: 828349105}
-  yellowOrgan: {fileID: 1468925227}
-  greenOrgan: {fileID: 488859427}
-  playerIcon1: {fileID: 1494154375}
-  playerIcon2: {fileID: 1843493593}
-  playerIcon3: {fileID: 2027308602}
-  selectPlayerGo: {fileID: 1881577980}
-  selectOrganGo: {fileID: 1698387971}
 --- !u!224 &1040661794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4059,7 +4049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2039066644
 Transform:
   m_ObjectHideFlags: 0
@@ -4109,9 +4099,9 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
+  m_Intensity: 15
   m_Range: 10
-  m_SpotAngle: 63.48111
+  m_SpotAngle: 86.71011
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -4599,7 +4589,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507098107405548520}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
