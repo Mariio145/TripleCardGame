@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class ResourcesLoader : MonoBehaviour
 {
@@ -7,7 +8,9 @@ public class ResourcesLoader : MonoBehaviour
     
     //Para todos los juegos
     [Header("Para todos los juegos")]
-    public Mesh cardMesh; // Asigna el prefab en el Inspector
+    public Mesh cardMesh;
+    public Image showCardRenderer;
+    public Material outlineMaterial;
 
     [Header("Para el Virus")] 
     public Material redMedMat;
@@ -23,7 +26,7 @@ public class ResourcesLoader : MonoBehaviour
     public Material rainbowVirMat;
     
     [Header("Para el Uno")]
-    public Material tableMaterial; // Asigna el prefab en el Inspector
+    public Material tableMaterial;
     public GameObject reverse;
     public GameObject block;
     

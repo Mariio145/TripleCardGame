@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
                 action = task.Result;
             
             Debug.Log(action);
+            //if (action is null) action = _gameState.GetDefaultAction();
             //await CheckPlayers();
             await _forwardModel.PlayAction(_gameState, action);
             //Debug.Log("ActionPlayed");

@@ -1,13 +1,22 @@
-using System;
 using UnityEngine;
 
 public class VisualVirusOrgan : MonoBehaviour
 {
-    private VirusHumanPlayer _virusHumanPlayer;
+    public VirusHumanPlayer virusHumanPlayer;
     public VirusColor color;
     public int playerIndex;
+
+    public void Activate()
+    {
+        enabled = true;
+    }
+    
+    public void Deactivate()
+    {
+        enabled = false;
+    }
     private void OnMouseDown()
     {
-        _virusHumanPlayer.SetColorAndPlayer((int)color, playerIndex);
+        virusHumanPlayer.SetColorAndPlayer((int)color, playerIndex);
     }
 }

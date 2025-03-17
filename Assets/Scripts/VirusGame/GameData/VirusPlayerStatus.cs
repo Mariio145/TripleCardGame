@@ -5,7 +5,7 @@ using UnityEngine;
 public class VirusPlayerStatus : PlayerStatus
 {
     //private readonly Player _player;
-    public readonly VisualVirusBody VisualBody;
+    public VisualVirusBody VisualBody;
     public List<VirusOrgan> Body = new();
     public readonly int Index;
 
@@ -30,6 +30,8 @@ public class VirusPlayerStatus : PlayerStatus
 
         foreach (VirusOrgan organ in Body)
             copy.Body.Add(organ.Clone());
+        
+        copy.VisualBody = VisualBody;
 
         return copy;
     }

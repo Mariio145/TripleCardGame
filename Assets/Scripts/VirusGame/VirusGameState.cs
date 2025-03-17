@@ -87,7 +87,7 @@ public class VirusGameState : IGameState
     {
         card.VisualCard.ChangeParent(discardGo.transform, false);
         DiscardDeck.Add(card);
-        await card.VisualCard.SetPosition(new Vector3(Random.Range(-0.1f, 0.1f), 0.005f * DiscardDeck.RemainingCards(), Random.Range(-0.1f, 0.1f)), true);
+        await card.VisualCard.SetPosition(new Vector3(Random.Range(-0.04f, 0.04f), -0.005f * DiscardDeck.RemainingCards(), Random.Range(-0.04f, 0.04f)), true);
     }
     
 
@@ -238,6 +238,7 @@ public class VirusGameState : IGameState
                 if (index >= cards.Count) break;
                 Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
+                tasks.Add(cards[index].DOLocalRotate(Vector3.zero, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
             }
         }

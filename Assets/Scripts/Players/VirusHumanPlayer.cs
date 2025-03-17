@@ -41,10 +41,7 @@ public class VirusHumanPlayer : Player
             if (observable.GetActions().All(action => action.GetType() == typeof(VirusAction))) return new VirusAction();
 
             while (!_playCard && !_discardCard && thinkingTime > 0)
-            {
-                //TODO: SI PETA ES AQUI
-                //await Task.Yield();
-            }
+            { }
             
             if (!_playCard && !_discardCard) return new VirusAction();
 
@@ -54,7 +51,11 @@ public class VirusHumanPlayer : Player
                 List<int> combination = new();
                 foreach (VisualVirusCard card in listCards)
                 {
-                    if (card.selected) combination.Add(cardSlot);
+                    if (card.selected)
+                    {
+                        combination.Add(cardSlot);
+                        card.SetOutline(false);
+                    }
                     cardSlot++;
                 }
 
@@ -75,6 +76,8 @@ public class VirusHumanPlayer : Player
             }
 
             if (!observable.IsCardPlayable(selectedCard)) continue;
+
+            ((VisualVirusCard)selectedCard!.VisualCard).SetOutline(false);
             
             return GetCardAction((VirusObservation)observable, selectedCard, cardSlot).Result;
         }
@@ -119,6 +122,8 @@ public class VirusHumanPlayer : Player
                 {
                     player.VisualBody.ObscureOrgans();
                 }
+
+                virusVisualAction.EnableGlobalLight(true);
                 
                 return new VirusActionPlayMedicine(_colorSelected, currentPlayerIndex, color, handIndex);
             //----------------------------VIRUS----------------------------
@@ -133,7 +138,6 @@ public class VirusHumanPlayer : Player
                     colorFilter.Add(VirusColor.Rainbow);
                     colorFilter.Add(color);
                 }
-                //TODO: SE BUSCA EN TODOS LOS PLAYERS Y SE ILUMINAN TODOS
 
                 foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, TreatmentType.None , colorFilter))
                     virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter);
@@ -147,6 +151,8 @@ public class VirusHumanPlayer : Player
                 {
                     player.VisualBody.ObscureOrgans();
                 }
+                
+                virusVisualAction.EnableGlobalLight(true);
                 
                 return new VirusActionPlayVirus(_colorSelected, _playerTarget, color, handIndex);
             //-----------------------------------------------------------------------------
@@ -166,7 +172,7 @@ public class VirusHumanPlayer : Player
                             colorFilter.Remove(organ.OrganColor);
                         }
                         virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
-                        while (_colorSelected == VirusColor.None) //TODO
+                        while (_colorSelected == VirusColor.None)
                         {
                             await Task.Yield();
                         }
@@ -180,13 +186,12 @@ public class VirusHumanPlayer : Player
 
                         organSelf = _colorSelected;
                         
-                        //TODO: Hay que elegir a los players que si se puedan
                         foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter, organSelf))
                             virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
 
                         _colorSelected = VirusColor.None;
                         
-                        while (_colorSelected == VirusColor.None) //TODO: DE AQUI SACAMOS PLAYER Y ORGANO
+                        while (_colorSelected == VirusColor.None)
                         {
                             await Task.Yield();
                         }
@@ -195,6 +200,8 @@ public class VirusHumanPlayer : Player
                         {
                             player.VisualBody.ObscureOrgans();
                         }
+                        
+                        virusVisualAction.EnableGlobalLight(true);
                         
                         return new VirusActionTransplant(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
@@ -219,6 +226,8 @@ public class VirusHumanPlayer : Player
                         {
                             player.VisualBody.ObscureOrgans();
                         }
+                        
+                        virusVisualAction.EnableGlobalLight(true);
                         
                         return new VirusActionOrganThief(_colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
@@ -265,6 +274,8 @@ public class VirusHumanPlayer : Player
                             player.VisualBody.ObscureOrgans();
                         }
                         
+                        virusVisualAction.EnableGlobalLight(true);
+                        
                         return new VirusActionSpread(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------GUANTE DE LÁTEX---------------------
@@ -274,6 +285,7 @@ public class VirusHumanPlayer : Player
                     case TreatmentType.MedicalError:
                         //TODO
                         //playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment);
+                        //virusVisualAction.EnableGlobalLight(true);
                         return new VirusActionMedicalError(currentPlayerIndex, _playerTarget, handIndex);
                 }
                 break;

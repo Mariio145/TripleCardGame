@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class VisualVirusAction: MonoBehaviour
 {
+    public Light globalLight;
+    private static SynchronizationContext _mainThreadContext;
+
+    void OnEnable()
+    {
+        _mainThreadContext = SynchronizationContext.Current;
+    }
     public void SelectOrganTarget(VirusType type, VirusPlayerStatus player, List<VirusColor> colorFilter = null, TreatmentType treatment = TreatmentType.None)
     {
         List<VirusColor> organsTarget = new();
@@ -43,8 +51,22 @@ public class VisualVirusAction: MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
-        
-        player.VisualBody.IluminateOrgans(organsTarget, player.Index);
+
+        EnableGlobalLight(false);
+        // Debug.Log("Player: " + player);
+        // Debug.Log("PlayerBody: " + player.VisualBody);
+        //
+        // Debug.Log("organsTarget: " + organsTarget);
+        // Debug.Log("Index: " + player.Index);
+        player.VisualBody.IluminateOrgans(organsTarget);
+    }
+
+    public void EnableGlobalLight(bool enable)
+    {
+        _mainThreadContext.Send(_ =>
+        {
+            globalLight.enabled = enable;
+        }, null);
     }
 
     public List<int> GetPlayersTarget(VirusObservation observable, VirusType type, TreatmentType treatment = TreatmentType.None, List<VirusColor> colorFilter = null, VirusColor organSelf = VirusColor.None)

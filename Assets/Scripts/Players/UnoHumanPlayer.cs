@@ -30,10 +30,7 @@ public class UnoHumanPlayer : Player
             if (observable.GetActions().All(action => action.GetType() == typeof(UnoAction))) return new UnoAction();
 
             while (!_playCard && !_drawCard && thinkingTime > 0)
-            {
-                //TODO
-                //await Task.Yield();
-            }
+            { }
             
             if (!_playCard && !_drawCard) return new UnoAction();
 

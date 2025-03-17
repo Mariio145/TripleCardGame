@@ -1,6 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VisualCard : MonoBehaviour
 {
@@ -14,6 +17,12 @@ public class VisualCard : MonoBehaviour
 
     private Vector3 _originalPosition;
     [SerializeField]private Vector3 targetPosition;
+    
+    private Coroutine _hoverCoroutine;
+    private bool _isHovering;
+    
+    protected Image ShowCardRenderer;
+    protected Material OutlineMaterial;
 
     public void Awake()
     {
@@ -26,6 +35,16 @@ public class VisualCard : MonoBehaviour
         _originalPosition = transform.localPosition;
         targetPosition = _originalPosition;
         meshFilter.mesh = ResourcesLoader.Instance.cardMesh;
+        _collider.sharedMesh = ResourcesLoader.Instance.cardMesh;
+        ShowCardRenderer = ResourcesLoader.Instance.showCardRenderer;
+        OutlineMaterial = new Material(Shader.Find("Shader Graphs/Outline"));
+        OutlineMaterial.SetColor("_Color", Color.white);
+        List<Material> materials = new()
+        {
+            OutlineMaterial,
+            OutlineMaterial
+        };
+        MeshRenderer.SetMaterials(materials);
     }
 
     public async Task SetPosition(Vector3 position, bool randomRotate = false)
@@ -55,7 +74,7 @@ public class VisualCard : MonoBehaviour
         if (parent.GetComponent<VisualHand>() is not null)
             parent.GetComponent<VisualHand>().UpdateHandPosition();
 
-        if (enableCollider) _collider.enabled = true;
+        _collider.enabled = enableCollider;
         await MoveToTarget();
     }
     
@@ -81,14 +100,25 @@ public class VisualCard : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        targetPosition = _originalPosition + Vector3.up * hoverHeight;
+        targetPosition = _originalPosition + Vector3.forward * hoverHeight;
         _ = MoveToTarget();
+        _isHovering = true;
+        _hoverCoroutine = StartCoroutine(HoverTimer());
     }
 
     public void OnMouseExit()
     {
         targetPosition = _originalPosition;
         _ = MoveToTarget();
+        _isHovering = false;
+        
+        if (_hoverCoroutine != null)
+        {
+            StopCoroutine(_hoverCoroutine);
+            _hoverCoroutine = null;
+        }
+        
+        HideCard();
     }
 
     protected virtual void OnMouseDown()
@@ -106,4 +136,21 @@ public class VisualCard : MonoBehaviour
         }
         selected = true;
     }
+
+    private IEnumerator HoverTimer()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (_isHovering) 
+        {
+            ShowCard();
+        }
+    }
+
+    protected virtual void ShowCard()
+    { }
+
+    protected virtual void HideCard()
+    { }
+
 }
