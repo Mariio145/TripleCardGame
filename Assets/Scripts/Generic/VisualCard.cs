@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class VisualCard : MonoBehaviour
     protected MeshRenderer MeshRenderer;
     private MeshCollider _collider;
     public bool selected;
-    private static readonly Vector3 CardSize = new (17f, 17f, 17f);
+    private static readonly Vector3 CardSize = new (25f, 25f, 25f);
     
     public float hoverHeight = 0.5f;
 
@@ -45,6 +46,7 @@ public class VisualCard : MonoBehaviour
             OutlineMaterial
         };
         MeshRenderer.SetMaterials(materials);
+        MeshRenderer.renderingLayerMask = 1 << 1;
     }
 
     public async Task SetPosition(Vector3 position, bool randomRotate = false)
@@ -68,6 +70,7 @@ public class VisualCard : MonoBehaviour
     public async void ChangeParent(Transform parent, bool enableCollider)
     {
         transform.SetParent(parent);
+        transform.DOKill();
         targetPosition = Vector3.zero;
         //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
         

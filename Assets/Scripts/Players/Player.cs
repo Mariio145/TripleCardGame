@@ -9,6 +9,23 @@ public class Player : MonoBehaviour
     protected IForwardModel ForwardModel;
     protected IHeuristic Heuristic;
     protected static readonly System.Random Random = new();
+    private SpriteRenderer _spriteRenderer;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer.enabled = false;
+    }
+
+    public void StartTurn()
+    {
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
+    }
+
+    public void StopTurn()
+    {
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
+    }
     
 
     public void SetForwardModel(IForwardModel forwardModel)

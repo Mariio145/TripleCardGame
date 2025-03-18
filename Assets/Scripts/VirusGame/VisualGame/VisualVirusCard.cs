@@ -46,6 +46,12 @@ public class VisualVirusCard : VisualCard
         }
         
         MeshRenderer.material = Resources.Load<Material>(asset);
+        if (MeshRenderer.material is null)
+        {
+            Debug.Log("Color de carta: " + color);
+            Debug.Log("Tipo de carta: " + type);
+            Debug.Log("Tratamiento de carta: " + treatment);
+        }
     }
 
     protected override void OnMouseDown()

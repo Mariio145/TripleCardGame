@@ -220,17 +220,20 @@ public class VirusGameState : IGameState
         
         const int gridColumns = 10;
         const int gridRows = 10;
-        
-        List<Task> tasks = new();
-        
+
         List<Transform> cards = discardGo.GetComponentsInChildren<Transform>().Where(card => card != discardGo.transform).ToList();
         Renderer renderer = cards[0].GetComponent<Renderer>();
+
+        List<Task> tasks = new List<Task>();
+
+        await Task.WhenAll(tasks);
         
         float cardLenght = renderer.bounds.size.x;
         const float cardHeight = 0.005f;
         float cardWidth = renderer.bounds.size.z;
 
         int index = 0;
+        
         for (int i = 0; i < gridRows; i++)
         {
             for (int j = 0; j < gridColumns; j++)
@@ -238,7 +241,7 @@ public class VirusGameState : IGameState
                 if (index >= cards.Count) break;
                 Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
-                tasks.Add(cards[index].DOLocalRotate(Vector3.zero, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
+                tasks.Add(cards[index].DOLocalRotate(new Vector3(0, 0, 180), animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
             }
         }

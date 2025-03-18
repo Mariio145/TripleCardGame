@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public enum GameToPlay
 {
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] players;
     /*[SerializeField] private Player humanPlayer;
     [SerializeField] private List<Player> botPlayers;*/
+    [FormerlySerializedAs("EndText")]
+    [Header("Miscellaneous")]
+    [SerializeField] private Text endText;
     private List<Player> _players;
     private IGameState _gameState;
     private IForwardModel _forwardModel;
@@ -104,13 +109,15 @@ public class GameManager : MonoBehaviour
 
         await Task.Delay(1000);
 
-        while (!_gameState.IsTerminal() || true)
+        while (!_gameState.IsTerminal() && false)
         {
             await Task.Delay(250);
             //await WaitForSpace();
             Player playerTurn = _gameState.GetPlayer();
+            playerTurn.StartTurn();
 
             Debug.Log(playerTurn.Name);
+            await Task.Delay(250);
             
             //Debug.Log("Antes de obtener observation");
             //await CheckPlayers();
@@ -134,9 +141,10 @@ public class GameManager : MonoBehaviour
             await _forwardModel.PlayAction(_gameState, action);
             //Debug.Log("ActionPlayed");
             //await CheckPlayers();
+            playerTurn.StopTurn();
         }
 
-        Debug.Log("HAY GANADOR!");
+        endText.text = "HAY GANADOR!\nPresiona el espacio para\nun nuevo juego.";
 
         await WaitForSpace();
         

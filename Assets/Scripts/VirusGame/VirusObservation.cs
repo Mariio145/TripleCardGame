@@ -484,7 +484,7 @@ public class VirusObservation: IObservation
                         for (int i = 0; i < PlayersStatus.Count; i++)
                         {
                             if (i == _currentPlayerTurn) continue;
-                            return true;
+                            if (PlayersStatus[i].Body.Count > 0) return true;
                         }
                         break;
                 }

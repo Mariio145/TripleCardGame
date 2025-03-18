@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class VirusForwardModel : IForwardModel
 {
     public async Task<bool> PlayAction(IGameState gameState, IAction action)
     {
         bool result;
-        /*if (action is not null)*/ result = await action.PlayAction(gameState);
+        if (action is not null) result = await action.PlayAction(gameState);
+        else result = await new VirusAction().PlayAction(gameState);
         await Task.Delay(1000); //Tiempo entre acciones
         await EndTurn(gameState);
         await Task.Delay(1000); //Tiempo entre acciones

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class VirusHumanPlayer : Player
@@ -53,8 +54,13 @@ public class VirusHumanPlayer : Player
                 {
                     if (card.selected)
                     {
+                        card.DOKill();
                         combination.Add(cardSlot);
-                        card.SetOutline(false);
+                        _mainThreadContext.Send(_ =>
+                        {
+                            card.SetOutline(false);
+                        }, null);
+                        
                     }
                     cardSlot++;
                 }
@@ -70,14 +76,18 @@ public class VirusHumanPlayer : Player
                 if (card.selected)
                 {
                     selectedCard = (VirusCard)card.MemoryCard;
+                    card.DOKill();
                     break;
                 }
                 cardSlot++;
             }
 
             if (!observable.IsCardPlayable(selectedCard)) continue;
-
-            ((VisualVirusCard)selectedCard!.VisualCard).SetOutline(false);
+            
+            _mainThreadContext.Send(_ =>
+            {
+                ((VisualVirusCard)selectedCard!.VisualCard).SetOutline(false);
+            }, null);
             
             return GetCardAction((VirusObservation)observable, selectedCard, cardSlot).Result;
         }
@@ -283,9 +293,20 @@ public class VirusHumanPlayer : Player
                         return new VirusActionLatexGlove(handIndex);
                     //----------------------------ERROR MÉDICO------------------------
                     case TreatmentType.MedicalError:
-                        //TODO
-                        //playerTargetIndex = await virusVisualAction.SelectPlayerTarget(observable, type, treatment);
-                        //virusVisualAction.EnableGlobalLight(true);
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment))
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter);
+                        
+                        while (_colorSelected == VirusColor.None)
+                        {
+                            await Task.Yield();
+                        }
+                        
+                        foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                        {
+                            player.VisualBody.ObscureOrgans();
+                        }
+                        
+                        virusVisualAction.EnableGlobalLight(true);
                         return new VirusActionMedicalError(currentPlayerIndex, _playerTarget, handIndex);
                 }
                 break;
