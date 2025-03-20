@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,16 +27,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] players;
     /*[SerializeField] private Player humanPlayer;
     [SerializeField] private List<Player> botPlayers;*/
-    [FormerlySerializedAs("EndText")]
     [Header("Miscellaneous")]
     [SerializeField] private Text endText;
+
+    public static Text EndText;
+    
     private List<Player> _players;
     private IGameState _gameState;
     private IForwardModel _forwardModel;
+    private static CancellationTokenSource _cancellationTokenSource;
     public static int TimeToThink { get; private set; }
 
     public void Start()
     {
+        EndText = endText;
+        _cancellationTokenSource = new CancellationTokenSource();
         DOTween.SetTweensCapacity(500, 50);
         TimeToThink = timeToThink;
         _players = new List<Player>();
@@ -51,6 +57,12 @@ public class GameManager : MonoBehaviour
         }
         
         StartPlaying();
+    }
+    
+    private void OnApplicationQuit()
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
     }
 
     private async Task CheckPlayers()
@@ -104,56 +116,62 @@ public class GameManager : MonoBehaviour
 
     private async void Run()
     {
-        _gameState.Reset(_players);
-        _ = CheckPlayers();
-
-        await Task.Delay(1000);
-
-        while (!_gameState.IsTerminal() && false)
+        try
         {
-            await Task.Delay(250);
-            //await WaitForSpace();
-            Player playerTurn = _gameState.GetPlayer();
-            playerTurn.StartTurn();
+            _gameState.Reset(_players);
 
-            Debug.Log(playerTurn.Name);
-            await Task.Delay(250);
-            
-            //Debug.Log("Antes de obtener observation");
-            //await CheckPlayers();
-            IObservation observation = _gameState.GetObservationFromPlayer(playerTurn.index);
-            IAction action = null;
-            
-            //Debug.Log("Antes de pensar");
-            //await CheckPlayers();
+            await Task.Delay(1000, _cancellationTokenSource.Token);
 
-            Task<IAction> task = GetActionFromPlayer(observation, playerTurn);
-            Task delayTask = Task.Delay(timeToThink * 1000);
+            while (!_gameState.IsTerminal())
+            {
+                await Task.Delay(250, _cancellationTokenSource.Token);
+                //await WaitForSpace();
+                Player playerTurn = _gameState.GetPlayer();
+                playerTurn.StartTurn();
 
-            Task firstFinished = await Task.WhenAny(task, delayTask);
+                Debug.Log(playerTurn.Name);
+                await Task.Delay(250, _cancellationTokenSource.Token);
 
-            if (firstFinished == task) // Si la tarea principal termina antes del timeout
-                action = task.Result;
-            
-            Debug.Log(action);
-            //if (action is null) action = _gameState.GetDefaultAction();
-            //await CheckPlayers();
-            await _forwardModel.PlayAction(_gameState, action);
-            //Debug.Log("ActionPlayed");
-            //await CheckPlayers();
-            playerTurn.StopTurn();
+                //Debug.Log("Antes de obtener observation");
+                //await CheckPlayers();
+                IObservation observation = _gameState.GetObservationFromPlayer(playerTurn.index);
+                IAction action = null;
+
+                //Debug.Log("Antes de pensar");
+                //await CheckPlayers();
+
+                Task<IAction> task = GetActionFromPlayer(observation, playerTurn);
+                Task delayTask = Task.Delay(timeToThink * 1000, _cancellationTokenSource.Token);
+
+                Task firstFinished = await Task.WhenAny(task, delayTask);
+
+                if (firstFinished == task) // Si la tarea principal termina antes del timeout
+                    action = task.Result;
+
+                Debug.Log(action);
+                //if (action is null) action = _gameState.GetDefaultAction();
+                //await CheckPlayers();
+                await _forwardModel.PlayAction(_gameState, action);
+                //Debug.Log("ActionPlayed");
+                //await CheckPlayers();
+                playerTurn.StopTurn();
+            }
+
+            endText.text = "HAY GANADOR!\nPresiona el espacio para\nun nuevo juego.";
+
+            await WaitForSpace();
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
-        endText.text = "HAY GANADOR!\nPresiona el espacio para\nun nuevo juego.";
-
-        await WaitForSpace();
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Juego cancelado");
+        }
     }
 
     private async Task<IAction> GetActionFromPlayer(IObservation observation, Player player)
     {
-        return await Task.Run(() => player.Think(observation, timeToThink));
+        return await Task.Run(() => player.Think(observation, timeToThink), _cancellationTokenSource.Token);
     }
     
     async Task WaitForSpace()

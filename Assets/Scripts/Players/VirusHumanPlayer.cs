@@ -27,12 +27,12 @@ public class VirusHumanPlayer : Player
         _mainThreadContext.Send(_ =>
         {
             listCards = handSlot.GetComponentsInChildren<VisualVirusCard>();
+            foreach (VisualVirusCard card in listCards)
+            {
+                card.selected = false;
+                card.SetOutline(false);
+            }
         }, null);
-        
-        foreach (VisualVirusCard card in listCards)
-        {
-            card.selected = false;
-        }
         
         while (true)
         {
@@ -75,21 +75,70 @@ public class VirusHumanPlayer : Player
             {
                 if (card.selected)
                 {
+                    if (selectedCard is not null)
+                    {
+                        selectedCard = null;
+                        _mainThreadContext.Send(_ =>
+                        {
+                            GameManager.EndText.text = "Selecciona solo una carta para jugarla";
+                        }, null);
+                        
+                        float timer = 0;
+                        while (timer < 3f) 
+                        {
+                            _mainThreadContext.Send(_ =>
+                            {
+                                timer += Time.deltaTime;
+                            }, null);
+                        }
+                        
+                        _mainThreadContext.Send(_ =>
+                        {
+                            GameManager.EndText.text = "";
+                        }, null);
+                        
+                        break;
+                    }
                     selectedCard = (VirusCard)card.MemoryCard;
                     card.DOKill();
-                    break;
                 }
                 cardSlot++;
             }
+            
+            Debug.Log("Hola");
 
-            if (!observable.IsCardPlayable(selectedCard)) continue;
+            if (selectedCard is null) continue;
             
-            _mainThreadContext.Send(_ =>
+            selectedCard.VisualCard.DOKill();
+
+            if (!observable.IsCardPlayable(selectedCard))
             {
-                ((VisualVirusCard)selectedCard!.VisualCard).SetOutline(false);
-            }, null);
-            
+                _mainThreadContext.Send(_ =>
+                {
+                    GameManager.EndText.text = "Esta carta no puede ser jugada";
+                }, null);
+                        
+                float timer = 0;
+                while (timer < 3f)
+                {
+                    _mainThreadContext.Send(_ =>
+                    {
+                        timer += Time.deltaTime;
+                    }, null);
+                }
+                        
+                _mainThreadContext.Send(_ =>
+                {
+                    GameManager.EndText.text = "";
+                }, null);
+
+                continue;
+            }
+
+            _mainThreadContext.Send(_ => { ((VisualVirusCard)selectedCard!.VisualCard).SetOutline(false); }, null);
+
             return GetCardAction((VirusObservation)observable, selectedCard, cardSlot).Result;
+            
         }
     }
 
@@ -317,9 +366,7 @@ public class VirusHumanPlayer : Player
 
     public void PlayCard()
     {
-        int cardsSelected = handSlot.GetComponentsInChildren<VisualVirusCard>().Count(card => card.selected);
-
-        if (cardsSelected == 1) _playCard = true;
+        _playCard = true;
     }
 
     public void DiscardCard()
