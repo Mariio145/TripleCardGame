@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
+        Application.Quit();
     }
 
     private async Task CheckPlayers()

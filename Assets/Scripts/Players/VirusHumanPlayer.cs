@@ -47,6 +47,8 @@ public class VirusHumanPlayer : Player
             if (!_playCard && !_discardCard) return new VirusAction();
 
             int cardSlot = 0;
+            int slotCounter = 0;
+            
             if (_discardCard)
             {
                 List<int> combination = new();
@@ -101,11 +103,11 @@ public class VirusHumanPlayer : Player
                     }
                     selectedCard = (VirusCard)card.MemoryCard;
                     card.DOKill();
+                    cardSlot = slotCounter;
                 }
-                cardSlot++;
+                slotCounter++;
             }
             
-            Debug.Log("Hola");
 
             if (selectedCard is null) continue;
             
@@ -321,7 +323,7 @@ public class VirusHumanPlayer : Player
                         _colorSelected = VirusColor.None;
                         
                         foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter))
-                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], null, treatment);
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
                         
                         while (_colorSelected == VirusColor.None)
                         {

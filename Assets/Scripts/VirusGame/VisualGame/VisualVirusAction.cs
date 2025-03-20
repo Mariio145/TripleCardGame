@@ -110,4 +110,9 @@ public class VisualVirusAction: MonoBehaviour
         
         return playersTarget;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

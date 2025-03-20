@@ -232,7 +232,7 @@ public class VirusObservation: IObservation
                         case TreatmentType.Spreading:
                             List<VirusColor> selfInfectedColors = new();
                             
-                            foreach (VirusOrgan selfOrgan in PlayersStatus[PlayerIndexPerspective].Body)
+                            foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body)
                             {
                                 if (selfOrgan.Status == Status.Infected) selfInfectedColors.Add(selfOrgan.OrganColor);
                             }
@@ -444,7 +444,7 @@ public class VirusObservation: IObservation
                     case TreatmentType.Spreading:
                         List<VirusColor> selfInfectedColors = new();
                         
-                        foreach (VirusOrgan selfOrgan in PlayersStatus[PlayerIndexPerspective].Body)
+                        foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body)
                         {
                             if (selfOrgan.Status == Status.Infected) selfInfectedColors.Add(selfOrgan.OrganColor);
                         }
@@ -470,7 +470,7 @@ public class VirusObservation: IObservation
                         if (selfInfectedColors.Contains(VirusColor.Rainbow))
                             for (int i = 0; i < PlayersStatus.Count; i++)
                             {
-                                if (i == _currentPlayerTurn) continue;
+                                if (i == PlayerIndexPerspective) continue;
 
                                 if (PlayersStatus[i].Body.Any(otherOrgan => otherOrgan.Status == Status.Normal))
                                     return true;
