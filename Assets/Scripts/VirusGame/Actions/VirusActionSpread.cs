@@ -25,17 +25,14 @@ public class VirusActionSpread : VirusAction
         
         await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
         
-        Debug.Log("ColorSelf: " + ColorSelf + " | ColorTarget: " + ColorTarget + "  | OrganSelf: " + organToCure + "  | OrganTarget:  " + organToInfect);
-        
-        organToCure.Status = Status.Normal;
-        organToCure.VirusColor = VirusColor.None;
-        await playerSelf.VisualBody.RemoveVirusAnimation(ColorSelf);
+        //Debug.Log("ColorSelf: " + ColorSelf + " | ColorTarget: " + ColorTarget + "  | OrganSelf: " + organToCure + "  | OrganTarget:  " + organToInfect);
 
         organToInfect.Status = Status.Infected;
         organToInfect.VirusColor = organToCure.VirusColor;
-        await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, organToCure.VirusColor);
-        
-
+        organToCure.Status = Status.Normal;
+        organToCure.VirusColor = VirusColor.None;
+        await playerSelf.VisualBody.RemoveVirusAnimation(ColorSelf);
+        await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, organToInfect.VirusColor);
         
         return true;
     }

@@ -12,7 +12,7 @@ public class VirusObservation: IObservation
     // Contiene los datos del player, tanto de su mano como de su cuerpo
     public readonly List<VirusPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
-    public int PlayerIndexPerspective {get; }
+    public int playerIndexPerspective {get;}
 
     public VirusObservation(Deck<VirusCard> mixedDrawDeck, Deck<VirusCard> discardDeck, List<VirusPlayerStatus> playersStatus, int currentPlayerTurn, int playerPerspective)
     {
@@ -20,7 +20,7 @@ public class VirusObservation: IObservation
         DiscardDeck = discardDeck;
         PlayersStatus = playersStatus;
         _currentPlayerTurn = currentPlayerTurn;
-        PlayerIndexPerspective = playerPerspective;
+        playerIndexPerspective = playerPerspective;
     }
 
     public IObservation Clone()
@@ -28,7 +28,7 @@ public class VirusObservation: IObservation
         List<VirusPlayerStatus> playerStatus = PlayersStatus.Select(player => player.Clone()).ToList();
         Deck<VirusCard> mixedDrawDeck = new(_mixedDrawDeck);
         Deck<VirusCard> discardDeck = new(DiscardDeck);
-        return new VirusObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, PlayerIndexPerspective);
+        return new VirusObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, playerIndexPerspective);
     }
 
     public int GetPlayerTurnIndex()
@@ -67,7 +67,44 @@ public class VirusObservation: IObservation
     {
         _currentPlayerTurn = (_currentPlayerTurn + 1) % PlayersStatus.Count;
     }
-    
+
+    public IObservation GetCloneRandomized()
+    {
+        Deck<VirusCard> drawDeck = new (_mixedDrawDeck);
+        foreach (VirusPlayerStatus player in PlayersStatus)
+        {
+            if (player == PlayersStatus[playerIndexPerspective]) continue;
+
+            foreach (VirusCard card in player.Hand.Cast<VirusCard>())
+            {
+                drawDeck.Add(card);
+            }
+        }
+        
+        drawDeck.ShuffleDeck();
+        
+        List<VirusPlayerStatus> playersStatus = new();
+        
+        foreach (VirusPlayerStatus player in PlayersStatus)
+        {
+            VirusPlayerStatus playerCopy = player.Clone();
+            playersStatus.Add(playerCopy);
+            if (player == PlayersStatus[playerIndexPerspective]) continue;
+            if (playerCopy.Hand.All(card => card is null)) continue;
+            playerCopy.Hand.Clear();
+            for (int i = 0; i < VirusGameParameters.NCardsPlayerHand; i++)
+            {
+                // No hay que preocuparse por que la baraja de robo se vacíe, ya que antes se llena con las cartas de la mano de los otros jugadores
+                playerCopy.Hand.Enqueue(drawDeck.DrawCard());
+            }
+        }
+        
+        drawDeck.ShuffleDeck();
+        Deck<VirusCard> discardDeck = new (DiscardDeck);
+
+        return new VirusObservation(drawDeck, discardDeck, playersStatus, _currentPlayerTurn, playerIndexPerspective);
+    }
+
     public List<IAction> GetActions()
     {
         VirusPlayerStatus currentPlayer = PlayersStatus[_currentPlayerTurn];
@@ -230,50 +267,25 @@ public class VirusObservation: IObservation
                         
                         // Simplificado, solo une un virus por carta
                         case TreatmentType.Spreading:
-                            List<VirusColor> selfInfectedColors = new();
-                            
-                            foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body)
+                            foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body.Where(selfOrgan => selfOrgan.Status == Status.Infected))
                             {
-                                if (selfOrgan.Status == Status.Infected) selfInfectedColors.Add(selfOrgan.OrganColor);
-                            }
-
-                            if (selfInfectedColors.Count == 0) continue;
-                    
-                            for (int i = 0; i < PlayersStatus.Count; i++)
-                            {
-                                if (i == _currentPlayerTurn) continue;
-                                foreach (VirusOrgan otherOrgan in PlayersStatus[i].Body)
+                                for (int i = 0; i < PlayersStatus.Count; i++)
                                 {
-                                    if (otherOrgan.Status == Status.Normal)
+                                    if (i == _currentPlayerTurn) continue;
+                                    foreach (VirusOrgan otherOrgan in PlayersStatus[i].Body.Where(otherOrgan => otherOrgan.Status == Status.Normal))
                                     {
-                                        if (otherOrgan.OrganColor == VirusColor.Rainbow)
-                                            foreach (VirusColor organColor in selfInfectedColors)
-                                                actions.Add(new VirusActionSpread(organColor, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
-            
-                                        if (selfInfectedColors.Contains(otherOrgan.OrganColor))
-                                            actions.Add(new VirusActionSpread(otherOrgan.OrganColor, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
-
-                                        if (!selfInfectedColors.Contains(VirusColor.Rainbow)) continue;
-                                        VirusColor selfVirusColor = PlayersStatus[PlayerIndexPerspective].SearchOrganColor(VirusColor.Rainbow).VirusColor;
-                                        
-                                        if (otherOrgan.OrganColor == selfVirusColor)
-                                            actions.Add(new VirusActionSpread(VirusColor.Rainbow, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
-                                            
-                                        if (selfVirusColor == VirusColor.Rainbow)
-                                            actions.Add(new VirusActionSpread(VirusColor.Rainbow, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
+                                        if (otherOrgan.OrganColor == VirusColor.Rainbow || selfOrgan.VirusColor == VirusColor.Rainbow)
+                                        {
+                                            actions.Add(new VirusActionSpread(selfOrgan.OrganColor, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
+                                            continue;
+                                        }
+              
+                                        if (selfOrgan.VirusColor == otherOrgan.OrganColor)
+                                            actions.Add(new VirusActionSpread(selfOrgan.OrganColor, otherOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
                                     }
                                 }
                             }
 
-                            if (selfInfectedColors.Contains(VirusColor.Rainbow))
-                                for (int i = 0; i < PlayersStatus.Count; i++)
-                                {
-                                    if (i == _currentPlayerTurn) continue;
-                                    actions.AddRange(from otherOrgan in PlayersStatus[i].Body
-                                        where otherOrgan.Status == Status.Normal
-                                        select new VirusActionSpread(VirusColor.Rainbow, otherOrgan.OrganColor,
-                                            _currentPlayerTurn, i, handIndex));
-                                }
                             break;
                         //----------------------------GUANTE DE LÁTEX---------------------
                         case TreatmentType.LatexGlove:
@@ -442,39 +454,21 @@ public class VirusObservation: IObservation
                     
                     // Simplificado, solo une un virus por carta
                     case TreatmentType.Spreading:
-                        List<VirusColor> selfInfectedColors = new();
-                        
-                        foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body)
+                        foreach (VirusOrgan selfOrgan in PlayersStatus[_currentPlayerTurn].Body.Where(selfOrgan => selfOrgan.Status == Status.Infected))
                         {
-                            if (selfOrgan.Status == Status.Infected) selfInfectedColors.Add(selfOrgan.OrganColor);
-                        }
-                
-                        for (int i = 0; i < PlayersStatus.Count; i++)
-                        {
-                            if (i == _currentPlayerTurn) continue;
-                            foreach (VirusOrgan otherOrgan in PlayersStatus[i].Body.Where(otherOrgan => otherOrgan.Status == Status.Normal))
-                            {
-                                if (otherOrgan.OrganColor == VirusColor.Rainbow)
-                                    if (selfInfectedColors.Any())
-                                    {
-                                        return true;
-                                    }
-        
-                                if (selfInfectedColors.Contains(otherOrgan.OrganColor))
-                                    return true;
-                                if (selfInfectedColors.Contains(VirusColor.Rainbow))
-                                    return true;
-                            }
-                        }
-
-                        if (selfInfectedColors.Contains(VirusColor.Rainbow))
                             for (int i = 0; i < PlayersStatus.Count; i++)
                             {
-                                if (i == PlayerIndexPerspective) continue;
-
-                                if (PlayersStatus[i].Body.Any(otherOrgan => otherOrgan.Status == Status.Normal))
-                                    return true;
+                                if (i == _currentPlayerTurn) continue;
+                                foreach (VirusOrgan otherOrgan in PlayersStatus[i].Body.Where(otherOrgan => otherOrgan.Status == Status.Normal))
+                                {
+                                    if (otherOrgan.OrganColor == VirusColor.Rainbow || selfOrgan.VirusColor == VirusColor.Rainbow)
+                                        return true;
+                                    
+                                    if (selfOrgan.VirusColor == otherOrgan.OrganColor)
+                                        return true;
+                                }
                             }
+                        }
                         break;
                     //----------------------------GUANTE DE LÁTEX---------------------
                     case TreatmentType.LatexGlove:

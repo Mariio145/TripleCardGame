@@ -8,13 +8,14 @@ public class UnoObservation : IObservation
 {
     private Deck<UnoCard> _mixedDrawDeck;
     private Deck<UnoCard> _discardDeck;
-    public bool BlockNextTurn { get; set; }
-    public int QuantityToDraw { get; set; }
+    public bool blockNextTurn { get; set; }
+    public int quantityToDraw { get; set; }
     public bool IsReversed = false;
     
     // Contiene los datos del player, tanto de su mano como de su cuerpo
     public readonly List<UnoPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
+    public int playerIndexPerspective {get;}
 
     private UnoCard _topCard; 
     public UnoCard TopCard
@@ -30,13 +31,14 @@ public class UnoObservation : IObservation
         }
     }
 
-    public UnoObservation(Deck<UnoCard> mixedDrawDeck, Deck<UnoCard> discardDeck, List<UnoPlayerStatus> playersStatus, int currentPlayerTurn, UnoCard topCard)
+    public UnoObservation(Deck<UnoCard> mixedDrawDeck, Deck<UnoCard> discardDeck, List<UnoPlayerStatus> playersStatus, int currentPlayerTurn, UnoCard topCard, int playerPerspective)
     {
         _mixedDrawDeck = mixedDrawDeck;
         _discardDeck = discardDeck;
         PlayersStatus = playersStatus;
         _currentPlayerTurn = currentPlayerTurn;
         TopCard = topCard;
+        playerIndexPerspective = playerPerspective;
     }
 
     public IObservation Clone()
@@ -46,7 +48,7 @@ public class UnoObservation : IObservation
         Deck<UnoCard> discardDeck = new(_discardDeck);
         UnoCard topCard = new(TopCard.Type, TopCard.Color, TopCard.Number);
 
-        return new UnoObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, topCard);
+        return new UnoObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, topCard, playerIndexPerspective);
     }
     
     public List<IAction> GetActions()
@@ -88,6 +90,47 @@ public class UnoObservation : IObservation
     {
         // El juego termina cuando un jugador se queda sin cartas
         return PlayersStatus.Any(player => player.Hand.Count == 0);
+    }
+    
+    public IObservation GetCloneRandomized()
+    {
+        Deck<UnoCard> drawDeck = new(_mixedDrawDeck);
+
+        foreach (UnoPlayerStatus player in PlayersStatus)
+        {
+            if (player == PlayersStatus[playerIndexPerspective]) continue;
+
+            foreach (UnoCard card in player.Hand.Cast<UnoCard>())
+            {
+                drawDeck.Add(card);
+            }
+        }
+        
+        drawDeck.ShuffleDeck();
+        
+        List<UnoPlayerStatus> newPlayersStatus = new ();
+        
+        foreach (UnoPlayerStatus player in PlayersStatus)
+        {
+            UnoPlayerStatus playerCopy = player.Clone();
+            newPlayersStatus.Add(playerCopy);
+            if (player == PlayersStatus[playerIndexPerspective])
+                continue;
+            if (playerCopy.Hand.All(card => card is null))
+                continue;
+            
+            playerCopy.Hand.Clear();
+            for (int i = 0; i < player.Hand.Count; i++)
+            {
+                // No hay que preocuparse por que la baraja de robo se vacíe, ya que antes se llena con las cartas de la mano de los otros jugadores
+                playerCopy.Hand.Enqueue(drawDeck.DrawCard());
+            }
+        }
+        
+        drawDeck.ShuffleDeck();
+        Deck<UnoCard> discardDeck = new(_discardDeck);
+
+        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, TopCard, playerIndexPerspective);
     }
 
     public bool IsCardPlayable(Card card)

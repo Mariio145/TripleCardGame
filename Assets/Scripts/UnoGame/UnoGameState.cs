@@ -211,12 +211,11 @@ public class UnoGameState : IGameState
         drawDeck.ShuffleDeck();
         Deck<UnoCard> discardDeck = new(_discardDeck);
 
-        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, topCard);
+        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, topCard, index);
     }
 
-    public async void UpdateHands()
+    public void UpdateHands()
     {
-        await Task.Delay(1);
         foreach (UnoPlayerStatus player in PlayersStatus)
         {
             player.HandGObject.GetComponent<VisualHand>().UpdateHandPosition();

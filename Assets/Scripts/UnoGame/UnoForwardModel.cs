@@ -65,20 +65,20 @@ public class UnoForwardModel : IForwardModel
         unoObs.ChangeTurnIndex();
         
         // Si hay cartas pendientes por robar, forzar la acción
-        if (unoObs.QuantityToDraw > 0)
+        if (unoObs.quantityToDraw > 0)
         {
-            while (unoObs.QuantityToDraw > 0)
+            while (unoObs.quantityToDraw > 0)
             {
                 //Mejor hacerlo asi por si hay que animarlo
                 new UnoForcedDrawCard().TestAction(observation);
-                unoObs.QuantityToDraw--;
+                unoObs.quantityToDraw--;
             }
             unoObs.ChangeTurnIndex();
         }
         // Si hay que bloquear el turno
-        else if (unoObs.BlockNextTurn)
+        else if (unoObs.blockNextTurn)
         {
-            unoObs.BlockNextTurn = false;
+            unoObs.blockNextTurn = false;
             unoObs.ChangeTurnIndex();
         }
     }

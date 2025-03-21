@@ -25,7 +25,10 @@ public class VirusActionLatexGlove : VirusAction
 
             while (otherPlayer.Hand.Count > 0)
             {
-                discardTasks.Add(virusGs.DiscardCard(otherPlayer.Hand.Dequeue()));
+                Card card = otherPlayer.Hand.Dequeue();
+                discardTasks.Add(virusGs.DiscardCard(card));
+                if (i == 0)
+                    (card.VisualCard as VisualVirusCard)!.SetOutline(false);
             }
         }
         

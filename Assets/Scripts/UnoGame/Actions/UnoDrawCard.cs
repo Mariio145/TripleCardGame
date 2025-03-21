@@ -25,6 +25,9 @@ public class UnoDrawCard : UnoAction
         UnoPlayerStatus playerSelf = unoObs.PlayersStatus[unoObs.GetPlayerTurnIndex()];
         UnoCard drawnCard = unoObs.DrawCardFromMixedDrawDeck();
         playerSelf.Hand.Enqueue(drawnCard);
+        
+        if (!unoObs.IsCardPlayable(drawnCard)) return false;
+        new UnoPlayCard(drawnCard, playerSelf.Hand.Count - 1).TestAction(unoObs);
 
         return true;
     }

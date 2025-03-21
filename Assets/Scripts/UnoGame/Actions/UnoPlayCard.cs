@@ -31,6 +31,7 @@ public class UnoPlayCard : UnoAction
                     unoGs.blockNextTurn = true;
                 break;
             case UnoType.Block:
+                await unoGs.ShowBlockObject();
                 unoGs.blockNextTurn = true;
                 break;
             case UnoType.Draw2:
@@ -59,16 +60,16 @@ public class UnoPlayCard : UnoAction
             case UnoType.Reverse:
                 unoObs.IsReversed = !unoObs.IsReversed;
                 if (unoObs.PlayersStatus.Count <= 2) 
-                    unoObs.BlockNextTurn = true;
+                    unoObs.blockNextTurn = true;
                 break;
             case UnoType.Block:
-                unoObs.BlockNextTurn = true;
+                unoObs.blockNextTurn = true;
                 break;
             case UnoType.Draw2:
-                unoObs.QuantityToDraw += 2;
+                unoObs.quantityToDraw += 2;
                 break;
             case UnoType.Draw4:
-                unoObs.QuantityToDraw += 4;
+                unoObs.quantityToDraw += 4;
                 break;
         }
         

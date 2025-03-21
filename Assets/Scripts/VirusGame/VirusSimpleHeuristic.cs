@@ -13,7 +13,7 @@ public class VirusSimpleHeuristic : IHeuristic
         float score = 0;
 
         // Evaluar el estado del cuerpo del jugador actual
-        List<VirusOrgan> playerBody = virusObs.PlayersStatus[virusObs.PlayerIndexPerspective].Body;
+        List<VirusOrgan> playerBody = virusObs.PlayersStatus[virusObs.playerIndexPerspective].Body;
         foreach (VirusOrgan organ in playerBody)
         {
             switch (organ.Status)

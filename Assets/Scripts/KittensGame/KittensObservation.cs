@@ -179,6 +179,65 @@ public class KittensObservation : IObservation
         CurrentPlayerTurn = (CurrentPlayerTurn + 1) % PlayersStatus.Count;
     }
     
+    public IObservation GetCloneRandomized()
+    {
+        Deck<KittensCard> drawDeck = new(MixedDrawDeck);
+
+        foreach (KittensPlayerStatus player in PlayersStatus)
+        {
+            if (player == PlayersStatus[PlayerIndexPerspective] || !player.IsAlive()) continue;
+
+            foreach (KittensCard card in player.Hand.Cast<KittensCard>())
+            {
+                drawDeck.Add(card);
+            }
+        }
+        
+        drawDeck.ShuffleDeck();
+        
+        List<KittensPlayerStatus> playerStatus = new ();
+        
+        foreach (KittensPlayerStatus player in PlayersStatus)
+        {
+            KittensPlayerStatus playerCopy = player.Clone();
+            playerStatus.Add(playerCopy);
+
+            if (player == PlayersStatus[PlayerIndexPerspective])
+            {
+                continue;
+            }
+
+            if (!player.IsAlive())
+            {
+                Debug.LogError("Muertote");
+                continue;
+            }
+
+            if (playerCopy.Hand.Count == 0)
+            {
+                Debug.LogError("NuloNuloNulo");
+                continue;
+            }
+            
+            playerCopy.Hand.Clear();
+            
+            for (int i = 0; i < player.Hand.Count; i++)
+                playerCopy.Hand.Enqueue(drawDeck.DrawCard());
+        }
+        
+        drawDeck.ShuffleDeck();
+        Deck<KittensCard> discardDeck = new(DiscardDeck);
+        
+        List<KittensCard>[] topVisibleCardsCopy = new List<KittensCard>[playerStatus.Count];
+        for (int i = 0; i < playerStatus.Count; i++)
+        {
+            if (TopVisibleCards[i] is not null) topVisibleCardsCopy[i] = new List<KittensCard>(TopVisibleCards[i]);
+            else topVisibleCardsCopy[i] = new List<KittensCard>();
+        }
+        
+        return new KittensObservation(drawDeck, discardDeck, playerStatus, CurrentPlayerTurn, DrawAtEnd, TurnsToPlay, NextTurnsToPlay, TurnEnded, ActionIsPlaying, IsDoingFavor, PlayerIndexPerspective, topVisibleCardsCopy);
+    }
+    
     public void KillPlayer(KittensPlayerStatus player)
     {
         player.Alive = false;
