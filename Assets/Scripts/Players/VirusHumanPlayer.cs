@@ -83,6 +83,7 @@ public class VirusHumanPlayer : Player
                         _mainThreadContext.Send(_ =>
                         {
                             GameManager.EndText.text = "Selecciona solo una carta para jugarla";
+                            GameManager.EndTextShadow.text = "Selecciona solo una carta para jugarla";
                         }, null);
                         
                         float timer = 0;
@@ -97,6 +98,7 @@ public class VirusHumanPlayer : Player
                         _mainThreadContext.Send(_ =>
                         {
                             GameManager.EndText.text = "";
+                            GameManager.EndTextShadow.text = "";
                         }, null);
                         
                         break;
@@ -117,7 +119,8 @@ public class VirusHumanPlayer : Player
             {
                 _mainThreadContext.Send(_ =>
                 {
-                    GameManager.EndText.text = "Esta carta no puede ser jugada";
+                    GameManager.EndText.text = "La carta seleccionada \nno puede ser jugada";
+                    GameManager.EndTextShadow.text = "La carta seleccionada \nno puede ser jugada";
                 }, null);
                         
                 float timer = 0;
@@ -132,6 +135,7 @@ public class VirusHumanPlayer : Player
                 _mainThreadContext.Send(_ =>
                 {
                     GameManager.EndText.text = "";
+                    GameManager.EndTextShadow.text = "";
                 }, null);
 
                 continue;

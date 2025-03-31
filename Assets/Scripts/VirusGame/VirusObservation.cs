@@ -237,17 +237,10 @@ public class VirusObservation: IObservation
                         //----------------------------LADRÓN DE ÓRGANOS-------------------
                         case TreatmentType.OrganThief:
                             
-                            /*selfNeededColors = new List<CardColor>();
-                            
-                            //Se busca todos los colores que el jugador actual no tenga
-                            foreach (CardColor colors in Enum.GetValues(typeof(CardColor)))
-                            {
-                                bool coloredOrgan = currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors);
-                                if (!coloredOrgan) selfNeededColors.Add(colors);
-                            }*/
-                            
-                            //Código compactado del que no me fio
-                            selfNeededColors = (from VirusColor colors in Enum.GetValues(typeof(VirusColor)) let coloredOrgan = currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors) where !coloredOrgan select colors).ToList();
+                            selfNeededColors = (from VirusColor colors in Enum.GetValues(typeof(VirusColor))
+                                let coloredOrgan = currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors)
+                                where !coloredOrgan
+                                select colors).ToList();
                             
                             //Se busca todos los colores que el jugador actual no tenga
 
@@ -256,7 +249,6 @@ public class VirusObservation: IObservation
                                 if (i == _currentPlayerTurn) continue;
                                 foreach (VirusOrgan playerOrgan in PlayersStatus[i].Body)
                                 {
-                                    
                                     if(selfNeededColors.Contains(playerOrgan.OrganColor) && playerOrgan.Status != Status.Immune)
                                         actions.Add(new VirusActionOrganThief(playerOrgan.OrganColor, _currentPlayerTurn, i, handIndex));
                                 }

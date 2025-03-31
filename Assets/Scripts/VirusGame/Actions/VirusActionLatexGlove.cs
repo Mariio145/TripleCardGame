@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class VirusActionLatexGlove : VirusAction
 {
@@ -40,7 +41,8 @@ public class VirusActionLatexGlove : VirusAction
     public override bool TestAction(IObservation observation)
     {
         if (observation is not VirusObservation virusOb) return false;
-        VirusPlayerStatus player = virusOb.PlayersStatus[PlayerSelf];
+        
+        VirusPlayerStatus player = virusOb.PlayersStatus[virusOb.GetPlayerTurnIndex()];
 
         for (int i = 0; i < virusOb.PlayersStatus.Count; i++)
         {

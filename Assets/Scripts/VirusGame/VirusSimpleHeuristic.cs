@@ -2,19 +2,39 @@
 
 public class VirusSimpleHeuristic : IHeuristic
 {
-    private const float OrganCompleteValue = 0.6f;
+    private const float OrganCompleteValue = 0.5f;
     private const float OrganValue = 0.2f;
-    private const float MedicineValue = 0.4f;
-    private const float VirusValue = -0.3f;
+    private const float MedicineValue = 0.3f;
+    private const float VirusValue = 0.1f;
 
     public float Evaluate(IObservation observation)
     {
         VirusObservation virusObs = (VirusObservation)observation;
-        float score = 0;
+        int playerIndex = virusObs.playerIndexPerspective;
 
-        // Evaluar el estado del cuerpo del jugador actual
-        List<VirusOrgan> playerBody = virusObs.PlayersStatus[virusObs.playerIndexPerspective].Body;
-        foreach (VirusOrgan organ in playerBody)
+        float myScore = EvaluatePlayer(virusObs.PlayersStatus[playerIndex].Body);
+        float bestOpponentScore = float.MinValue;
+
+        // Evaluar a cada oponente
+        for (int i = 0; i < virusObs.PlayersStatus.Count; i++)
+        {
+            if (i == playerIndex) continue; // Saltar al jugador actual
+
+            float opponentScore = EvaluatePlayer(virusObs.PlayersStatus[i].Body);
+            if (opponentScore > bestOpponentScore)
+            {
+                bestOpponentScore = opponentScore;
+            }
+        }
+
+        // Queremos maximizar nuestra diferencia con el mejor rival
+        return myScore - bestOpponentScore;
+    }
+    
+    private float EvaluatePlayer(List<VirusOrgan> body)
+    {
+        float score = 0;
+        foreach (VirusOrgan organ in body)
         {
             switch (organ.Status)
             {
@@ -33,8 +53,7 @@ public class VirusSimpleHeuristic : IHeuristic
             }
         }
 
-        // Normalizar el score
-        int totalOrgans = playerBody.Count;
-        return score / (totalOrgans * 2f);
+        // Normalizar por el número de órganos (suponiendo que cada jugador tiene el mismo número máximo)
+        return score / (body.Count * 2f);
     }
 }

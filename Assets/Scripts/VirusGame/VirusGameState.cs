@@ -60,13 +60,8 @@ public class VirusGameState : IGameState
         {
             _drawDeck = new Deck<VirusCard>(DiscardDeck);
             _drawDeck.ShuffleDeck();
-            await RefreshDrawCardAnim();
             
-            // for (int i = 0; i < _drawDeck.RemainingCards(); i++)
-            // {
-            //     _discardDeck.DrawCard();
-            //     //card.VisualCard.ChangeParent(_deckGo.transform, false);
-            // }
+            await RefreshDrawCardAnim();
         
             DiscardDeck = new Deck<VirusCard>();
         }

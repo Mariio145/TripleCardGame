@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum GameToPlay
 {
@@ -23,14 +24,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deckHolder, discardHolder;
     [SerializeField] private int timeToThink;
     [Header("Player Settings")]
-    [SerializeField] private GameObject perspectivePlayer;
+    //[SerializeField] private GameObject perspectivePlayer;
     [SerializeField] private GameObject[] players;
     /*[SerializeField] private Player humanPlayer;
     [SerializeField] private List<Player> botPlayers;*/
     [Header("Miscellaneous")]
     [SerializeField] private Text endText;
+    [SerializeField] private Text endTextShadow;
+    [SerializeField] private Image timeCounter;
 
     public static Text EndText;
+    public static Text EndTextShadow;
+    
+    private bool _stop;
     
     private List<Player> _players;
     private IGameState _gameState;
@@ -41,22 +47,42 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         EndText = endText;
+        EndTextShadow = endTextShadow;
         _cancellationTokenSource = new CancellationTokenSource();
         DOTween.SetTweensCapacity(500, 50);
         TimeToThink = timeToThink;
         _players = new List<Player>();
-
-        foreach (Player humanPlayer in perspectivePlayer.GetComponents<Player>().Where(script => script.enabled))
-        {
-            _players.Add(humanPlayer);
-        }
+        
 
         foreach (GameObject player in players)
         {
-            _players.Add(player.GetComponent<Player>());
+            Player[] playerScripts = player.GetComponents<Player>();
+            if (playerScripts.Length <= 0) continue;
+            
+            if (playerScripts.Count(script => script.enabled) == 1)
+            {
+                foreach (Player script in playerScripts)
+                {
+                    if (script.enabled) _players.Add(script); // Si solo hay un script activado, elige 
+                }
+            }
+            else
+            {
+                Player selectedScript = playerScripts[Random.Range(0, playerScripts.Length)];
+                selectedScript.enabled = true;
+                _players.Add(selectedScript); //De todos los jugadores que tiene el script, elige cualquiera aleatoriamente
+            }
         }
-        
-        StartPlaying();
+
+        if (_players.Count < 2)
+        {
+            EndText.text = "Faltan jugadores";
+            EndTextShadow.text = "Faltan jugadores";
+        }
+        else
+        {
+            StartPlaying();
+        }
     }
     
     private void OnApplicationQuit()
@@ -126,35 +152,27 @@ public class GameManager : MonoBehaviour
             while (!_gameState.IsTerminal())
             {
                 await Task.Delay(250, _cancellationTokenSource.Token);
-                //await WaitForSpace();
                 Player playerTurn = _gameState.GetPlayer();
                 playerTurn.StartTurn();
 
                 Debug.Log(playerTurn.Name);
                 await Task.Delay(250, _cancellationTokenSource.Token);
-
-                //Debug.Log("Antes de obtener observation");
-                //await CheckPlayers();
+                
                 IObservation observation = _gameState.GetObservationFromPlayer(playerTurn.index);
                 IAction action = null;
 
-                //Debug.Log("Antes de pensar");
-                //await CheckPlayers();
-
                 Task<IAction> task = GetActionFromPlayer(observation, playerTurn);
                 Task delayTask = Task.Delay(timeToThink * 1000, _cancellationTokenSource.Token);
+                ResetTimer();
 
                 Task firstFinished = await Task.WhenAny(task, delayTask);
-
+                
+                _stop = true;
+                
                 if (firstFinished == task) // Si la tarea principal termina antes del timeout
                     action = task.Result;
-
-                Debug.Log(action);
-                //if (action is null) action = _gameState.GetDefaultAction();
-                //await CheckPlayers();
+                
                 await _forwardModel.PlayAction(_gameState, action);
-                //Debug.Log("ActionPlayed");
-                //await CheckPlayers();
                 playerTurn.StopTurn();
             }
 
@@ -173,6 +191,20 @@ public class GameManager : MonoBehaviour
     private async Task<IAction> GetActionFromPlayer(IObservation observation, Player player)
     {
         return await Task.Run(() => player.Think(observation, timeToThink), _cancellationTokenSource.Token);
+    }
+
+    private async void ResetTimer()
+    {
+        float timeRemaining = TimeToThink;
+        timeCounter.fillAmount = 1;
+        _stop = false;
+        
+        while (timeRemaining >= 0 && !_stop)
+        {
+            await Task.Delay(1000);
+            timeRemaining -= 1f;
+            timeCounter.fillAmount = timeRemaining/TimeToThink;
+        }
     }
     
     async Task WaitForSpace()
