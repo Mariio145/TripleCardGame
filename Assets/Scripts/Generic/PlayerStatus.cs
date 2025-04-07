@@ -6,7 +6,7 @@ public class PlayerStatus
     public readonly Player Player;
     public Queue<Card> Hand;
     public GameObject HandGObject;
-    public bool Alive;
+    protected bool Alive;
 
     protected PlayerStatus(Queue<Card> hand, GameObject handGObject, Player player, bool alive = true)
     {
@@ -19,5 +19,15 @@ public class PlayerStatus
     public bool IsAlive()
     {
         return Alive;
+    }
+
+    public virtual bool HasWon()
+    {
+        return false;
+    }
+
+    public virtual int GetPunctuation()
+    {
+        return -1;
     }
 }

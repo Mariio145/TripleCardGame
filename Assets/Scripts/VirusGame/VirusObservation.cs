@@ -12,7 +12,7 @@ public class VirusObservation: IObservation
     // Contiene los datos del player, tanto de su mano como de su cuerpo
     public readonly List<VirusPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
-    public int playerIndexPerspective {get;}
+    public int PlayerIndexPerspective {get;}
 
     public VirusObservation(Deck<VirusCard> mixedDrawDeck, Deck<VirusCard> discardDeck, List<VirusPlayerStatus> playersStatus, int currentPlayerTurn, int playerPerspective)
     {
@@ -20,7 +20,7 @@ public class VirusObservation: IObservation
         DiscardDeck = discardDeck;
         PlayersStatus = playersStatus;
         _currentPlayerTurn = currentPlayerTurn;
-        playerIndexPerspective = playerPerspective;
+        PlayerIndexPerspective = playerPerspective;
     }
 
     public IObservation Clone()
@@ -28,7 +28,7 @@ public class VirusObservation: IObservation
         List<VirusPlayerStatus> playerStatus = PlayersStatus.Select(player => player.Clone()).ToList();
         Deck<VirusCard> mixedDrawDeck = new(_mixedDrawDeck);
         Deck<VirusCard> discardDeck = new(DiscardDeck);
-        return new VirusObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, playerIndexPerspective);
+        return new VirusObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, PlayerIndexPerspective);
     }
 
     public int GetPlayerTurnIndex()
@@ -43,16 +43,19 @@ public class VirusObservation: IObservation
 
     public Card DrawCardFromMixedDrawDeck()
     {
-        Card card = _mixedDrawDeck.DrawCard();
-        if (card is null) Debug.LogError("Draw card failed observation");
+        if (_mixedDrawDeck.RemainingCards() <= 0)
+        {
+            _mixedDrawDeck = new Deck<VirusCard>(DiscardDeck);
+            _mixedDrawDeck.ShuffleDeck();
 
-        if (_mixedDrawDeck.RemainingCards() > 0) return card;
-        
-        _mixedDrawDeck = new Deck<VirusCard>(DiscardDeck);
-        DiscardDeck = new Deck<VirusCard>();
+            DiscardDeck = new Deck<VirusCard>();
+        }
+
+        VirusCard card = _mixedDrawDeck.DrawCard();
+
         return card;
     }
-    
+
     public void DiscardCard(Card card)
     {
         DiscardDeck.Add((VirusCard)card);
@@ -73,7 +76,7 @@ public class VirusObservation: IObservation
         Deck<VirusCard> drawDeck = new (_mixedDrawDeck);
         foreach (VirusPlayerStatus player in PlayersStatus)
         {
-            if (player == PlayersStatus[playerIndexPerspective]) continue;
+            if (player == PlayersStatus[PlayerIndexPerspective]) continue;
 
             foreach (VirusCard card in player.Hand.Cast<VirusCard>())
             {
@@ -89,7 +92,7 @@ public class VirusObservation: IObservation
         {
             VirusPlayerStatus playerCopy = player.Clone();
             playersStatus.Add(playerCopy);
-            if (player == PlayersStatus[playerIndexPerspective]) continue;
+            if (player == PlayersStatus[PlayerIndexPerspective]) continue;
             if (playerCopy.Hand.All(card => card is null)) continue;
             playerCopy.Hand.Clear();
             for (int i = 0; i < VirusGameParameters.NCardsPlayerHand; i++)
@@ -102,7 +105,7 @@ public class VirusObservation: IObservation
         drawDeck.ShuffleDeck();
         Deck<VirusCard> discardDeck = new (DiscardDeck);
 
-        return new VirusObservation(drawDeck, discardDeck, playersStatus, _currentPlayerTurn, playerIndexPerspective);
+        return new VirusObservation(drawDeck, discardDeck, playersStatus, _currentPlayerTurn, PlayerIndexPerspective);
     }
 
     public List<IAction> GetActions()
@@ -215,6 +218,8 @@ public class VirusObservation: IObservation
                                 {
                                     bool coloredOrgan = PlayersStatus[i].Body.Any(playerOrgan => playerOrgan.OrganColor == colors);
                                     if (!coloredOrgan) otherNeededColors.Add(colors);
+                                    else if (currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors))
+                                        actions.Add(new VirusActionTransplant(colors, colors, _currentPlayerTurn, i, handIndex));
                                 }
                                 
                                 //Se añade una accion para cada combinacion entre los organos que el jugador actual no tiene y el rival que se esta analizando ahora
@@ -300,8 +305,8 @@ public class VirusObservation: IObservation
         // 2. Descartar tantas como quieras (minimo 1)
         
         int[] cardIndex = { 0, 1, 2};
-        actions.Add(new VirusActionDiscard(cardIndex.ToList(), _currentPlayerTurn));
-        //actions.AddRange(Auxiliar<int>.GetCombinations(cardIndex).Select(combination => new VirusActionDiscard(combination, _currentPlayerTurn)));
+        //actions.Add(new VirusActionDiscard(cardIndex.ToList(), _currentPlayerTurn));
+        actions.AddRange(Auxiliar<int>.GetCombinations(cardIndex).Select(combination => new VirusActionDiscard(combination, _currentPlayerTurn)));
 
         if (actions.Count == 0) actions.Add(new VirusAction());
         

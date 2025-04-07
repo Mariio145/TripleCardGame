@@ -53,6 +53,9 @@ public class UnoGameState : IGameState
     public int GetPlayerTurnIndex() => _currentPlayerTurn;
     
     public Player GetPlayer() => PlayersStatus[_currentPlayerTurn].Player;
+    public Player GetWinner() =>  PlayersStatus.Find(player => player.HasWon()).Player;
+    
+    public List<PlayerStatus> GetPlayerStatus() => new (PlayersStatus);
 
     public void Reset(List<Player> players)
     {
@@ -60,8 +63,6 @@ public class UnoGameState : IGameState
         _discardDeck = new Deck<UnoCard>();
         _drawDeck = GetNewDeck();
         _drawDeck.ShuffleDeck();
-        
-        Debug.Log(_drawDeck.RemainingCards());
         
         PlayersStatus.Clear();
 
@@ -99,7 +100,7 @@ public class UnoGameState : IGameState
     private void DrawStartCards()
     {
         foreach (UnoPlayerStatus player in PlayersStatus)
-            for (int i = 0; i < UnoGameParameters.NStartCards; i++)
+            for (int i = 0; i < UnoGameParameters.NStartCards - 6; i++)
                 player.Hand.Enqueue(DrawCardFromDrawDeck(player.HandGObject).Result);
     }
     
@@ -122,7 +123,7 @@ public class UnoGameState : IGameState
 
         UnoCard card = _drawDeck.DrawCard();
         
-        card.VisualCard.ChangeParent(hand.transform, PlayersStatus[0].HandGObject == hand);
+        card.VisualCard.ChangeParent(hand.transform);
     
         return card;
     }
@@ -167,7 +168,7 @@ public class UnoGameState : IGameState
         
         foreach (UnoCard card in newDeck)
         {
-            card.VisualCard.ChangeParent(_deckGo.transform, false);
+            card.VisualCard.ChangeParent(_deckGo.transform);
         }
         
         return new Deck<UnoCard>(newDeck);
@@ -230,7 +231,7 @@ public class UnoGameState : IGameState
 
     public async Task ShowReverseObject()
     {
-        GameObject reverse = ResourcesLoader.Instance.reverse;
+        GameObject reverse = GameManager.Reverse;
         reverse.SetActive(true);
         await Task.Delay(250);
         if(IsReversed)
@@ -245,12 +246,12 @@ public class UnoGameState : IGameState
     
     public async Task ShowBlockObject()
     {
-        GameObject block = ResourcesLoader.Instance.block;
+        GameObject block = GameManager.Block;
         block.SetActive(true);
         await Task.Delay(250);
 
-        await block.transform.DOScale(0.25f, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
-        await block.transform.DOScale(0.2f, 0.5f ).SetEase(Ease.InQuad).AsyncWaitForCompletion();
+        await block.transform.DOScale(1.25f, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
+        await block.transform.DOScale(1f, 0.5f ).SetEase(Ease.InQuad).AsyncWaitForCompletion();
         
         await Task.Delay(250);
         
@@ -270,7 +271,7 @@ public class UnoGameState : IGameState
         Renderer renderer = cards[0].GetComponent<Renderer>();
         
         float cardLenght = renderer.bounds.size.x;
-        float cardHeight = renderer.bounds.size.y;
+        const float cardHeight = 0.0065f;
         float cardWidth = renderer.bounds.size.z;
 
         int index = 0;
@@ -281,7 +282,7 @@ public class UnoGameState : IGameState
                 if (index >= cards.Count) break;
                 Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
-                tasks.Add(cards[index].DOLocalRotate(Vector3.zero, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
+                tasks.Add(cards[index].DOLocalRotate(new Vector3(0, 0, 180), animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
             }
         }
@@ -297,7 +298,6 @@ public class UnoGameState : IGameState
         
         cards.Clear();
         cards.AddRange(_drawDeck.GetList().Select(unoCard => unoCard.VisualCard.transform));
-        //cards = cards.OrderBy(_ => new int()).ToList();
         
         for (int i = 0; i < cards.Count; i++)
         {
@@ -319,6 +319,7 @@ public class UnoGameState : IGameState
     {
         Color color = default;
         Material tableMaterial = ResourcesLoader.Instance.tableMaterial;
+        Material tokenMaterial = ResourcesLoader.Instance.tokenMaterial;
         switch (valueColor)
         {
             case UnoColor.Red:
@@ -338,6 +339,7 @@ public class UnoGameState : IGameState
                 break;
         }
         tableMaterial.color = color;
+        tokenMaterial.color = color;
     }
 
     public void ChangeColor(UnoColor colorChange)

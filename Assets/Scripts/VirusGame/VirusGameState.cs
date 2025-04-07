@@ -11,7 +11,7 @@ public class VirusGameState : IGameState
     private Deck<VirusCard> _drawDeck;
     public Deck<VirusCard> DiscardDeck;
     private readonly GameObject _deckGo;
-    public GameObject discardGo { get; }
+    public GameObject DiscardGo { get; }
     public List<VirusPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
 
@@ -19,7 +19,7 @@ public class VirusGameState : IGameState
     {
         PlayersStatus = new List<VirusPlayerStatus>();
         _deckGo = deck;
-        discardGo = discard;
+        DiscardGo = discard;
     }
     public bool IsTerminal() => PlayersStatus.Any(playerInfo => playerInfo.HasWon());
     
@@ -30,6 +30,9 @@ public class VirusGameState : IGameState
 
     public int GetPlayerTurnIndex() => _currentPlayerTurn;
     public Player GetPlayer() => PlayersStatus[_currentPlayerTurn].Player;
+    public Player GetWinner() => PlayersStatus.Find(player => player.HasWon()).Player;
+    
+    public List<PlayerStatus> GetPlayerStatus() => new (PlayersStatus);
     public void Reset(List<Player> players)
     {
         _drawDeck = GetNewDeck();
@@ -68,7 +71,7 @@ public class VirusGameState : IGameState
 
         VirusCard card = _drawDeck.DrawCard();
         
-        card.VisualCard.ChangeParent(hand.transform, PlayersStatus[0].HandGObject == hand);
+        card.VisualCard.ChangeParent(hand.transform);
 
         return card;
     }
@@ -80,7 +83,7 @@ public class VirusGameState : IGameState
 
     private async Task DiscardCard(VirusCard card)
     {
-        card.VisualCard.ChangeParent(discardGo.transform, false);
+        card.VisualCard.ChangeParent(DiscardGo.transform);
         DiscardDeck.Add(card);
         await card.VisualCard.SetPosition(new Vector3(Random.Range(-0.04f, 0.04f), -0.005f * DiscardDeck.RemainingCards(), Random.Range(-0.04f, 0.04f)), true);
     }
@@ -160,7 +163,7 @@ public class VirusGameState : IGameState
 
         foreach (VirusCard card in newDeck.Cast<VirusCard>())
         {
-            card.VisualCard.ChangeParent(_deckGo.transform, false);
+            card.VisualCard.ChangeParent(_deckGo.transform);
         }
 
         return new Deck<VirusCard>(newDeck);
@@ -216,7 +219,7 @@ public class VirusGameState : IGameState
         const int gridColumns = 10;
         const int gridRows = 10;
 
-        List<Transform> cards = discardGo.GetComponentsInChildren<Transform>().Where(card => card != discardGo.transform).ToList();
+        List<Transform> cards = DiscardGo.GetComponentsInChildren<Transform>().Where(card => card != DiscardGo.transform).ToList();
         Renderer renderer = cards[0].GetComponent<Renderer>();
 
         List<Task> tasks = new List<Task>();
@@ -234,7 +237,7 @@ public class VirusGameState : IGameState
             for (int j = 0; j < gridColumns; j++)
             {
                 if (index >= cards.Count) break;
-                Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
+                Vector3 targetPos = DiscardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 tasks.Add(cards[index].DOLocalRotate(new Vector3(0, 0, 180), animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
@@ -246,7 +249,7 @@ public class VirusGameState : IGameState
         {
             transform =
             {
-                position = discardGo.transform.position + new Vector3(-renderer.bounds.size.x / 2, 0.15f, 0),
+                position = DiscardGo.transform.position + new Vector3(-renderer.bounds.size.x / 2, 0.15f, 0),
             }
         };
         

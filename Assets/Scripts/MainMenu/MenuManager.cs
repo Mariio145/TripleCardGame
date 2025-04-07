@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,12 +11,17 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        for (int i = 0; i < SceneManager.loadedSceneCount; i++)
+        {
+            //if (SceneManager.GetSceneByBuildIndex(i) != SceneManager.GetActiveScene())SceneManager.UnloadSceneAsync(i);
+        }
     }
 
     public void SelectGame(string gameName)
     {
         _sceneName = gameName;
-        StartCoroutine(ChangeSceneAnim());
+        ChangeScene();
+        // TODO: StartCoroutine(ChangeSceneAnim());
     }
     
     private IEnumerator ChangeSceneAnim()
@@ -28,5 +34,21 @@ public class MenuManager : MonoBehaviour
     private void ChangeScene()
     {
         SceneManager.LoadScene(_sceneName);
+    }
+
+    public void ShowOptions()
+    {
+        
+    }
+
+    public void HideOptions()
+    {
+        
+    }
+
+    public void ExitGame()
+    {
+        DOTween.KillAll();
+        Application.Quit();
     }
 }

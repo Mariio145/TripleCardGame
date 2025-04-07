@@ -55,10 +55,15 @@ public class VirusPlayerStatus : PlayerStatus
         Body.Remove(Body.Find(x => x.OrganColor == color));
     }
 
-    public bool HasWon()
+    public override bool HasWon()
     {
         int saneOrgans = Body.Count(organ => organ.Status != Status.Infected);
 
         return saneOrgans >= 4;
+    }
+    
+    public override int GetPunctuation()
+    {
+        return Body.Count(organ => organ.Status != Status.Infected);
     }
 }

@@ -8,4 +8,6 @@ public interface IGameState
     public int GetPlayerTurnIndex();
     public void ChangeTurnIndex();
     public Player GetPlayer();
+    public Player GetWinner();
+    public List<PlayerStatus> GetPlayerStatus();
 }

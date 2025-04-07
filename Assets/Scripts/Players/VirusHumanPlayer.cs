@@ -39,11 +39,17 @@ public class VirusHumanPlayer : Player
             _playCard = false;
             _discardCard = false;
             
+            foreach (VisualVirusCard card in listCards)
+                _mainThreadContext.Send(_ => { card.ActivateCollider(); }, null);
+            
             if (observable.GetActions().All(action => action.GetType() == typeof(VirusAction))) return new VirusAction();
 
             while (!_playCard && !_discardCard && thinkingTime > 0)
             { }
-            
+
+            foreach (VisualVirusCard card in listCards)
+                _mainThreadContext.Send(_ => { card.DeactivateCollider(); }, null);
+
             if (!_playCard && !_discardCard) return new VirusAction();
 
             int cardSlot = 0;
@@ -54,6 +60,7 @@ public class VirusHumanPlayer : Player
                 List<int> combination = new();
                 foreach (VisualVirusCard card in listCards)
                 {
+                    _mainThreadContext.Send(_ => { card.DeactivateCollider(); }, null);
                     if (card.selected)
                     {
                         card.DOKill();
@@ -236,7 +243,9 @@ public class VirusHumanPlayer : Player
                         {
                             colorFilter.Remove(organ.OrganColor);
                         }
-                        virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment))
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
+                        
                         while (_colorSelected == VirusColor.None)
                         {
                             await Task.Yield();
@@ -349,8 +358,10 @@ public class VirusHumanPlayer : Player
                     //----------------------------ERROR MÉDICO------------------------
                     case TreatmentType.MedicalError:
                         foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment))
-                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter);
-                        
+                        {
+                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], null, treatment);
+                        }
+
                         while (_colorSelected == VirusColor.None)
                         {
                             await Task.Yield();

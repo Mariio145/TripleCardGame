@@ -38,9 +38,7 @@ public class KittensObservation : IObservation
         PlayerIndexPerspective = playerObservationIndexPerspective;
         TopVisibleCards = topVisibleCards;
     }
-
     
-
     public IObservation Clone()
     {
         List<KittensPlayerStatus> playerStatus = new();
@@ -86,8 +84,6 @@ public class KittensObservation : IObservation
             }
             return actions;
         }
-
-
 
         cardIndex = 0;
         
@@ -150,7 +146,7 @@ public class KittensObservation : IObservation
     
     public Card DrawCardFromMixedDrawDeck()
     {
-        Card card = MixedDrawDeck.DrawCard();
+        KittensCard card = MixedDrawDeck.DrawCard();
 
         foreach (List<KittensCard> visibleCard in TopVisibleCards)
             if (visibleCard.Count > 0) visibleCard.RemoveAt(0);
@@ -240,7 +236,7 @@ public class KittensObservation : IObservation
     
     public void KillPlayer(KittensPlayerStatus player)
     {
-        player.Alive = false;
+        player.KillPlayer();
         PlayersStatus.Remove(player);
         CurrentPlayerTurn--;
     }

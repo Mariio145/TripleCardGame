@@ -47,7 +47,12 @@ public class VisualVirusBody : MonoBehaviour
         rainbowOrgan.medicineMesh2.gameObject.transform.localScale = Vector3.zero;
         rainbowOrgan.virusMesh.gameObject.transform.localScale = Vector3.zero;
         
-    
+        redOrgan.visualOrgan.Deactivate();
+        blueOrgan.visualOrgan.Deactivate();
+        greenOrgan.visualOrgan.Deactivate();
+        yellowOrgan.visualOrgan.Deactivate();
+        rainbowOrgan.visualOrgan.Deactivate();
+        
         _mainThreadContext = SynchronizationContext.Current;
         
     

@@ -19,4 +19,14 @@ public class UnoPlayerStatus : PlayerStatus
         
         return new UnoPlayerStatus(newHand, HandGObject, Player);
     }
+    
+    public override int GetPunctuation()
+    {
+        return Hand.Count;
+    }
+
+    public override bool HasWon()
+    {
+        return Hand.Count <= 0;
+    }
 }

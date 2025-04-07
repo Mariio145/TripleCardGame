@@ -26,8 +26,8 @@ public class VirusActionPlayMedicine : VirusAction
         {
             case Status.Infected:
                 organ.Status = Status.Normal;
-                virusGs.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus, TreatmentType.None, virusGs.discardGo));
-                virusGs.DiscardDeck.Add(new VirusCard(_medicineColor, VirusType.Medicine, TreatmentType.None, virusGs.discardGo));
+                virusGs.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
+                virusGs.DiscardDeck.Add(new VirusCard(_medicineColor, VirusType.Medicine, TreatmentType.None, virusGs.DiscardGo));
                 organ.VirusColor = VirusColor.None;
                 await playerSelf.VisualBody.RemoveVirusAnimation(ColorSelf);
                 break;

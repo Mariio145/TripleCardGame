@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class VirusSimpleHeuristic : IHeuristic
 {
@@ -10,7 +12,7 @@ public class VirusSimpleHeuristic : IHeuristic
     public float Evaluate(IObservation observation)
     {
         VirusObservation virusObs = (VirusObservation)observation;
-        int playerIndex = virusObs.playerIndexPerspective;
+        int playerIndex = virusObs.PlayerIndexPerspective;
 
         float myScore = EvaluatePlayer(virusObs.PlayersStatus[playerIndex].Body);
         float bestOpponentScore = float.MinValue;
@@ -28,12 +30,15 @@ public class VirusSimpleHeuristic : IHeuristic
         }
 
         // Queremos maximizar nuestra diferencia con el mejor rival
-        return myScore - bestOpponentScore;
+        return myScore /*- bestOpponentScore*/;
     }
     
     private float EvaluatePlayer(List<VirusOrgan> body)
     {
         float score = 0;
+        
+        if (body.Count(organ => organ.Status is Status.Normal or Status.Immune or Status.Vaccinated) >= 4) return float.PositiveInfinity;
+        
         foreach (VirusOrgan organ in body)
         {
             switch (organ.Status)

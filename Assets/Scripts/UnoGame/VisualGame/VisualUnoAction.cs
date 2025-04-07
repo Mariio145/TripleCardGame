@@ -1,33 +1,40 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VisualUnoAction: MonoBehaviour
 {
-    private UnoColor _colorSelected = UnoColor.Wild;
     public GameObject selectColorGo;
-
-    public async Task<UnoColor> SelectColor()
+    
+    private static SynchronizationContext _mainThreadContext;
+    
+    void Awake()
     {
-        selectColorGo.SetActive(true);
-        _colorSelected = UnoColor.Wild;
-        while (_colorSelected == UnoColor.Wild)
+        _mainThreadContext = SynchronizationContext.Current;
+    }
+
+    public async Task SelectColor(UnoHumanPlayer humanPlayer)
+    {
+        _mainThreadContext.Send(_ => { selectColorGo.SetActive(true); }, null);
+        humanPlayer._color = UnoColor.Wild;
+        
+        while (humanPlayer._color== UnoColor.Wild)
         {
             await Task.Yield();
         }
-        selectColorGo.SetActive(false);
-        return _colorSelected;
+        
+        _mainThreadContext.Send(_ => { selectColorGo.SetActive(false); }, null);
     }
 
-    public void SetColor(int numColor)
+    public async void ExitGame()
     {
-        /*  0 == Red,
-            1 == Blue,
-            2 == Yellow,
-            3 == Green,
-            4 == Wild   */
-        _colorSelected = (UnoColor)numColor;
+        GameManager.CancellationTokenSource.Cancel();
+        await Task.Delay(1000);
+        SceneManager.LoadScene(1);
     }
+    
 }

@@ -43,7 +43,9 @@ public class KittensForwardModel : IForwardModel
                     IAction specialAction = new KittensAction();
 
                     Task<IAction> task = GetActionFromPlayer(specialObservation, specialObservation.GetPlayerTurnIndex());
-                    Task delayTask = Task.Delay(GameManager.TimeToThink * 1000);
+                    Task delayTask = GameManager.IsHumanPlayer
+                        ? Task.Delay(GameManager.HumanTimeToThink  * 1000)
+                        : Task.Delay(GameManager.BotTimeToThink* 1000);
 
                     Task firstFinished = await Task.WhenAny(task, delayTask);
 
@@ -85,7 +87,10 @@ public class KittensForwardModel : IForwardModel
             KittensObservation obs = specialObservation as KittensObservation;
 
             Task<IAction> task = GetActionFromPlayer(specialObservation, specialObservation.GetPlayerTurnIndex());
-            Task delayTask = Task.Delay(GameManager.TimeToThink * 1000);
+
+            Task delayTask = GameManager.IsHumanPlayer
+                ? Task.Delay(GameManager.HumanTimeToThink  * 1000)
+                : Task.Delay(GameManager.BotTimeToThink* 1000);
 
             Task firstFinished = await Task.WhenAny(task, delayTask);
 
@@ -177,7 +182,7 @@ public class KittensForwardModel : IForwardModel
                     IAction specialAction = new KittensAction();
 
                     Task<IAction> task = GetActionFromPlayer(specialObservation, specialObservation.GetPlayerTurnIndex());
-                    Task delayTask = Task.Delay(GameManager.TimeToThink * 1000);
+                    Task delayTask = Task.Delay(GameManager.BotTimeToThink * 1000);
 
                     Task firstFinished = await Task.WhenAny(task, delayTask);
 
@@ -216,7 +221,7 @@ public class KittensForwardModel : IForwardModel
             IAction specialAction = new KittensAction();
 
             Task<IAction> task = GetActionFromPlayer(specialObservation, specialObservation.GetPlayerTurnIndex());
-            Task delayTask = Task.Delay(GameManager.TimeToThink * 1000);
+            Task delayTask = Task.Delay(GameManager.BotTimeToThink * 1000);
 
             Task firstFinished = await Task.WhenAny(task, delayTask);
 
@@ -274,6 +279,6 @@ public class KittensForwardModel : IForwardModel
     private async Task<IAction> GetActionFromPlayer(IObservation specialObservation, int index)
     {
         KittensObservation kittensOb = (KittensObservation) specialObservation;
-        return await Task.Run(() => kittensOb.PlayersStatus[index].Player.Think(specialObservation, GameManager.TimeToThink));
+        return await Task.Run(() => kittensOb.PlayersStatus[index].Player.Think(specialObservation, GameManager.BotTimeToThink));
     }
 }

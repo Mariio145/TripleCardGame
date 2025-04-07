@@ -9,8 +9,6 @@ public class ResourcesLoader : MonoBehaviour
     //Para todos los juegos
     [Header("Para todos los juegos")]
     public Mesh cardMesh;
-    public Image showCardRenderer;
-    public Material outlineMaterial;
 
     [Header("Para el Virus")] 
     public Material redMedMat;
@@ -27,14 +25,14 @@ public class ResourcesLoader : MonoBehaviour
     
     [Header("Para el Uno")]
     public Material tableMaterial;
-    public GameObject reverse;
-    public GameObject block;
+    public Material tokenMaterial;
     
     //[Header("Para el ExplodingKittens")]
 
-    private void OnEnable()
+    private void Awake()
     {
-        if (Instance is null) Instance = this;
-        else Destroy(this);
+        if (Instance != null) return;
+        Instance = this;
+        DontDestroyOnLoad(this);
     }
 }

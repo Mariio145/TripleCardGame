@@ -44,7 +44,7 @@ public class KittensPair : KittensAction
         Card cardStolen = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerTarget.Hand, _stealCardIndex);
 
         bool isHumanPlayer = kittensGs.GetPlayerTurnIndex() == 0;
-        cardStolen.VisualCard.ChangeParent(playerSelf.HandGObject.transform, isHumanPlayer);
+        cardStolen.VisualCard.ChangeParent(playerSelf.HandGObject.transform);
         playerSelf.Hand.Enqueue(cardStolen);
         
         return Task.FromResult(true);

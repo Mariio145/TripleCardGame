@@ -16,4 +16,14 @@ public class KittensPlayerStatus: PlayerStatus
         
         return new KittensPlayerStatus(newHand, HandGObject, Player, Alive);
     }
+
+    public void KillPlayer()
+    {
+        Alive = false;
+    }
+    
+    public override int GetPunctuation()
+    {
+        return Alive? 1 : 0;
+    }
 }

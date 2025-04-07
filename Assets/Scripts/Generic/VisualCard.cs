@@ -22,7 +22,7 @@ public class VisualCard : MonoBehaviour
     private Coroutine _hoverCoroutine;
     private bool _isHovering;
     
-    protected Image ShowCardRenderer;
+    protected Image CardRenderer;
     protected Material OutlineMaterial;
 
     public void Awake()
@@ -37,7 +37,7 @@ public class VisualCard : MonoBehaviour
         targetPosition = _originalPosition;
         meshFilter.mesh = ResourcesLoader.Instance.cardMesh;
         _collider.sharedMesh = ResourcesLoader.Instance.cardMesh;
-        ShowCardRenderer = ResourcesLoader.Instance.showCardRenderer;
+        CardRenderer = GameManager.ShowCardRender;
         OutlineMaterial = new Material(Shader.Find("Shader Graphs/Outline"));
         OutlineMaterial.SetColor("_Color", Color.white);
         List<Material> materials = new()
@@ -47,6 +47,17 @@ public class VisualCard : MonoBehaviour
         };
         MeshRenderer.SetMaterials(materials);
         MeshRenderer.renderingLayerMask = 1 << 1;
+        DeactivateCollider();
+    }
+
+    public void ActivateCollider()
+    {
+        _collider.enabled = true;
+    }
+
+    public void DeactivateCollider()
+    {
+        _collider.enabled = false;
     }
 
     public async Task SetPosition(Vector3 position, bool randomRotate = false)
@@ -67,23 +78,23 @@ public class VisualCard : MonoBehaviour
     public virtual void ChangeSprite()
     { }
 
-    public async void ChangeParent(Transform parent, bool enableCollider)
+    public async void ChangeParent(Transform parent)
     {
         transform.SetParent(parent);
-        transform.DOKill();
+        //transform.DOKill();
         targetPosition = Vector3.zero;
         //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
         
         if (parent.GetComponent<VisualHand>() is not null)
             parent.GetComponent<VisualHand>().UpdateHandPosition();
-
-        _collider.enabled = enableCollider;
+        
         await MoveToTarget();
     }
     
-    public void ChangeUnoParent(Transform parent, bool enableCollider, Vector3 position = default)
+    public async void ChangeUnoParent(Transform parent, bool enableCollider, Vector3 position = default)
     {
         transform.SetParent(parent);
+        transform.DOKill();
         targetPosition = position;
         //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
         
@@ -91,14 +102,15 @@ public class VisualCard : MonoBehaviour
             parent.GetComponent<VisualHand>().UpdateHandPosition();
 
         if (enableCollider) _collider.enabled = true;
-        UnoPlayCardAnim();
+        await UnoPlayCardAnim();
     }
     
-    private void UnoPlayCardAnim()
+    private async Task UnoPlayCardAnim()
     {
-        transform.DOLocalMove(targetPosition, 0.5f).SetEase(Ease.InQuad);
-        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
-        // new Vector3 (0, transform.rotation.eulerAngles.y, 180)
+        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.4f);
+        await transform.DOLocalMove(targetPosition, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        transform.localPosition = targetPosition;
     }
 
     public void OnMouseEnter()
@@ -128,6 +140,7 @@ public class VisualCard : MonoBehaviour
     {
         if (selected)
         {
+            SetOutline(false);
             selected = false;
             return;
         }
@@ -135,9 +148,16 @@ public class VisualCard : MonoBehaviour
         VisualCard[] cards = transform.parent.GetComponentsInChildren<VisualCard>();
         foreach (VisualCard card in cards)
         {
+            card.SetOutline(false);
             card.selected = false;
         }
         selected = true;
+        SetOutline(true);
+    }
+    
+    public void SetOutline(bool show)
+    {
+        OutlineMaterial.SetFloat("_Scale", show ? 1.1f : 1f);
     }
 
     private IEnumerator HoverTimer()
@@ -154,6 +174,8 @@ public class VisualCard : MonoBehaviour
     { }
 
     protected virtual void HideCard()
-    { }
+    {
+        CardRenderer.enabled = false;
+    }
 
 }

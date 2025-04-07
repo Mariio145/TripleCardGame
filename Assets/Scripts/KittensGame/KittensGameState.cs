@@ -29,7 +29,7 @@ public class KittensGameState : IGameState
     }
     
 
-    public bool IsTerminal() => PlayersStatus.Count(player => player.Alive) == 1;
+    public bool IsTerminal() => PlayersStatus.Count(player => player.IsAlive()) == 1;
 
     public void ChangeTurnIndex()
     {
@@ -39,10 +39,13 @@ public class KittensGameState : IGameState
     public int GetPlayerTurnIndex() => _currentPlayerTurn;
     
     public Player GetPlayer() => PlayersStatus[_currentPlayerTurn].Player;
+    public Player GetWinner() => PlayersStatus.Count(player => player.IsAlive()) > 1 ? null : PlayersStatus.Find(player => player.IsAlive()).Player;
+    
+    public List<PlayerStatus> GetPlayerStatus() => new (PlayersStatus);
 
     public void KillPlayer(KittensPlayerStatus player)
     {
-        player.Alive = false;
+        player.KillPlayer();
         PlayersStatus.Remove(player);
         _currentPlayerTurn--;
     }
@@ -106,7 +109,7 @@ public class KittensGameState : IGameState
         foreach (List<KittensCard> visibleCard in TopVisibleCards)
             if (visibleCard is not null && visibleCard.Count > 0) visibleCard.RemoveAt(0);
         
-        card.VisualCard.ChangeParent(hand.transform, PlayersStatus[0].HandGObject == hand);
+        card.VisualCard.ChangeParent(hand.transform);
 
         return card;
     }
@@ -119,7 +122,7 @@ public class KittensGameState : IGameState
     public void DiscardCard(KittensCard card)
     {
         _discardDeck.Add(card);
-        card.VisualCard.ChangeParent(_discardGo.transform, false);
+        card.VisualCard.ChangeParent(_discardGo.transform);
     }
     
     public async void UpdateHands()
@@ -175,7 +178,7 @@ public class KittensGameState : IGameState
         
         foreach (KittensCard card in newDeck)
         {
-            card.VisualCard.ChangeParent(DeckGo.transform, false);
+            card.VisualCard.ChangeParent(DeckGo.transform);
         }
         
         return new Deck<KittensCard>(newDeck);

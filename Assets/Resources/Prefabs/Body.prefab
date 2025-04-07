@@ -1485,7 +1485,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5170561204498390875}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf49c7f21c20142b07c0945d684d25, type: 3}
   m_Name: 
@@ -1505,6 +1505,7 @@ MonoBehaviour:
   virusHumanPlayer: {fileID: 0}
   color: 4
   playerIndex: 0
+  meshCollider: {fileID: 5821189770239843815}
 --- !u!1 &6222212779763363030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,7 +1853,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1864,7 +1865,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6853389015997922198}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf49c7f21c20142b07c0945d684d25, type: 3}
   m_Name: 
@@ -1872,6 +1873,7 @@ MonoBehaviour:
   virusHumanPlayer: {fileID: 0}
   color: 3
   playerIndex: 0
+  meshCollider: {fileID: 5060022889623805098}
 --- !u!1 &6887209339140827229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +1983,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1993,7 +1995,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6887209339140827229}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf49c7f21c20142b07c0945d684d25, type: 3}
   m_Name: 
@@ -2001,6 +2003,7 @@ MonoBehaviour:
   virusHumanPlayer: {fileID: 0}
   color: 2
   playerIndex: 0
+  meshCollider: {fileID: 716323084046128020}
 --- !u!1 &7214349456206152966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,7 +2109,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -2118,7 +2121,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7214349456206152966}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf49c7f21c20142b07c0945d684d25, type: 3}
   m_Name: 
@@ -2126,6 +2129,7 @@ MonoBehaviour:
   virusHumanPlayer: {fileID: 0}
   color: 1
   playerIndex: 0
+  meshCollider: {fileID: 478425948485317221}
 --- !u!1 &7324761052252153880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2235,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -2243,7 +2247,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7324761052252153880}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf49c7f21c20142b07c0945d684d25, type: 3}
   m_Name: 
@@ -2251,6 +2255,7 @@ MonoBehaviour:
   virusHumanPlayer: {fileID: 0}
   color: 0
   playerIndex: 0
+  meshCollider: {fileID: 1403567546885142033}
 --- !u!1 &7463409761268570234
 GameObject:
   m_ObjectHideFlags: 0

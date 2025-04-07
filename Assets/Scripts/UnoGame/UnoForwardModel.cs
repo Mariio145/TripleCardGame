@@ -6,14 +6,21 @@ public class UnoForwardModel : IForwardModel
 {
     public async Task<bool> PlayAction(IGameState gameState, IAction action)
     {
-        bool result = false;
-        if (action is not null) result = await action.PlayAction(gameState);
+        bool result;
+        if (gameState is not UnoGameState unoGs) return false;
         
-        ((UnoGameState)gameState)!.UpdateHands();
+        if (action is not null) result = await action.PlayAction(unoGs);
+        else
+        {
+            if (unoGs.topCard.Color == UnoColor.Wild) result = await new UnoChangeColor(UnoColor.Red).PlayAction(unoGs);
+            else result = await new UnoForcedDrawCard().PlayAction(unoGs);
+        }
+        
+        unoGs.UpdateHands();
 
         await Task.Delay(500); //Tiempo entre acciones
         
-        await ChangeTurn(gameState);
+        await ChangeTurn(unoGs);
         
         await Task.Delay(100); //Tiempo entre acciones
         return result;
@@ -43,7 +50,6 @@ public class UnoForwardModel : IForwardModel
         // Si hay que bloquear el turno
         else if (unoGs.blockNextTurn)
         {
-            await unoGs.ShowBlockObject();
             unoGs.blockNextTurn = false;
             unoGs.ChangeTurnIndex();
         }

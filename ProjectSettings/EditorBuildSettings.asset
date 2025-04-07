@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/3DVirusTest.unity
+    path: Assets/Scenes/IntroScene.unity
+    guid: de6feac5d85dd0e4eb64a4d9aabb1db9
+  - enabled: 1
+    path: Assets/Scenes/SelectGame.unity
+    guid: 73d5eb2b89bdf3b458891fba28f9eed0
+  - enabled: 1
+    path: Assets/Scenes/3DVirus.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/3DUno.unity
+    guid: 5239eaa1353e01147b68514ecbd3643a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

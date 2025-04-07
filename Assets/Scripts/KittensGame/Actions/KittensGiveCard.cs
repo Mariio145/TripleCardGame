@@ -30,7 +30,7 @@ public class KittensGiveCard : KittensAction
         
         Card cardStolen = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerTarget.Hand, _stealIndex);
         
-        cardStolen.VisualCard.ChangeParent(playerSelf.HandGObject.transform, true);
+        cardStolen.VisualCard.ChangeParent(playerSelf.HandGObject.transform);
         playerSelf.Hand.Enqueue(cardStolen);
         
         return Task.FromResult(true);

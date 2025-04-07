@@ -60,11 +60,6 @@ public class VisualVirusCard : VisualCard
         SetOutline(selected);
     }
 
-    public void SetOutline(bool show)
-    {
-        OutlineMaterial.SetFloat("_Scale", show ? 1.1f : 1f);
-    }
-
     protected override void ShowCard()
     {
         VirusCard card = (VirusCard)MemoryCard;
@@ -108,12 +103,7 @@ public class VisualVirusCard : VisualCard
                 break;
         }
 
-        ShowCardRenderer.sprite = Resources.Load<Sprite>(asset);
-        ShowCardRenderer.enabled = true;
-    }
-
-    protected override void HideCard()
-    {
-        ShowCardRenderer.enabled = false;
+        CardRenderer.sprite = Resources.Load<Sprite>(asset);
+        CardRenderer.enabled = true;
     }
 }

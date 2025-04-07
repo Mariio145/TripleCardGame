@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Value: 0
   clamp:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.056
 --- !u!114 &-5381935028458087389
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -613,10 +613,10 @@ MonoBehaviour:
   active: 1
   normalBias:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0
   viewBias:
     m_OverrideState: 1
-    m_Value: 0.171
+    m_Value: 0.23
   scaleBiasWithMinProbeDistance:
     m_OverrideState: 1
     m_Value: 0
@@ -767,10 +767,10 @@ MonoBehaviour:
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 10
   scatter:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.2
   clamp:
     m_OverrideState: 1
     m_Value: 1

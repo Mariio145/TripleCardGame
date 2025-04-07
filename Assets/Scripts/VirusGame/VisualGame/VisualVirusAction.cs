@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VisualVirusAction: MonoBehaviour
 {
@@ -26,6 +29,18 @@ public class VisualVirusAction: MonoBehaviour
                 switch (treatment)
                 {
                     case TreatmentType.Transplant:
+                        foreach (VirusColor organColor in colorFilter!) //Por cada color de organo en nuestro cuerpo
+                        {
+                            foreach (VirusOrgan enemyOrgan in player.Body)
+                            {
+                                if (enemyOrgan.Status == Status.Immune) continue;
+                                if (enemyOrgan.OrganColor != organColor && colorFilter.Contains(enemyOrgan.OrganColor))
+                                    continue;
+                                organsTarget.Add(organColor);
+                                break;
+                            }
+                        }
+                        break;
                     case TreatmentType.OrganThief:
                         if (colorFilter is null || colorFilter.Count == 0) // Elige un órgano propio de tu cuerpo
                         {
@@ -45,6 +60,9 @@ public class VisualVirusAction: MonoBehaviour
                         {
                             organsTarget.AddRange(from organ in player.Body where colorFilter.Contains(organ.OrganColor) && organ.Status == Status.Normal select organ.OrganColor);
                         }
+                        break;
+                    case TreatmentType.MedicalError:
+                        organsTarget.AddRange(from organ in player.Body select organ.OrganColor);
                         break;
                 }
                 break;
@@ -85,6 +103,23 @@ public class VisualVirusAction: MonoBehaviour
                 switch (treatment)
                 {
                     case TreatmentType.Transplant: // ColorFilter tiene los colores que nos faltan y el mismo que damos
+                        if (colorFilter is null || colorFilter.Count == 0)
+                        {
+                            foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                            {
+                                if (player.Index == observable.GetPlayerTurnIndex()) continue; //Ignoramos el jugador humano
+                                playersTarget.Add(player.Index);
+                            }
+                        }
+                        else
+                        {
+                            foreach (VirusPlayerStatus player in observable.PlayersStatus)
+                            {
+                                if (player.Index == observable.GetPlayerTurnIndex()) continue; //Ignoramos el jugador humano
+                                if (player.Body.Any(organ => colorFilter.Contains(organ.OrganColor) && organ.Status != Status.Immune)) playersTarget.Add(player.Index);
+                            }
+                        }
+                        break;
                     case TreatmentType.Spreading: // ColorFilter tiene los colores que podemos infectar
                     case TreatmentType.OrganThief: // Elige los player que tengan organos que nos puedan servir
                         foreach (VirusPlayerStatus player in observable.PlayersStatus)
@@ -111,8 +146,10 @@ public class VisualVirusAction: MonoBehaviour
         return playersTarget;
     }
 
-    public void ExitGame()
+    public async void ExitGame()
     {
-        Application.Quit();
+        GameManager.CancellationTokenSource.Cancel();
+        await Task.Delay(1000);
+        SceneManager.LoadScene(1);
     }
 }

@@ -20,7 +20,7 @@ public class Card
         };
 
         VisualCard.MemoryCard = this;
-        VisualCard.ChangeParent(parent, false);
+        VisualCard.ChangeParent(parent);
         VisualCard.ChangeSprite();
     }
 }

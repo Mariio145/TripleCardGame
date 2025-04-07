@@ -64,7 +64,7 @@ public class UnoObservation : IObservation
             return actions;
         }
 
-        /*int index = 0;
+        int index = 0;
 
         // Obtener las cartas jugables de la mano del jugador actual
         UnoPlayerStatus currentPlayer = PlayersStatus[_currentPlayerTurn];
@@ -74,7 +74,7 @@ public class UnoObservation : IObservation
                 actions.Add(new UnoPlayCard(card, index));
 
             index++;
-        }*/
+        }
         // Siempre se puede robar una carta
         actions.Add(new UnoDrawCard());
         
@@ -162,13 +162,16 @@ public class UnoObservation : IObservation
     
     public UnoCard DrawCardFromMixedDrawDeck()
     {
-        UnoCard card = _mixedDrawDeck.DrawCard();
-        if (card is null) Debug.LogError("Draw card failed observation");
+        if (_mixedDrawDeck.RemainingCards() <= 0)
+        {
+            _mixedDrawDeck = new Deck<UnoCard>(_discardDeck);
+            _mixedDrawDeck.ShuffleDeck();
 
-        if (_mixedDrawDeck.RemainingCards() > 0) return card;
-        
-        _mixedDrawDeck = new Deck<UnoCard>(_discardDeck);
-        _discardDeck = new Deck<UnoCard>();
+            _discardDeck = new Deck<UnoCard>();
+        }
+
+        UnoCard card = _mixedDrawDeck.DrawCard();
+
         return card;
     }
 }
