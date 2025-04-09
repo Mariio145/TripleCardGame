@@ -6,74 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8a9c5342-12f2-41bb-a72a-abb404f44989" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Lighting Settings.lighting" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/New Lighting Settings.lighting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Attack.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Attack.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat1.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat2.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat3.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat4.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat5.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat5.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Defuse.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Defuse.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Exploding.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Exploding.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Favor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Favor.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Nope.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Nope.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/SeeTheFuture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/SeeTheFuture.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Shuffle.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Shuffle.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Skip.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Skip.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/SpriteDiffuse.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/SpriteDiffuse.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Body.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Body.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Attack.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Attack.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat1.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat2.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat3.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat4.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat5.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Defuse.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Defuse.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Exploding.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Exploding.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Favor.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Favor.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Nope.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Nope.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Reverse.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Reverse.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/SeeTheFuture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/SeeTheFuture.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Shuffle.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Shuffle.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Skip.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Skip.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DKittens.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DKittens.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/VisualGame/VisualKittensAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/VisualGame/VisualKittensAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoDrawCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoDrawCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoPlayCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoPlayCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoObservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusBody.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusOrgan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusOrgan.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/GameData/UnoPlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/GameData/UnoPlayerStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/GameData/VirusPlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/GameData/VirusPlayerStatus.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +19,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionDiscard.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -181,7 +116,8 @@
       <workItem from="1743791550402" duration="2579000" />
       <workItem from="1744009122295" duration="16308000" />
       <workItem from="1744095520913" duration="11702000" />
-      <workItem from="1744183565953" duration="3565000" />
+      <workItem from="1744183565953" duration="4120000" />
+      <workItem from="1744195279157" duration="484000" />
     </task>
     <servers />
   </component>

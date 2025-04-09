@@ -20,7 +20,7 @@ public class VirusPlayerStatus : PlayerStatus
 
     public VirusPlayerStatus Clone()
     {
-        VirusPlayerStatus copy = new (Index, HandGObject, Player)
+        VirusPlayerStatus copy = new (Index, HandGObject, null)
         {
             Body = new List<VirusOrgan>()
         };

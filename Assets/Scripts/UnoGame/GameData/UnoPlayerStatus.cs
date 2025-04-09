@@ -17,7 +17,7 @@ public class UnoPlayerStatus : PlayerStatus
             newHand.Enqueue(card);
         }
         
-        return new UnoPlayerStatus(newHand, HandGObject, Player);
+        return new UnoPlayerStatus(newHand, HandGObject, null);
     }
     
     public override int GetPunctuation()
