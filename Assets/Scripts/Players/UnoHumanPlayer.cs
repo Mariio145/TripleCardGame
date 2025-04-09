@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 
 public class UnoHumanPlayer : Player
 {
     private bool _playCard, _drawCard;
-    internal UnoColor _color;
+    internal UnoColor Color;
     public VisualUnoAction unoVisualAction;
+    private float _timer, _time;
+    private bool _cancelAnim;
     
     private static SynchronizationContext _mainThreadContext;
     
@@ -20,6 +19,7 @@ public class UnoHumanPlayer : Player
     }
     public override IAction Think(IObservation observable, float thinkingTime)
     {
+        _cancelAnim = false;
         VisualUnoCard[] listCards = null;
         
         _mainThreadContext.Send(_ =>
@@ -34,11 +34,19 @@ public class UnoHumanPlayer : Player
 
         if (observable is UnoObservation unoObs && unoObs.TopCard.Color == UnoColor.Wild)
         {
-            _color = UnoColor.Wild;
+            Color = UnoColor.Wild;
+            Task.Run(StartTimer);
             _ = unoVisualAction.SelectColor(this);
-            while (_color == UnoColor.Wild)
-            { }
-            return new UnoChangeColor(_color);
+
+            while (Color == UnoColor.Wild)
+            {
+                if (_cancelAnim)
+                {
+                    Color = UnoColor.Red;
+                    break;
+                }
+            }
+            return new UnoChangeColor(Color);
         }
         
         foreach (VisualUnoCard card in listCards)
@@ -53,16 +61,33 @@ public class UnoHumanPlayer : Player
             
             foreach (VisualUnoCard card in listCards)
                 _mainThreadContext.Send(_ => { card.ActivateCollider(); }, null);
-            
-            if (observable.GetActions().All(action => action.GetType() == typeof(UnoAction))) return new UnoAction();
 
-            while (!_playCard && !_drawCard && thinkingTime > 0)
-            { }
+            
+            if (observable.GetActions().All(action => action.GetType() == typeof(UnoAction)))
+                return null;
+            
+            Task.Run(StartTimer);
+
+            while (!_playCard && !_drawCard)
+            {                 
+                if (_cancelAnim)
+                    break;
+            }
             
             foreach (VisualUnoCard card in listCards)
-                _mainThreadContext.Send(_ => { card.DeactivateCollider(); }, null);
+                _mainThreadContext.Send(_ =>
+                {
+                    card.DeactivateCollider(); 
+                    card.SetOutline(false);
+                }, null);
             
-            if (!_playCard && !_drawCard) return new UnoAction();
+            if (_cancelAnim)
+            {
+                _playCard = false;
+                _drawCard = false;
+            }
+            
+            if (!_playCard && !_drawCard) return null;
 
             int cardSlot = 0;
 
@@ -77,10 +102,6 @@ public class UnoHumanPlayer : Player
                 if (card.selected)
                 {
                     selectedCard = (UnoCard)card.MemoryCard;
-                    _mainThreadContext.Send(_ =>
-                    {
-                        card.SetOutline(false);
-                    }, null);
                     break;
                 }
                 cardSlot++;
@@ -88,27 +109,7 @@ public class UnoHumanPlayer : Player
 
             if (!observable.IsCardPlayable(selectedCard)) 
             {
-                _mainThreadContext.Send(_ =>
-                {
-                    GameManager.EndText.text = "La carta seleccionada \nno puede ser jugada";
-                    GameManager.EndTextShadow.text = "La carta seleccionada \nno puede ser jugada";
-                }, null);
-                        
-                float timer = 0;
-                while (timer < 3f)
-                {
-                    _mainThreadContext.Send(_ =>
-                    {
-                        timer += Time.deltaTime;
-                    }, null);
-                }
-                        
-                _mainThreadContext.Send(_ =>
-                {
-                    GameManager.EndText.text = "";
-                    GameManager.EndTextShadow.text = "";
-                }, null);
-                
+                Task.Run(() => ShowText("La carta seleccionada \nno puede ser jugada"));
                 continue;
             }
             
@@ -116,6 +117,30 @@ public class UnoHumanPlayer : Player
 
             return new UnoPlayCard(selectedCard, cardSlot);
         }
+    }
+    
+    private void ShowText(string text)
+    {
+        _mainThreadContext.Send(_ =>
+        {
+            GameManager.EndText.text = text;
+            GameManager.EndTextShadow.text = text;
+        }, null);
+                        
+        
+        while (_timer < 3f) 
+        {
+            _mainThreadContext.Send(_ =>
+            {
+                _mainThreadContext.Send(_ => { _timer += Time.deltaTime; }, null);
+            }, null);
+        }
+                        
+        _mainThreadContext.Send(_ =>
+        {
+            GameManager.EndText.text = "";
+            GameManager.EndTextShadow.text = "";
+        }, null);
     }
 
     public void PlayCard()
@@ -130,14 +155,26 @@ public class UnoHumanPlayer : Player
         _drawCard = true;
     }
     
+    private Task StartTimer()
+    {
+        _cancelAnim = false;
+        
+        while (GameManager.TimeRemaining > 0)
+        {
+
+        }
+        _cancelAnim = true;
+        
+        return Task.CompletedTask;
+    }
+    
     public void SetColor(int numColor)
     {
-        Debug.Log("Holaaaa");
         /*  0 == Red,
             1 == Blue,
             2 == Yellow,
             3 == Green,
             4 == Wild   */
-        _color = (UnoColor)numColor;
+        Color = (UnoColor)numColor;
     }
 }

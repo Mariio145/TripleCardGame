@@ -12,6 +12,8 @@ public class VirusHumanPlayer : Player
     public VisualVirusAction virusVisualAction;
     private VirusColor _colorSelected;
     private int _playerTarget;
+    private float _timer;
+    private bool _cancelAnim;
     
     private static SynchronizationContext _mainThreadContext;
 
@@ -33,7 +35,9 @@ public class VirusHumanPlayer : Player
                 card.SetOutline(false);
             }
         }, null);
+        _cancelAnim = false;
         
+        Task.Run(StartTimer);
         while (true)
         {
             _playCard = false;
@@ -45,12 +49,35 @@ public class VirusHumanPlayer : Player
             if (observable.GetActions().All(action => action.GetType() == typeof(VirusAction))) return new VirusAction();
 
             while (!_playCard && !_discardCard && thinkingTime > 0)
-            { }
+            {
+                if (_cancelAnim)
+                    break;
+            }
+
+            virusVisualAction.EnableGlobalLight(true);
+
+            if (_cancelAnim)
+            {
+                _playCard = false;
+                _discardCard = false;
+                
+                foreach (VirusPlayerStatus player in (observable as VirusObservation)!.PlayersStatus)
+                {
+                    player.VisualBody.ObscureOrgans();
+                }
+                
+                virusVisualAction.EnableGlobalLight(true);
+            }
 
             foreach (VisualVirusCard card in listCards)
-                _mainThreadContext.Send(_ => { card.DeactivateCollider(); }, null);
+                _mainThreadContext.Send(_ =>
+                {
+                    card.DeactivateCollider(); 
+                    card.SetOutline(false);
+                }, null);
+            
 
-            if (!_playCard && !_discardCard) return new VirusAction();
+            if (!_playCard && !_discardCard) return null;
 
             int cardSlot = 0;
             int slotCounter = 0;
@@ -63,10 +90,10 @@ public class VirusHumanPlayer : Player
                     _mainThreadContext.Send(_ => { card.DeactivateCollider(); }, null);
                     if (card.selected)
                     {
-                        card.DOKill();
                         combination.Add(cardSlot);
                         _mainThreadContext.Send(_ =>
                         {
+                            card.transform.DOKill();
                             card.SetOutline(false);
                         }, null);
                         
@@ -87,27 +114,7 @@ public class VirusHumanPlayer : Player
                     if (selectedCard is not null)
                     {
                         selectedCard = null;
-                        _mainThreadContext.Send(_ =>
-                        {
-                            GameManager.EndText.text = "Selecciona solo una carta para jugarla";
-                            GameManager.EndTextShadow.text = "Selecciona solo una carta para jugarla";
-                        }, null);
-                        
-                        float timer = 0;
-                        while (timer < 3f) 
-                        {
-                            _mainThreadContext.Send(_ =>
-                            {
-                                timer += Time.deltaTime;
-                            }, null);
-                        }
-                        
-                        _mainThreadContext.Send(_ =>
-                        {
-                            GameManager.EndText.text = "";
-                            GameManager.EndTextShadow.text = "";
-                        }, null);
-                        
+                        Task.Run(() => ShowText("Selecciona solo una carta para jugarla"));
                         break;
                     }
                     selectedCard = (VirusCard)card.MemoryCard;
@@ -124,27 +131,7 @@ public class VirusHumanPlayer : Player
 
             if (!observable.IsCardPlayable(selectedCard))
             {
-                _mainThreadContext.Send(_ =>
-                {
-                    GameManager.EndText.text = "La carta seleccionada \nno puede ser jugada";
-                    GameManager.EndTextShadow.text = "La carta seleccionada \nno puede ser jugada";
-                }, null);
-                        
-                float timer = 0;
-                while (timer < 3f)
-                {
-                    _mainThreadContext.Send(_ =>
-                    {
-                        timer += Time.deltaTime;
-                    }, null);
-                }
-                        
-                _mainThreadContext.Send(_ =>
-                {
-                    GameManager.EndText.text = "";
-                    GameManager.EndTextShadow.text = "";
-                }, null);
-
+                Task.Run(() => ShowText("La carta seleccionada \nno puede ser jugada"));
                 continue;
             }
 
@@ -153,6 +140,29 @@ public class VirusHumanPlayer : Player
             return GetCardAction((VirusObservation)observable, selectedCard, cardSlot).Result;
             
         }
+    }
+    private void ShowText(string text)
+    {
+        _mainThreadContext.Send(_ =>
+        {
+            GameManager.EndText.text = text;
+            GameManager.EndTextShadow.text = text;
+        }, null);
+
+        _timer = 0;
+        while (_timer < 3f) 
+        {
+            _mainThreadContext.Send(_ =>
+            {
+                _mainThreadContext.Send(_ => { _timer += Time.deltaTime; }, null);
+            }, null);
+        }
+                        
+        _mainThreadContext.Send(_ =>
+        {
+            GameManager.EndText.text = "";
+            GameManager.EndTextShadow.text = "";
+        }, null);
     }
 
     private async Task<IAction> GetCardAction(VirusObservation observable, VirusCard card, int handIndex)
@@ -185,7 +195,7 @@ public class VirusHumanPlayer : Player
                     colorFilter.Add(color);
                 }
                 virusVisualAction.SelectOrganTarget(type, currentPlayer, colorFilter);
-                while (_colorSelected == VirusColor.None)
+                while (_colorSelected == VirusColor.None && !_cancelAnim)
                 {
                     await Task.Yield();
                 }
@@ -196,8 +206,9 @@ public class VirusHumanPlayer : Player
                 }
 
                 virusVisualAction.EnableGlobalLight(true);
-                
-                return new VirusActionPlayMedicine(_colorSelected, currentPlayerIndex, color, handIndex);
+
+                return _cancelAnim ? null : new VirusActionPlayMedicine(_colorSelected, currentPlayerIndex, color, handIndex);
+
             //----------------------------VIRUS----------------------------
             case VirusType.Virus:
                 if (color == VirusColor.Rainbow)
@@ -214,7 +225,7 @@ public class VirusHumanPlayer : Player
                 foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, TreatmentType.None , colorFilter))
                     virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter);
                 
-                while (_colorSelected == VirusColor.None)
+                while (_colorSelected == VirusColor.None && !_cancelAnim)
                 {
                     await Task.Yield();
                 }
@@ -226,7 +237,7 @@ public class VirusHumanPlayer : Player
                 
                 virusVisualAction.EnableGlobalLight(true);
                 
-                return new VirusActionPlayVirus(_colorSelected, _playerTarget, color, handIndex);
+                return _cancelAnim ? null : new VirusActionPlayVirus(_colorSelected, _playerTarget, color, handIndex);
             //-----------------------------------------------------------------------------
             //----------------------------CARTAS DE TRATAMIENTO----------------------------
             //-----------------------------------------------------------------------------
@@ -243,10 +254,10 @@ public class VirusHumanPlayer : Player
                         {
                             colorFilter.Remove(organ.OrganColor);
                         }
-                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment))
-                            virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
                         
-                        while (_colorSelected == VirusColor.None)
+                        virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment, observable);
+                        
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -255,17 +266,19 @@ public class VirusHumanPlayer : Player
                         {
                             player.VisualBody.ObscureOrgans();
                         }
+
+                        if (_cancelAnim) break;
                         
                         colorFilter.Add(_colorSelected);
 
                         organSelf = _colorSelected;
                         
-                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter, organSelf))
+                        foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment))
                             virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
 
                         _colorSelected = VirusColor.None;
                         
-                        while (_colorSelected == VirusColor.None)
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -277,7 +290,7 @@ public class VirusHumanPlayer : Player
                         
                         virusVisualAction.EnableGlobalLight(true);
                         
-                        return new VirusActionTransplant(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
+                        return _cancelAnim ? null : new VirusActionTransplant(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------LADRÓN DE ÓRGANOS-------------------
                     case TreatmentType.OrganThief:
@@ -291,7 +304,7 @@ public class VirusHumanPlayer : Player
                         foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter))
                             virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
                         
-                        while (_colorSelected == VirusColor.None)
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -303,14 +316,14 @@ public class VirusHumanPlayer : Player
                         
                         virusVisualAction.EnableGlobalLight(true);
                         
-                        return new VirusActionOrganThief(_colorSelected, currentPlayerIndex, _playerTarget, handIndex);
+                        return _cancelAnim ? null : new VirusActionOrganThief(_colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------CONTAGIO----------------------------
                     // Simplificado, solo une un virus por carta
                     case TreatmentType.Spreading:
                         colorFilter = new List<VirusColor>();
                         virusVisualAction.SelectOrganTarget(type, currentPlayer, null, treatment);
-                        while (_colorSelected == VirusColor.None)
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -319,6 +332,8 @@ public class VirusHumanPlayer : Player
                         {
                             player.VisualBody.ObscureOrgans();
                         }
+
+                        if (_cancelAnim) break;
 
                         organSelf = _colorSelected;
                         VirusColor virusColor = currentPlayer.Body.Find(organ => organ.OrganColor == organSelf).VirusColor;
@@ -338,7 +353,7 @@ public class VirusHumanPlayer : Player
                         foreach (int playerIndex in virusVisualAction.GetPlayersTarget(observable, type, treatment, colorFilter))
                             virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], colorFilter, treatment);
                         
-                        while (_colorSelected == VirusColor.None)
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -350,7 +365,7 @@ public class VirusHumanPlayer : Player
                         
                         virusVisualAction.EnableGlobalLight(true);
                         
-                        return new VirusActionSpread(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
+                        return _cancelAnim ? null : new VirusActionSpread(organSelf, _colorSelected, currentPlayerIndex, _playerTarget, handIndex);
                     
                     //----------------------------GUANTE DE LÁTEX---------------------
                     case TreatmentType.LatexGlove:
@@ -362,7 +377,7 @@ public class VirusHumanPlayer : Player
                             virusVisualAction.SelectOrganTarget(type, observable.PlayersStatus[playerIndex], null, treatment);
                         }
 
-                        while (_colorSelected == VirusColor.None)
+                        while (_colorSelected == VirusColor.None && !_cancelAnim)
                         {
                             await Task.Yield();
                         }
@@ -373,10 +388,12 @@ public class VirusHumanPlayer : Player
                         }
                         
                         virusVisualAction.EnableGlobalLight(true);
-                        return new VirusActionMedicalError(currentPlayerIndex, _playerTarget, handIndex);
+                        return _cancelAnim ? null : new VirusActionMedicalError(currentPlayerIndex, _playerTarget, handIndex);
                 }
                 break;
         }
+
+        virusVisualAction.EnableGlobalLight(true);
 
         return null;
     }
@@ -394,6 +411,19 @@ public class VirusHumanPlayer : Player
             _discardCard = true;
             break;
         }
+    }
+
+    private Task StartTimer()
+    {
+        _cancelAnim = false;
+        
+        while (GameManager.TimeRemaining > 0)
+        {
+
+        }
+        _cancelAnim = true;
+        
+        return Task.CompletedTask;
     }
     
     /*

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +15,7 @@ public class VisualVirusAction: MonoBehaviour
     {
         _mainThreadContext = SynchronizationContext.Current;
     }
-    public void SelectOrganTarget(VirusType type, VirusPlayerStatus player, List<VirusColor> colorFilter = null, TreatmentType treatment = TreatmentType.None)
+    public void SelectOrganTarget(VirusType type, VirusPlayerStatus player, List<VirusColor> colorFilter = null, TreatmentType treatment = TreatmentType.None, VirusObservation observation = null)
     {
         List<VirusColor> organsTarget = new();
         switch (type)
@@ -29,17 +28,61 @@ public class VisualVirusAction: MonoBehaviour
                 switch (treatment)
                 {
                     case TreatmentType.Transplant:
-                        foreach (VirusColor organColor in colorFilter!) //Por cada color de organo en nuestro cuerpo
+                        if (colorFilter is null || colorFilter.Count == 0)
                         {
-                            foreach (VirusOrgan enemyOrgan in player.Body)
+                            List<VirusOrgan> selfOrgans = observation!.PlayersStatus[observation.GetPlayerTurnIndex()].Body;
+                            foreach (VirusOrgan selfOrgan in selfOrgans) //Por cada color de organo en nuestro cuerpo
                             {
-                                if (enemyOrgan.Status == Status.Immune) continue;
-                                if (enemyOrgan.OrganColor != organColor && colorFilter.Contains(enemyOrgan.OrganColor))
-                                    continue;
-                                organsTarget.Add(organColor);
-                                break;
+                                if (selfOrgan is { Status: Status.Immune }) continue;
+                                VirusColor organColor = selfOrgan.OrganColor;
+                                
+                                foreach (VirusPlayerStatus enemyPlayer in observation.PlayersStatus)
+                                {
+                                    if (enemyPlayer == observation.PlayersStatus[observation.GetPlayerTurnIndex()])
+                                        continue;
+
+                                    foreach (VirusOrgan enemyOrgan in enemyPlayer.Body)
+                                    {
+                                        if (enemyOrgan.Status == Status.Immune) continue;
+                                        if (enemyOrgan.OrganColor == organColor)
+                                        {
+                                            organsTarget.Add(organColor);
+                                            continue;
+                                        }
+
+                                        if (!selfOrgans.Exists(organ => organ.OrganColor == enemyOrgan.OrganColor) &&
+                                            !enemyPlayer.Body.Exists(organ => organ.OrganColor == organColor))
+                                        {
+                                            organsTarget.Add(organColor);
+                                        }
+                                    }
+                                }
                             }
                         }
+                        else
+                        {
+                            List<VirusColor> temp = new(colorFilter);
+                            VirusColor organColorToReceive = colorFilter[^1];
+                            temp.Remove(organColorToReceive);
+                            
+
+                            foreach (VirusOrgan organ in player.Body)
+                            {
+                                if (organ.Status == Status.Immune) continue;
+                                if (organ.OrganColor == organColorToReceive)
+                                {
+                                    organsTarget.Add(organ.OrganColor);
+                                    continue;
+                                }
+
+                                if (temp.Contains(organ.OrganColor) &&
+                                    !player.Body.Exists(organPlayer => organPlayer.OrganColor == organColorToReceive))
+                                {
+                                    organsTarget.Add(organ.OrganColor);
+                                }
+                            }
+                        }
+
                         break;
                     case TreatmentType.OrganThief:
                         if (colorFilter is null || colorFilter.Count == 0) // Elige un órgano propio de tu cuerpo
@@ -103,29 +146,14 @@ public class VisualVirusAction: MonoBehaviour
                 switch (treatment)
                 {
                     case TreatmentType.Transplant: // ColorFilter tiene los colores que nos faltan y el mismo que damos
-                        if (colorFilter is null || colorFilter.Count == 0)
-                        {
-                            foreach (VirusPlayerStatus player in observable.PlayersStatus)
-                            {
-                                if (player.Index == observable.GetPlayerTurnIndex()) continue; //Ignoramos el jugador humano
-                                playersTarget.Add(player.Index);
-                            }
-                        }
-                        else
-                        {
-                            foreach (VirusPlayerStatus player in observable.PlayersStatus)
-                            {
-                                if (player.Index == observable.GetPlayerTurnIndex()) continue; //Ignoramos el jugador humano
-                                if (player.Body.Any(organ => colorFilter.Contains(organ.OrganColor) && organ.Status != Status.Immune)) playersTarget.Add(player.Index);
-                            }
-                        }
+                        playersTarget.AddRange(from player in observable.PlayersStatus where player.Index != observable.GetPlayerTurnIndex() select player.Index);
                         break;
                     case TreatmentType.Spreading: // ColorFilter tiene los colores que podemos infectar
                     case TreatmentType.OrganThief: // Elige los player que tengan organos que nos puedan servir
                         foreach (VirusPlayerStatus player in observable.PlayersStatus)
                         {
                             if (player.Index == observable.GetPlayerTurnIndex()) continue; //Ignoramos el jugador humano
-                            if (player.Body.Any(organ => colorFilter.Contains(organ.OrganColor) && organ.Status != Status.Immune)) playersTarget.Add(player.Index);
+                            if (player.Body.Any(organ => colorFilter!.Contains(organ.OrganColor) && organ.Status != Status.Immune)) playersTarget.Add(player.Index);
                         }
                         break;
                     case TreatmentType.MedicalError: // Cualquier player nos vale, no hay excepciones

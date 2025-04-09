@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     private FirebaseManager _firebaseManager;
     private string _gameID;
     private double _deltaTime;
-    private bool _isPaused;
+    public static bool IsPaused;
 
     public static bool IsHumanPlayer { get; private set; }
     public static int BotTimeToThink { get; private set; }
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
                 {
                     await Task.Delay(100);
                     delay -= 100;
-                    while (_isPaused)
+                    while (IsPaused)
                     {
                         await Task.Yield();
                     }
@@ -223,13 +223,13 @@ public class GameManager : MonoBehaviour
                 await _forwardModel.PlayAction(_gameState, action);
                 playerTurn.StopTurn();
                 
-                while (_isPaused)
+                while (IsPaused)
                 {
                     await Task.Yield();
                 }
             }
             
-            while (_isPaused)
+            while (IsPaused)
             {
                 await Task.Yield();
             }
@@ -308,30 +308,30 @@ public class GameManager : MonoBehaviour
         return await Task.Run(() => IsHumanPlayer ? player.Think(observation, HumanTimeToThink) : player.Think(observation, BotTimeToThink), CancellationTokenSource.Token);
     }
 
-    private float timeRemaining;
+    public static float TimeRemaining;
     private async void ResetTimer()
     {
         try
         {
             timeCounter.enabled = true;
             float timer = _gameState.GetPlayerTurnIndex() == 0 && IsHumanPlayer ? HumanTimeToThink : BotTimeToThink;
-            timeRemaining = timer;
+            TimeRemaining = timer;
             timeCounter.color = new Color(0, 1, 0, 1);
             timeCounter.fillAmount = 1;
             _stop = false;
             try
             {
-                while (timeRemaining >= 0 && !_stop)
+                while (TimeRemaining >= 0 && !_stop)
                 {
                     if (CancellationTokenSource.IsCancellationRequested) return;
                     await Task.Delay(100);
-                    timeRemaining -= 0.1f;
-                    float relation = timeRemaining / timer;
+                    TimeRemaining -= 0.1f;
+                    float relation = TimeRemaining / timer;
 
                     timeCounter.fillAmount = relation;
                     timeCounter.color = new Color(1 - relation, relation, 0, 1);
 
-                    while (_isPaused)
+                    while (IsPaused)
                     {
                         await Task.Yield();
                     }
@@ -344,11 +344,11 @@ public class GameManager : MonoBehaviour
 
             await Task.Delay(1000);
 
-            timeRemaining = 0;
+            TimeRemaining = 0;
 
             while (timeCounter.fillAmount > 0)
             {
-                if (timeRemaining > 0) return;
+                if (TimeRemaining > 0) return;
                 timeCounter.fillAmount -= 0.04f;
                 await Task.Yield();
             }
@@ -373,14 +373,14 @@ public class GameManager : MonoBehaviour
     public void ShowTutorial()
     {
         tutorialGameObject.SetActive(true);
-        _isPaused = true;
+        IsPaused = true;
         Time.timeScale = 0;
     }
     
     public void HideTutorial()
     {
         tutorialGameObject.SetActive(false);
-        _isPaused = false;
+        IsPaused = false;
         Time.timeScale = 1;
     }
 }

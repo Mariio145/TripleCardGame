@@ -198,13 +198,13 @@ public class VirusObservation: IObservation
                     {
                         //----------------------------TRANSPLANTE-------------------------
                         case TreatmentType.Transplant:
-                            selfNeededColors = new List<VirusColor>();
+                            selfNeededColors = (Enum.GetValues(typeof(VirusColor)) as VirusColor[])!.ToList();
+                            selfNeededColors.Remove(VirusColor.None);
                             
                             //Se busca todos los colores que el jugador actual no tenga
-                            foreach (VirusColor colors in Enum.GetValues(typeof(VirusColor)))
+                            foreach (VirusOrgan selfOrgan in currentPlayer.Body)
                             {
-                                bool coloredOrgan = currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors);
-                                if (!coloredOrgan) selfNeededColors.Add(colors);
+                                selfNeededColors.Remove(selfOrgan.OrganColor);
                             }
 
                             //Para cada jugador rival del jugador que actua en este turno, se busca todos los colores que el rival no tenga
@@ -212,27 +212,27 @@ public class VirusObservation: IObservation
                             for (int i = 0; i < PlayersStatus.Count; i++)
                             {
                                 if (i == _currentPlayerTurn) continue;
-                                List<VirusColor> otherNeededColors = new();
+                                VirusPlayerStatus player = PlayersStatus[i];
+                                List<VirusColor> otherNeededColors = (Enum.GetValues(typeof(VirusColor)) as VirusColor[])!.ToList();
+                                otherNeededColors.Remove(VirusColor.None);
                                 
-                                foreach (VirusColor colors in Enum.GetValues(typeof(VirusColor)))
+                                foreach (VirusOrgan enemyOrgan in player.Body)
                                 {
-                                    bool coloredOrgan = PlayersStatus[i].Body.Any(playerOrgan => playerOrgan.OrganColor == colors);
-                                    if (!coloredOrgan) otherNeededColors.Add(colors);
-                                    else if (currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == colors))
-                                        actions.Add(new VirusActionTransplant(colors, colors, _currentPlayerTurn, i, handIndex));
+                                    VirusColor organColor = enemyOrgan.OrganColor;
+                                    otherNeededColors.Remove(organColor);
+                                    if (enemyOrgan.Status != Status.Immune && !selfNeededColors.Exists(virusColor => virusColor == organColor) && currentPlayer.SearchOrganColor(organColor).Status != Status.Immune) 
+                                        actions.Add(new VirusActionTransplant(organColor, organColor, _currentPlayerTurn, i, handIndex));
                                 }
                                 
                                 //Se añade una accion para cada combinacion entre los organos que el jugador actual no tiene y el rival que se esta analizando ahora
                                 
                                 foreach (VirusColor organColorOther in otherNeededColors)
                                 {
-                                    bool currentPlayerNeedsOrgan = currentPlayer.Body.Any(playerOrgan => playerOrgan.OrganColor == organColorOther);
-                                    if (currentPlayerNeedsOrgan)
+                                    if (currentPlayer.Body.Exists(organPlayer => organPlayer.OrganColor == organColorOther && organPlayer.Status != Status.Immune))
                                     {
                                         foreach (VirusColor organColorCurrent in selfNeededColors)
                                         {
-                                            bool otherPlayerNeedsOrgan = PlayersStatus[i].Body.Any(playerOrgan => playerOrgan.OrganColor == organColorOther);
-                                            if (otherPlayerNeedsOrgan) actions.Add(new VirusActionTransplant(organColorOther, organColorCurrent, _currentPlayerTurn, i, handIndex));
+                                            if (player.Body.Exists(organPlayer => organPlayer.OrganColor == organColorCurrent && organPlayer.Status != Status.Immune)) actions.Add(new VirusActionTransplant(organColorOther, organColorCurrent, _currentPlayerTurn, i, handIndex));
                                         }
                                     }
                                 }
@@ -387,35 +387,46 @@ public class VirusObservation: IObservation
                 {
                     //----------------------------TRANSPLANTE-------------------------
                     case TreatmentType.Transplant:
-                        selfNeededColors = new List<VirusColor>(allColors);
-                        List<VirusColor> selfHasColors = new();
+                        selfNeededColors = (Enum.GetValues(typeof(VirusColor)) as VirusColor[])!.ToList();
+                        selfNeededColors.Remove(VirusColor.None);
                         
                         //Se busca todos los colores que el jugador actual no tenga
-                        foreach (VirusOrgan bodyOrgan in currentPlayer.Body)
+                        foreach (VirusOrgan selfOrgan in currentPlayer.Body)
                         {
-                            selfHasColors.Add(bodyOrgan.OrganColor);
-                            selfNeededColors.Remove(bodyOrgan.OrganColor);
+                            selfNeededColors.Remove(selfOrgan.OrganColor);
                         }
+
+                        //Para cada jugador rival del jugador que actua en este turno, se busca todos los colores que el rival no tenga
 
                         for (int i = 0; i < PlayersStatus.Count; i++)
                         {
                             if (i == _currentPlayerTurn) continue;
-                            List<VirusColor> otherNeededColors = new (allColors);
-                            List<VirusColor> otherHasColors = new ();
+                            VirusPlayerStatus player = PlayersStatus[i];
+                            List<VirusColor> otherNeededColors =
+                                (Enum.GetValues(typeof(VirusColor)) as VirusColor[])!.ToList();
+                            otherNeededColors.Remove(VirusColor.None);
 
-                            foreach (VirusOrgan bodyOrgan in PlayersStatus[i].Body)
+                            foreach (VirusOrgan enemyOrgan in player.Body)
                             {
-                                if (selfHasColors.Contains(bodyOrgan.OrganColor)) return true;
-                                otherNeededColors.Remove(bodyOrgan.OrganColor);
-                                otherHasColors.Add(bodyOrgan.OrganColor);
+                                VirusColor organColor = enemyOrgan.OrganColor;
+                                otherNeededColors.Remove(organColor);
+                                if (enemyOrgan.Status != Status.Immune &&
+                                    !selfNeededColors.Exists(virusColor => virusColor == organColor) &&
+                                    currentPlayer.SearchOrganColor(organColor).Status != Status.Immune)
+                                    return true;
                             }
 
-                            foreach (VirusColor bodyOrgan in otherHasColors)
+                            //Se añade una accion para cada combinacion entre los organos que el jugador actual no tiene y el rival que se esta analizando ahora
+
+                            foreach (VirusColor organColorOther in otherNeededColors)
                             {
-                                if (!selfNeededColors.Contains(bodyOrgan)) continue;
-                                if (selfHasColors.Any(otherBodyOrgan => otherNeededColors.Contains(otherBodyOrgan)))
+                                if (currentPlayer.Body.Exists(organ => organ.OrganColor == organColorOther))
                                 {
-                                    return true;
+                                    foreach (VirusColor organColorCurrent in selfNeededColors)
+                                    {
+                                        if (player.Body.Exists(organ => organ.OrganColor == organColorCurrent))
+                                            return true;
+                                    }
                                 }
                             }
                         }

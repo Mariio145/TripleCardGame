@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VisualKittensAction : MonoBehaviour
 {
@@ -94,5 +95,12 @@ public class VisualKittensAction : MonoBehaviour
         }
 
         return -1;
+    }
+    
+    public async void ExitGame()
+    {
+        GameManager.CancellationTokenSource.Cancel();
+        await Task.Delay(1000);
+        SceneManager.LoadScene(1);
     }
 }

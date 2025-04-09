@@ -57,38 +57,6 @@ public class VisualVirusBody : MonoBehaviour
         
     
     }
-
-    /*public void UpdateBody()
-    {
-        List<VirusColor> allColors = new ((Enum.GetValues(typeof(VirusColor)) as VirusColor[])!);
-        allColors.Remove(VirusColor.None);
-        
-        foreach (VirusOrgan organ in PlayerStatus.Body)
-        {
-            VirusColor color = organ.OrganColor;
-            allColors.Remove(color);
-            AddOrgan(color);
-            
-            switch (organ.Status)
-            {
-                case Status.Immune:
-                    AddMedicineToOrgan(color, organ.MedicineColor);
-                    ImmunizeOrgan(color, organ.MedicineColor2);
-                    break;
-                case Status.Vaccinated:
-                    AddMedicineToOrgan(color, organ.MedicineColor);
-                    break;
-                case Status.Infected:
-                    AddVirusToOrgan(color, organ.VirusColor);
-                    break;
-            }
-        }
-        
-        foreach (VirusColor color in allColors)
-        {
-            RemoveOrgan(color);
-        }
-    }*/
     
     /*
      *

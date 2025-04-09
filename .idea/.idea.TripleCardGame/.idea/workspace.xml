@@ -6,216 +6,74 @@
   <component name="ChangeListManager">
     <list default="true" id="8a9c5342-12f2-41bb-a72a-abb404f44989" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/BlueMedicine.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/BlueMedicine.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/GreenMedicine.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/GreenMedicine.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/RainbowMedicine.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/RainbowMedicine.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/RedMedicine.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/RedMedicine.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/YellowMedicine.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Medicine/YellowMedicine.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/BlueOrgan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/BlueOrgan.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/GreenOrgan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/GreenOrgan.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/RainbowOrgan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/RainbowOrgan.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/RedOrgan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/RedOrgan.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/YellowOrgan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Organ/YellowOrgan.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/BlueVirus.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/BlueVirus.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/GreenVirus.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/GreenVirus.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/RainbowVirus.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/RainbowVirus.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/RedVirus.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/RedVirus.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/YellowVirus.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/VirusCards/Tokens/Virus/YellowVirus.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/New Lighting Settings.lighting" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/New Lighting Settings.lighting" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Attack.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Attack.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat3.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat4.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat5.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Cat5.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Defuse.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Defuse.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Exploding.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Exploding.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Favor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Favor.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Nope.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Nope.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/SeeTheFuture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/SeeTheFuture.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Shuffle.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Shuffle.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Skip.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/KittensCards/Skip.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/SpriteDiffuse.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/SpriteDiffuse.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Body.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Body.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/CIRCULO BLANCO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/CIRCULO BLANCO.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 1.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 2.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 3.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Characters/Personaje 4.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Concepto Interfaz.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Concepto Interfaz.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/0Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/1Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/2Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/3Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/4Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/5Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/6Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/7Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/8Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Blue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Blue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/9Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockBlue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockBlue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockGreen.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockGreen.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockRed.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockRed.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockYellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/BlockYellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/Change.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/Change.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawBlue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawBlue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawGreen.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawGreen.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawRed.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawRed.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawWild.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawWild.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawYellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/DrawYellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ELEGIR COLOR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ELEGIR COLOR.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/Reverse.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/Reverse.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseBlue.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseBlue.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseGreen.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseGreen.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseRed.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseRed.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseYellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/ReverseYellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON AM.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON AM.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON AZ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON AZ.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON R.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON R.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON V.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BOTON V.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BRILLO BLANO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP BRILLO BLANO.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP FIGURA NEGRO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP FIGURA NEGRO.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP SOMBRA.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP SOMBRA.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP TXTO_.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/SP TXTO_.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/UnoCards.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Uno/UnoCards.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DKittensTest.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DKittensTest.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUnoTest.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUnoTest.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirusTest.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirusTest.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AnimationTests.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/AnimationTests.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SelectGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SelectGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/Card.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Attack.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Attack.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat1.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat2.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat3.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat4.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Cat5.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Defuse.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Defuse.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Exploding.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Exploding.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Favor.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Favor.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Nope.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Nope.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Reverse.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Reverse.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/SeeTheFuture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/SeeTheFuture.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Shuffle.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Shuffle.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Skip.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Kittens/Skip.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DKittens.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DKittens.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/PlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/PlayerStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/ResourcesLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/ResourcesLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/VisualHand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/Actions/KittensGiveCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/Actions/KittensGiveCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/Actions/KittensPair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/Actions/KittensPair.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/GameData/KittensPlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/GameData/KittensPlayerStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensForwardModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensObservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MenuManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/VisualGame/VisualKittensAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/VisualGame/VisualKittensAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/GameData/UnoPlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/GameData/UnoPlayerStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoDrawCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoDrawCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoPlayCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/Actions/UnoPlayCard.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoObservation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/VisualGame/VisualUnoCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionPlayMedicine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionPlayMedicine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionPlayVirus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionPlayVirus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/GameData/VirusPlayerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/GameData/VirusPlayerStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusGameState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusSimpleHeuristic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusSimpleHeuristic.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusBody.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusCard.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusOrgan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VisualGame/VisualVirusOrgan.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,23 +95,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Desktop/BuildTFG/LA BUENA\JuegoVirus.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/BuildTFG/CardGames\CardGame.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\Mariio\Desktop\BuildTFG\PrimeraVersionVirus" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -321,7 +179,9 @@
       <workItem from="1743665746664" duration="12686000" />
       <workItem from="1743759207200" duration="10826000" />
       <workItem from="1743791550402" duration="2579000" />
-      <workItem from="1744009122295" duration="3894000" />
+      <workItem from="1744009122295" duration="16308000" />
+      <workItem from="1744095520913" duration="11702000" />
+      <workItem from="1744183565953" duration="3565000" />
     </task>
     <servers />
   </component>

@@ -11,7 +11,7 @@ public class UnoDrawCard : UnoAction
         playerSelf.Hand.Enqueue(drawnCard);
 
 
-        if (!unoGs.IsCardPlayable(drawnCard)) return false;
+        if (!unoGs.IsCardPlayable(drawnCard)) return true;
         
         await Task.Delay(750);
         await new UnoPlayCard(drawnCard, playerSelf.Hand.Count - 1).PlayAction(unoGs);
@@ -26,7 +26,7 @@ public class UnoDrawCard : UnoAction
         UnoCard drawnCard = unoObs.DrawCardFromMixedDrawDeck();
         playerSelf.Hand.Enqueue(drawnCard);
         
-        if (!unoObs.IsCardPlayable(drawnCard)) return false;
+        if (!unoObs.IsCardPlayable(drawnCard)) return true;
         new UnoPlayCard(drawnCard, playerSelf.Hand.Count - 1).TestAction(unoObs);
 
         return true;

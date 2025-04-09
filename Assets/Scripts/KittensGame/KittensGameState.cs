@@ -28,7 +28,6 @@ public class KittensGameState : IGameState
         _discardDeck = new Deck<KittensCard>();
     }
     
-
     public bool IsTerminal() => PlayersStatus.Count(player => player.IsAlive()) == 1;
 
     public void ChangeTurnIndex()

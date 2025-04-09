@@ -21,6 +21,7 @@ public class VisualVirusOrgan : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        Debug.Log("Clicka");
         virusHumanPlayer.SetColorAndPlayer((int)color, playerIndex);
     }
 }

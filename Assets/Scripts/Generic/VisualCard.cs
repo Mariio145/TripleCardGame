@@ -81,7 +81,7 @@ public class VisualCard : MonoBehaviour
     public async void ChangeParent(Transform parent)
     {
         transform.SetParent(parent);
-        //transform.DOKill();
+        transform.DOKill();
         targetPosition = Vector3.zero;
         //transform.localRotation = Quaternion.Euler(-90, transform.localRotation.y, transform.localRotation.z);
         

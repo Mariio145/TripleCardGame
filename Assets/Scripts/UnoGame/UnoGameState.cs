@@ -10,14 +10,14 @@ public class UnoGameState : IGameState
     private Deck<UnoCard> _drawDeck;
     private readonly GameObject _deckGo;
     private Deck<UnoCard> _discardDeck;
-    public GameObject discardGo { get; }
-    public bool blockNextTurn { get; set; }
-    public int quantityToDraw { get; set; }
+    public GameObject DiscardGo { get; }
+    public bool BlockNextTurn { get; set; }
+    public int QuantityToDraw { get; set; }
     public bool IsReversed = false;
     public readonly List<UnoPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
     private UnoCard _topCard;
-    public UnoCard topCard
+    public UnoCard TopCard
     {
         get => _topCard;
         set
@@ -39,7 +39,7 @@ public class UnoGameState : IGameState
         _discardDeck = new Deck<UnoCard>();
         PlayersStatus = new List<UnoPlayerStatus>();
         _deckGo = deckGo;
-        this.discardGo = discardGo;
+        this.DiscardGo = discardGo;
     }
     
     public bool IsTerminal() => PlayersStatus.Any(playerInfo => playerInfo.Hand.Count == 0);
@@ -74,7 +74,7 @@ public class UnoGameState : IGameState
         _currentPlayerTurn = 0;
         DrawStartCards();
         UpdateHands();
-        topCard = DrawCardFromDrawDeck(discardGo).Result;
+        TopCard = DrawCardFromDrawDeck(DiscardGo).Result;
     }
     
     public bool IsCardPlayable(UnoCard card)
@@ -92,15 +92,15 @@ public class UnoGameState : IGameState
             return true;
 
         // Para el resto de cartas, debe coincidir el color o el tipo/número
-        return card.Color == topCard.Color || 
-               (card.Type == UnoType.Number && topCard.Type == UnoType.Number && card.Number == topCard.Number) ||
-               (card.Type != UnoType.Number && card.Type == topCard.Type);
+        return card.Color == TopCard.Color || 
+               (card.Type == UnoType.Number && TopCard.Type == UnoType.Number && card.Number == TopCard.Number) ||
+               (card.Type != UnoType.Number && card.Type == TopCard.Type);
     }
     
     private void DrawStartCards()
     {
         foreach (UnoPlayerStatus player in PlayersStatus)
-            for (int i = 0; i < UnoGameParameters.NStartCards - 6; i++)
+            for (int i = 0; i < UnoGameParameters.NStartCards; i++)
                 player.Hand.Enqueue(DrawCardFromDrawDeck(player.HandGObject).Result);
     }
     
@@ -212,7 +212,7 @@ public class UnoGameState : IGameState
         drawDeck.ShuffleDeck();
         Deck<UnoCard> discardDeck = new(_discardDeck);
 
-        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, topCard, index);
+        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, TopCard, index);
     }
 
     public void UpdateHands()
@@ -267,7 +267,7 @@ public class UnoGameState : IGameState
         
         List<Task> tasks = new();
         
-        List<Transform> cards = discardGo.GetComponentsInChildren<Transform>().Where(card => card != discardGo.transform && card != topCard.VisualCard.transform).ToList();
+        List<Transform> cards = DiscardGo.GetComponentsInChildren<Transform>().Where(card => card != DiscardGo.transform && card != TopCard.VisualCard.transform).ToList();
         Renderer renderer = cards[0].GetComponent<Renderer>();
         
         float cardLenght = renderer.bounds.size.x;
@@ -280,7 +280,7 @@ public class UnoGameState : IGameState
             for (int j = 0; j < gridColumns; j++)
             {
                 if (index >= cards.Count) break;
-                Vector3 targetPos = discardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
+                Vector3 targetPos = DiscardGo.transform.position + new Vector3(j * cardLenght, 0.25f, i * cardWidth);
                 tasks.Add(cards[index].DOMove(targetPos, animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 tasks.Add(cards[index].DOLocalRotate(new Vector3(0, 0, 180), animDuration).SetEase(Ease.OutQuad).AsyncWaitForCompletion());
                 index++;
@@ -292,7 +292,7 @@ public class UnoGameState : IGameState
         {
             transform =
             {
-                position = discardGo.transform.position + new Vector3(-renderer.bounds.size.x / 2, 0.15f, 0),
+                position = DiscardGo.transform.position + new Vector3(-renderer.bounds.size.x / 2, 0.15f, 0),
             }
         };
         
@@ -345,6 +345,6 @@ public class UnoGameState : IGameState
     public void ChangeColor(UnoColor colorChange)
     {
         ChangeTableColor(colorChange);
-        topCard.ChangeColor(colorChange);
+        TopCard.ChangeColor(colorChange);
     }
 }

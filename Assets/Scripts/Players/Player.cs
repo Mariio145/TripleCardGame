@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         handSlot = GetComponentInChildren<VisualHand>().gameObject;
-        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        _turnBorder = spriteRenderers.First(spRenderer => spRenderer.gameObject.CompareTag("Border"));
+        _turnBorder = GetComponentsInChildren<SpriteRenderer>()
+            .First(spRenderer => spRenderer.gameObject.CompareTag("Border"));
         _turnBorder.enabled = false;
     }
 
@@ -29,12 +29,12 @@ public class Player : MonoBehaviour
 
     public void StartTurn()
     {
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        GetComponentsInChildren<SpriteRenderer>().First(spRenderer => spRenderer.gameObject.CompareTag("Border")).enabled = true;
     }
 
     public void StopTurn()
     {
-        GetComponentInChildren<SpriteRenderer>().enabled = false;
+        GetComponentsInChildren<SpriteRenderer>().First(spRenderer => spRenderer.gameObject.CompareTag("Border")).enabled = false;
     }
     
 

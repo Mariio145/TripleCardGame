@@ -1,21 +1,18 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
-using UnityEngine;
 
 public class UnoObservation : IObservation
 {
     private Deck<UnoCard> _mixedDrawDeck;
     private Deck<UnoCard> _discardDeck;
-    public bool blockNextTurn { get; set; }
-    public int quantityToDraw { get; set; }
+    public bool BlockNextTurn { get; set; }
+    public int QuantityToDraw { get; set; }
     public bool IsReversed = false;
     
     // Contiene los datos del player, tanto de su mano como de su cuerpo
     public readonly List<UnoPlayerStatus> PlayersStatus;
     private int _currentPlayerTurn;
-    public int playerIndexPerspective {get;}
+    public int PlayerIndexPerspective {get;}
 
     private UnoCard _topCard; 
     public UnoCard TopCard
@@ -38,7 +35,7 @@ public class UnoObservation : IObservation
         PlayersStatus = playersStatus;
         _currentPlayerTurn = currentPlayerTurn;
         TopCard = topCard;
-        playerIndexPerspective = playerPerspective;
+        PlayerIndexPerspective = playerPerspective;
     }
 
     public IObservation Clone()
@@ -48,7 +45,7 @@ public class UnoObservation : IObservation
         Deck<UnoCard> discardDeck = new(_discardDeck);
         UnoCard topCard = new(TopCard.Type, TopCard.Color, TopCard.Number);
 
-        return new UnoObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, topCard, playerIndexPerspective);
+        return new UnoObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, topCard, PlayerIndexPerspective);
     }
     
     public List<IAction> GetActions()
@@ -98,7 +95,7 @@ public class UnoObservation : IObservation
 
         foreach (UnoPlayerStatus player in PlayersStatus)
         {
-            if (player == PlayersStatus[playerIndexPerspective]) continue;
+            if (player == PlayersStatus[PlayerIndexPerspective]) continue;
 
             foreach (UnoCard card in player.Hand.Cast<UnoCard>())
             {
@@ -114,7 +111,7 @@ public class UnoObservation : IObservation
         {
             UnoPlayerStatus playerCopy = player.Clone();
             newPlayersStatus.Add(playerCopy);
-            if (player == PlayersStatus[playerIndexPerspective])
+            if (player == PlayersStatus[PlayerIndexPerspective])
                 continue;
             if (playerCopy.Hand.All(card => card is null))
                 continue;
@@ -130,7 +127,7 @@ public class UnoObservation : IObservation
         drawDeck.ShuffleDeck();
         Deck<UnoCard> discardDeck = new(_discardDeck);
 
-        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, TopCard, playerIndexPerspective);
+        return new UnoObservation(drawDeck, discardDeck, newPlayersStatus, _currentPlayerTurn, TopCard, PlayerIndexPerspective);
     }
 
     public bool IsCardPlayable(Card card)

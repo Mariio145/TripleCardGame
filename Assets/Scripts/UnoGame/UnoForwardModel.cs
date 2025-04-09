@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class UnoForwardModel : IForwardModel
 {
@@ -12,7 +10,7 @@ public class UnoForwardModel : IForwardModel
         if (action is not null) result = await action.PlayAction(unoGs);
         else
         {
-            if (unoGs.topCard.Color == UnoColor.Wild) result = await new UnoChangeColor(UnoColor.Red).PlayAction(unoGs);
+            if (unoGs.TopCard.Color == UnoColor.Wild) result = await new UnoChangeColor(UnoColor.Red).PlayAction(unoGs);
             else result = await new UnoForcedDrawCard().PlayAction(unoGs);
         }
         
@@ -30,27 +28,27 @@ public class UnoForwardModel : IForwardModel
     {
         if (gameState is not UnoGameState unoGs) return ;
 
-        if (unoGs.topCard.Color == UnoColor.Wild) return;
+        if (unoGs.TopCard.Color == UnoColor.Wild) return;
 
         unoGs.ChangeTurnIndex();
         
         // Si hay cartas pendientes por robar, forzar la acción
-        if (unoGs.quantityToDraw > 0)
+        if (unoGs.QuantityToDraw > 0)
         {
-            while (unoGs.quantityToDraw > 0)
+            while (unoGs.QuantityToDraw > 0)
             {
                 await new UnoForcedDrawCard().PlayAction(unoGs);
                 unoGs.UpdateHands();
-                unoGs.quantityToDraw--;
+                unoGs.QuantityToDraw--;
                 await Task.Delay(200);
             }
             
             unoGs.ChangeTurnIndex();
         }
         // Si hay que bloquear el turno
-        else if (unoGs.blockNextTurn)
+        else if (unoGs.BlockNextTurn)
         {
-            unoGs.blockNextTurn = false;
+            unoGs.BlockNextTurn = false;
             unoGs.ChangeTurnIndex();
         }
     }
@@ -71,20 +69,20 @@ public class UnoForwardModel : IForwardModel
         unoObs.ChangeTurnIndex();
         
         // Si hay cartas pendientes por robar, forzar la acción
-        if (unoObs.quantityToDraw > 0)
+        if (unoObs.QuantityToDraw > 0)
         {
-            while (unoObs.quantityToDraw > 0)
+            while (unoObs.QuantityToDraw > 0)
             {
                 //Mejor hacerlo asi por si hay que animarlo
                 new UnoForcedDrawCard().TestAction(observation);
-                unoObs.quantityToDraw--;
+                unoObs.QuantityToDraw--;
             }
             unoObs.ChangeTurnIndex();
         }
         // Si hay que bloquear el turno
-        else if (unoObs.blockNextTurn)
+        else if (unoObs.BlockNextTurn)
         {
-            unoObs.blockNextTurn = false;
+            unoObs.BlockNextTurn = false;
             unoObs.ChangeTurnIndex();
         }
     }

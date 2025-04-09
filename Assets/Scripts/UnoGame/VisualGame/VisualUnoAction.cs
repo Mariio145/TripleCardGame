@@ -20,9 +20,9 @@ public class VisualUnoAction: MonoBehaviour
     public async Task SelectColor(UnoHumanPlayer humanPlayer)
     {
         _mainThreadContext.Send(_ => { selectColorGo.SetActive(true); }, null);
-        humanPlayer._color = UnoColor.Wild;
+        humanPlayer.Color = UnoColor.Wild;
         
-        while (humanPlayer._color== UnoColor.Wild)
+        while (humanPlayer.Color== UnoColor.Wild)
         {
             await Task.Yield();
         }

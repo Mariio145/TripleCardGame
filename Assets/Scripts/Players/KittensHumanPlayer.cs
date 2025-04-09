@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class KittensHumanPlayer : Player
 {
-    private bool _playCard, _drawCard;
+    private bool _playCard, _endTurn;
     public VisualKittensAction kittensVisualAction;
     public override IAction Think(IObservation observable, float thinkingTime)
     {
@@ -22,7 +22,7 @@ public class KittensHumanPlayer : Player
         while (true)
         {
             _playCard = false;
-            _drawCard = false;
+            _endTurn = false;
 
             if (kittensOb!.ActionIsPlaying)
             {
@@ -54,16 +54,16 @@ public class KittensHumanPlayer : Player
             
             if (observable.GetActions().All(action => action.GetType() == typeof(KittensAction))) return new KittensAction();
 
-            while (!_playCard && !_drawCard && thinkingTime > 0)
+            while (!_playCard && !_endTurn && thinkingTime > 0)
             {
                 //await Task.Yield();
             }
             
-            if (!_playCard && !_drawCard) return new KittensAction();
+            if (!_playCard && !_endTurn) return new KittensAction();
 
             int cardSlot = 0;
 
-            if (_drawCard)
+            if (_endTurn)
                 return new KittensNothing();
             
             //Seleccionar la accion dependiendo de la carta seleccionada
@@ -153,8 +153,8 @@ public class KittensHumanPlayer : Player
         _playCard = true;
     }
 
-    public void DrawCard()
+    public void EndTurn()
     {
-        _drawCard = true;
+        _endTurn = true;
     }
 }
