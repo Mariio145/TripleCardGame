@@ -31,7 +31,7 @@ public static class Auxiliar<T>
     {
         if (cardPos < 0 || cardPos >= hand.Count)
         {
-            Debug.Log(cardPos);
+            Debug.LogError( cardPos + "/" + hand.Count);
             if (hand.Count == 0) Debug.LogError("Empieza en 0");
             if (cardPos < 0)
                 throw new ArgumentOutOfRangeException(nameof(cardPos), "Posición menor que 0");

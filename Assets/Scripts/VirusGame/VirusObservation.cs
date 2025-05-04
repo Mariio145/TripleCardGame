@@ -28,6 +28,7 @@ public class VirusObservation: IObservation
         List<VirusPlayerStatus> playerStatus = PlayersStatus.Select(player => player.Clone()).ToList();
         Deck<VirusCard> mixedDrawDeck = new(_mixedDrawDeck);
         Deck<VirusCard> discardDeck = new(DiscardDeck);
+        
         return new VirusObservation(mixedDrawDeck, discardDeck, playerStatus, _currentPlayerTurn, PlayerIndexPerspective);
     }
 
@@ -120,6 +121,11 @@ public class VirusObservation: IObservation
         {
             actions.Add(new VirusAction());
             return actions;
+        }
+        
+        while (playerHand.Count < 3)
+        {
+            playerHand.Enqueue(DrawCardFromMixedDrawDeck());
         }
 
         // 1. Jugar 1 unica carta de tu mano

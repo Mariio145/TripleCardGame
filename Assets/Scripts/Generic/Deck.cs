@@ -5,6 +5,7 @@ using UnityEngine;
 public class Deck<T> : IEnumerable
 {
     private readonly List<T> _deckCard;
+    private static readonly System.Random random = new();
 
     public Deck()
     {
@@ -43,7 +44,7 @@ public class Deck<T> : IEnumerable
     {
         for (int i = _deckCard.Count - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1);
+            int j = random.Next(0, i + 1);
             (_deckCard[i], _deckCard[j]) = (_deckCard[j], _deckCard[i]);
         }
     }

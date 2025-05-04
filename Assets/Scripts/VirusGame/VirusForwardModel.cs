@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class VirusForwardModel : IForwardModel
 {
@@ -36,29 +37,39 @@ public class VirusForwardModel : IForwardModel
         gameState.ChangeTurnIndex();
     }
 
-    public Task<bool> TestAction(IObservation observation, IAction action)
+    public bool TestAction(IObservation observation, IAction action)
     {
-        bool result = false;
+        bool result;
         if (action is not null) result = action.TestAction(observation);
-        else result = new VirusActionDiscard(new List<int> {1, 2, 3}, observation.GetPlayerTurnIndex()).TestAction(observation);
+        else
+        {
+            result = new VirusActionDiscard(new List<int> {0, 1, 2}, observation.GetPlayerTurnIndex()).TestAction(observation);
+        }
         
-        EndObTurn(observation);
+        bool i = EndObTurn(observation);
         
-        return Task.FromResult(result);
+        return result;
     }
 
-    private void EndObTurn(IObservation observation)
+    private bool EndObTurn(IObservation observation)
     {
         if (observation is not VirusObservation virusOb) throw new NullReferenceException("observation is null");
 
         //Robar tantas cartas como te falten para tener 3
         VirusPlayerStatus player = virusOb.PlayersStatus[virusOb.GetPlayerTurnIndex()];
-        
-        for (int i = player.Hand.Count; i < 3; i++)
+
+        while (player.Hand.Count < 3)
         {
             player.Hand.Enqueue(virusOb.DrawCardFromMixedDrawDeck());
         }
+
+        /*for (int i = player.Hand.Count; i < 3; i++)
+        {
+            player.Hand.Enqueue(virusOb.DrawCardFromMixedDrawDeck());
+        }*/
         
         observation.ChangeTurnIndex();
+
+        return true;
     }
 }

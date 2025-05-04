@@ -35,6 +35,12 @@ public class VirusActionDiscard : VirusAction
         
         VirusPlayerStatus player = virusOb.PlayersStatus[PlayerSelf];
 
+        if (player.Hand.Count < 3)
+        {
+            Debug.LogWarning("Descartado");
+            return false;
+        }
+
         foreach (int i in _indexesToDiscard)
         {
             virusOb.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, i));

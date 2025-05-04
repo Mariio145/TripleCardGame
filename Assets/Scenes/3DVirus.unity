@@ -128,9 +128,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19895965}
-  - component: {fileID: 19895966}
-  - component: {fileID: 19895967}
-  - component: {fileID: 19895968}
+  - component: {fileID: 19895969}
+  - component: {fileID: 19895972}
+  - component: {fileID: 19895971}
+  - component: {fileID: 19895970}
   m_Layer: 0
   m_Name: EnemyPlayerRight
   m_TagString: Untagged
@@ -157,52 +158,68 @@ Transform:
   - {fileID: 706106774}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &19895966
+--- !u!114 &19895969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19895964}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 2048182785}
-  Name: Random3
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &19895967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19895964}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 2048182785}
-  Name: Osla3
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &19895968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19895964}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f082f6dc6a4151a6e8949862574b51, type: 3}
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: FirstAction3
+  Name: Pablo-MiguelR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: MiguelR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: JaumeR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaR
   index: 0
   icon: {fileID: 0}
 --- !u!1 &57942202
@@ -1025,9 +1042,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378277292}
-  - component: {fileID: 378277294}
-  - component: {fileID: 378277295}
-  - component: {fileID: 378277296}
+  - component: {fileID: 378277297}
+  - component: {fileID: 378277300}
+  - component: {fileID: 378277299}
+  - component: {fileID: 378277298}
   m_Layer: 0
   m_Name: EnemyPlayerLeft
   m_TagString: Untagged
@@ -1054,52 +1072,68 @@ Transform:
   - {fileID: 818378563}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &378277294
+--- !u!114 &378277297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378277291}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 1933615683}
-  Name: Random1
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &378277295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378277291}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 1933615683}
-  Name: Osla1
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &378277296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378277291}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f082f6dc6a4151a6e8949862574b51, type: 3}
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: FirstAction1
+  Name: JaumeL
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &378277298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378277291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: Pablo-MiguelL
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &378277299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378277291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: MiguelL
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &378277300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378277291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaL
   index: 0
   icon: {fileID: 0}
 --- !u!4 &387162055 stripped
@@ -2265,9 +2299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677208650}
-  - component: {fileID: 677208652}
   - component: {fileID: 677208654}
-  - component: {fileID: 677208655}
   m_Layer: 0
   m_Name: PerspectivePlayer
   m_TagString: Untagged
@@ -2294,22 +2326,6 @@ Transform:
   - {fileID: 1963702120}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &677208652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 1281720402}
-  Name: Mario
-  index: 0
-  icon: {fileID: 0}
 --- !u!114 &677208654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,26 +2339,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 1281720402}
-  Name: Mario
+  Name: Humano
   index: 0
   icon: {fileID: 0}
   virusVisualAction: {fileID: 1040661793}
---- !u!114 &677208655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 1281720402}
-  Name: OslaMario
-  index: 0
-  icon: {fileID: 0}
 --- !u!1 &677717286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,9 +3403,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1021729595}
-  - component: {fileID: 1021729596}
-  - component: {fileID: 1021729597}
-  - component: {fileID: 1021729598}
+  - component: {fileID: 1021729599}
+  - component: {fileID: 1021729602}
+  - component: {fileID: 1021729601}
+  - component: {fileID: 1021729600}
   m_Layer: 0
   m_Name: EnemyPlayerTop
   m_TagString: Untagged
@@ -3432,52 +3433,68 @@ Transform:
   - {fileID: 1203257521}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1021729596
+--- !u!114 &1021729599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021729594}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 291884135}
-  Name: Random2
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &1021729597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021729594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 291884135}
-  Name: Osla2
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &1021729598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021729594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f082f6dc6a4151a6e8949862574b51, type: 3}
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: FirstAction2
+  Name: MiguelT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: Pablo-MiguelT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: JaumeT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaT
   index: 0
   icon: {fileID: 0}
 --- !u!1 &1030527159

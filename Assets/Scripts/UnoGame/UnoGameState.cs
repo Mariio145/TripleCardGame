@@ -25,7 +25,7 @@ public class UnoGameState : IGameState
             if (_topCard != null)
             {
                 _discardDeck.Add(_topCard);
-                if (value.Color != _topCard.Color) ChangeTableColor(value.Color);
+                if (value.Color == UnoColor.Wild || value.Color != _topCard.Color) ChangeTableColor(value.Color);
             }
             else ChangeTableColor(value.Color);
             
@@ -39,7 +39,7 @@ public class UnoGameState : IGameState
         _discardDeck = new Deck<UnoCard>();
         PlayersStatus = new List<UnoPlayerStatus>();
         _deckGo = deckGo;
-        this.DiscardGo = discardGo;
+        DiscardGo = discardGo;
     }
     
     public bool IsTerminal() => PlayersStatus.Any(playerInfo => playerInfo.Hand.Count == 0);
@@ -75,6 +75,7 @@ public class UnoGameState : IGameState
         DrawStartCards();
         UpdateHands();
         TopCard = DrawCardFromDrawDeck(DiscardGo).Result;
+
     }
     
     public bool IsCardPlayable(UnoCard card)
@@ -313,6 +314,8 @@ public class UnoGameState : IGameState
         {
             cardTransform.parent = _deckGo.transform;
         }
+
+        _topCard.VisualCard.transform.DOLocalMove(Vector3.zero, 0.5f);
     }
     
     private void ChangeTableColor(UnoColor valueColor)
@@ -320,6 +323,8 @@ public class UnoGameState : IGameState
         Color color = default;
         Material tableMaterial = ResourcesLoader.Instance.tableMaterial;
         Material tokenMaterial = ResourcesLoader.Instance.tokenMaterial;
+        
+        Debug.Log(valueColor);
         switch (valueColor)
         {
             case UnoColor.Red:

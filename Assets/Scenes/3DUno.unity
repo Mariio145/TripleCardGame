@@ -128,8 +128,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19895965}
-  - component: {fileID: 19895966}
-  - component: {fileID: 19895967}
+  - component: {fileID: 19895968}
+  - component: {fileID: 19895971}
+  - component: {fileID: 19895970}
+  - component: {fileID: 19895969}
   m_Layer: 0
   m_Name: RightEnemyPlayer
   m_TagString: Untagged
@@ -155,7 +157,7 @@ Transform:
   - {fileID: 907770296}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &19895966
+--- !u!114 &19895968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,27 +166,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 19895964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 2048182785}
-  Name: Random3
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &19895967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19895964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: Osla3
+  Name: Pablo-MiguelR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: MiguelR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: JaumeR
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &19895971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaR
   index: 0
   icon: {fileID: 0}
 --- !u!1 &55245061
@@ -826,8 +860,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378277292}
-  - component: {fileID: 378277294}
+  - component: {fileID: 378277296}
   - component: {fileID: 378277295}
+  - component: {fileID: 378277294}
+  - component: {fileID: 378277293}
   m_Layer: 0
   m_Name: LeftEnemyPlayer
   m_TagString: Untagged
@@ -853,6 +889,22 @@ Transform:
   - {fileID: 1079004206}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &378277293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378277291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: MiguelL
+  index: 0
+  icon: {fileID: 0}
 --- !u!114 &378277294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,13 +912,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378277291}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSlot: {fileID: 1933615683}
-  Name: Random1
+  handSlot: {fileID: 0}
+  Name: Pablo-MiguelL
   index: 0
   icon: {fileID: 0}
 --- !u!114 &378277295
@@ -878,11 +930,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 378277291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: Osla1
+  Name: JaumeL
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &378277296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378277291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaL
   index: 0
   icon: {fileID: 0}
 --- !u!1 &381213593
@@ -1505,9 +1573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677208650}
-  - component: {fileID: 677208652}
   - component: {fileID: 677208654}
-  - component: {fileID: 677208655}
   m_Layer: 9
   m_Name: PerspectivePlayer
   m_TagString: Untagged
@@ -1533,22 +1599,6 @@ Transform:
   - {fileID: 578974509}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &677208652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 1281720402}
-  Name: Random0
-  index: 0
-  icon: {fileID: 0}
 --- !u!114 &677208654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,26 +1612,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 1281720402}
-  Name: Mario
+  Name: Humano
   index: 0
   icon: {fileID: 0}
   unoVisualAction: {fileID: 1040661798}
---- !u!114 &677208655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: Osla0
-  index: 0
-  icon: {fileID: 0}
 --- !u!1 &778198151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,8 +2370,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1021729595}
-  - component: {fileID: 1021729596}
-  - component: {fileID: 1021729597}
+  - component: {fileID: 1021729598}
+  - component: {fileID: 1021729601}
+  - component: {fileID: 1021729600}
+  - component: {fileID: 1021729599}
   m_Layer: 0
   m_Name: TopEnemyPlayer
   m_TagString: Untagged
@@ -2363,23 +2399,7 @@ Transform:
   - {fileID: 60712208}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1021729596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021729594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 291884135}
-  Name: Random2
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &1021729597
+--- !u!114 &1021729598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2388,11 +2408,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021729594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
+  m_Script: {fileID: 11500000, guid: 7621e253f0264984ba4ad08bf8b8eb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: Osla2
+  Name: MiguelT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbf2b1113cf54b4a84bf1dc0c6d36f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: Pablo-MiguelT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0e08720642c84da0f3bc9e2672034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: JaumeT
+  index: 0
+  icon: {fileID: 0}
+--- !u!114 &1021729601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021729594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4a88c9d139a594db8d567e022b48c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSlot: {fileID: 0}
+  Name: SelenaT
   index: 0
   icon: {fileID: 0}
 --- !u!1 &1030527159

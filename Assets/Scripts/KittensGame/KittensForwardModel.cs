@@ -144,9 +144,9 @@ public class KittensForwardModel : IForwardModel
         return Task.CompletedTask;
     }
     
-    public async Task<bool> TestAction(IObservation observation, IAction action)
+    public bool TestAction(IObservation observation, IAction action)
     {
-        KittensAction actionToExecute;
+        /*KittensAction actionToExecute;
         if (action is null) actionToExecute = new KittensNothing();
         else  actionToExecute = (KittensAction)action;
         
@@ -242,7 +242,7 @@ public class KittensForwardModel : IForwardModel
         
         await EndObTurn(observation);
         await ChangeObTurn(observation);
-        
+        */
         return true;
     }
 

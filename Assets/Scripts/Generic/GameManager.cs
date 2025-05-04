@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
     private FirebaseManager _firebaseManager;
     private string _gameID;
     private double _deltaTime;
-    public static bool IsPaused;
+    private static bool _isPaused;
 
     public static bool IsHumanPlayer { get; private set; }
     public static int BotTimeToThink { get; private set; }
@@ -116,22 +115,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    private async Task CheckPlayers()
-    {
-        /*return Task.CompletedTask;
-        if (_gameState.IsTerminal())
-        {
-            Debug.Log("El juego ha acabado");
-            return Task.CompletedTask;
-        }
-        KittensGameState kgs = _gameState as KittensGameState;
-        Debug.Log("Mano del jugador0: " + kgs.PlayersStatus[0].Hand.Count);
-        Debug.Log("Mano del jugador1: " + kgs.PlayersStatus[1].Hand.Count);
-        if (kgs.PlayersStatus.Any(player => player.Hand.Count == 0))
-            Debug.Log("Se acaba de romper");
-        return Task.CompletedTask;*/
-    }
-
     private void StartPlaying()
     {
         switch (gameToPlay)
@@ -161,7 +144,6 @@ public class GameManager : MonoBehaviour
 
             if (player is VirusHumanPlayer or UnoHumanPlayer or KittensHumanPlayer)
             {
-                Debug.Log("Humanoooooo");
                 IsHumanPlayer = true;
             }
         }
@@ -207,7 +189,7 @@ public class GameManager : MonoBehaviour
                 {
                     await Task.Delay(100);
                     delay -= 100;
-                    while (IsPaused)
+                    while (_isPaused)
                     {
                         await Task.Yield();
                     }
@@ -223,13 +205,13 @@ public class GameManager : MonoBehaviour
                 await _forwardModel.PlayAction(_gameState, action);
                 playerTurn.StopTurn();
                 
-                while (IsPaused)
+                while (_isPaused)
                 {
                     await Task.Yield();
                 }
             }
             
-            while (IsPaused)
+            while (_isPaused)
             {
                 await Task.Yield();
             }
@@ -238,6 +220,8 @@ public class GameManager : MonoBehaviour
 
             ShowEndText();
             HideTutorial();
+            
+            await WaitForSpace();
             
             _gameID = _firebaseManager.CreateGame(gameToPlay);
 
@@ -280,7 +264,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            float alphaReduction = 0.005f;
+            const float alphaReduction = 0.005f;
             
             endText.text = "Tu turno";
             endTextShadow.text = "Tu turno";
@@ -331,7 +315,7 @@ public class GameManager : MonoBehaviour
                     timeCounter.fillAmount = relation;
                     timeCounter.color = new Color(1 - relation, relation, 0, 1);
 
-                    while (IsPaused)
+                    while (_isPaused)
                     {
                         await Task.Yield();
                     }
@@ -373,14 +357,14 @@ public class GameManager : MonoBehaviour
     public void ShowTutorial()
     {
         tutorialGameObject.SetActive(true);
-        IsPaused = true;
+        _isPaused = true;
         Time.timeScale = 0;
     }
     
     public void HideTutorial()
     {
         tutorialGameObject.SetActive(false);
-        IsPaused = false;
+        _isPaused = false;
         Time.timeScale = 1;
     }
 }

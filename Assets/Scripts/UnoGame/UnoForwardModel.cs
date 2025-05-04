@@ -53,11 +53,11 @@ public class UnoForwardModel : IForwardModel
         }
     }
     
-    public Task<bool> TestAction(IObservation observation, IAction action)
+    public bool TestAction(IObservation observation, IAction action)
     {
         action.TestAction(observation);
         ChangeObTurn(observation);
-        return Task.FromResult(true);
+        return true;
     }
 
     private void ChangeObTurn(IObservation observation)
