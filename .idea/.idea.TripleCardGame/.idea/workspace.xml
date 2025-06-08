@@ -6,21 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="8a9c5342-12f2-41bb-a72a-abb404f44989" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/UnoCards/Tokens/UnoMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Models/Uno/InteriorTable.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/Auxiliar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/Auxiliar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KittensGame/KittensForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnoGame/UnoGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionDiscard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionDiscard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusForwardModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusForwardModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VirusGame/VirusObservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/FirstActionPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/FirstActionPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/KittensHumanPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/MCTSPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/MCTSPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/OSLAPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/OSLAPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/RandomPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/RandomPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/UnoHumanPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/VirusHumanPlayer.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +30,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/50cef547136cdc141995d1711546dca37446f6f270f77467af10dfd676dbd3d0/System.Diagnostics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Players/TFGPlayers/MinimaxPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/VirusGame/Actions/VirusActionDiscard.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -135,6 +136,9 @@
       <workItem from="1746182183355" duration="1280000" />
       <workItem from="1746288287190" duration="8346000" />
       <workItem from="1746297914607" duration="1217000" />
+      <workItem from="1746548406702" duration="236000" />
+      <workItem from="1748865135678" duration="2046000" />
+      <workItem from="1749392015464" duration="3747000" />
     </task>
     <servers />
   </component>

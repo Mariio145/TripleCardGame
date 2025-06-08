@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class MctsPlayer : Player
 {
     private readonly IForwardModel _forwardModel;
+    private MctsNode rootNode;
 
     public override IAction Think(IObservation observable, float thinkingTime)
     {
-        MctsNode rootNode = new(null, null, observable);
-
-        // Fill with children of the root node
+        rootNode = new MctsNode(null, null, observable);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        
         ExpandNode(rootNode);
 
         int iteration = 1;
         const int iterMax = 100;
 
 
-        while (iteration < iterMax)
+        while (stopwatch.Elapsed.Milliseconds < thinkingTime*1000-100 && iteration < iterMax)
         {
             MctsNode current = rootNode;
-
-            // Traverse the tree until a leaf node is reached
+            
             while (!current.IsLeaf())
             {
                 current = current.GetBestChild();
@@ -28,37 +29,29 @@ public class MctsPlayer : Player
 
             if (!current.HasBeenVisited())
             {
-                // Rollout from this node and backpropagate (update the score of all the nodes in the path)
                 float score = Rollout(current);
                 Backpropagate(current, score);
             }
             else
             {
-                // Expand the node
                 ExpandNode(current);
             }
             iteration++;
         }
-
-        // get child with best score
+        
         MctsNode bestChild = rootNode.GetBestChild();
         return bestChild.GetAction();
     }
 
     private void ExpandNode(MctsNode node)
     {
-        // Get the list of all possible actions from an observation of 'node'
         List<IAction> listPossibleActions = node.GetObservation().GetActions();
-
-        // Expand using each possible action
+        
         foreach (IAction action in listPossibleActions)
         {
             IObservation newObservation = node.GetObservation().Clone();
             _forwardModel.TestAction(newObservation, action);
-
-            // If the action produces a change in the current position, and
-            // it doesn't cause falling into a hole, add that action and observation clone
-            // as a child of the current node
+            
             if (!newObservation.IsTerminal())
             {
                 node.AddChild(action, newObservation);
@@ -68,29 +61,21 @@ public class MctsPlayer : Player
 
     private float Rollout(MctsNode node)
     {
-        // Consider a limit in the depth of this branch, that is,
-        // in the number of nodes to be produced.
         int maxIterations = 50;
-
-        // Get a clone of an observation of the current node as starting point
+        
         IObservation newObservation = node.GetObservation().Clone();
-
-        // Go producing nodes until a terminal node or the maximum number of
-        // iterations is reached
+        
         int iterations = 1;
         while (iterations < maxIterations && !newObservation.IsTerminal())
         {
-            // From the list of possible actions, pick up one at random
             List<IAction> possibleActions = newObservation.GetActions();
             int randomIndex = Random.Next(0, possibleActions.Count);
             IAction action = possibleActions[randomIndex];
-
-            // Use the forward model to test it on the cloned observation
+            
             _forwardModel.TestAction(newObservation, action);
             iterations++;
         }
-
-        // Return the score of the last observation
+        
         return Heuristic.Evaluate(newObservation);
     }
 
@@ -98,23 +83,16 @@ public class MctsPlayer : Player
     {
         while (node != null)
         {
-            // Update current node's score
             node.UpdateStats(score);
-
-            // Go up to the parent of the current node
+            
             node = node.Parent;
         }
-    }
-
-    public override string ToString()
-    {
-        return "MCTSPlayer";
     }
 }
 public class MctsNode
 {
-    private readonly IAction _action;  // the move that got us to this node - null for the root node
-    internal readonly MctsNode Parent;  // null for the root node
+    private readonly IAction _action;
+    internal readonly MctsNode Parent;
     private readonly List<MctsNode> _children;
     private float _wins;
     private int _visits;
@@ -137,10 +115,8 @@ public class MctsNode
         {
             return BigNumber + Random.value;
         }
-        else
-        {
-            return _wins / _visits + Mathf.Sqrt(2 * Mathf.Log(Parent._visits) / _visits);
-        }
+
+        return _wins / _visits + Mathf.Sqrt(2 * Mathf.Log(Parent._visits) / _visits);
     }
 
     public MctsNode GetBestChild()
