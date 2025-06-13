@@ -2,14 +2,19 @@
 
 public class RandomPlayer: Player
 {   
+    public override void SetHeuristic(GameToPlay gametoPlay)
+    {
+        Heuristic = gametoPlay switch
+        {
+            GameToPlay.VirusGame => new VirusSimpleHeuristic(),
+            GameToPlay.UnoGame => new UnoSimpleHeuristic(),
+            GameToPlay.KittensGame => new KittensSimpleHeuristic(),
+        };
+    }
     public override IAction Think(IObservation observable, float thinkingTime)
     {
-        //Player de ejemplo que ejecuta una acción aleatoria de todas las opciones dadas.
-        
         List<IAction> actions = observable.GetActions();
         
-        IAction action = actions[Random.Next(0, actions.Count)];
-        
-        return action;
+        return actions[Random.Next(0, actions.Count)];;
     }
 }

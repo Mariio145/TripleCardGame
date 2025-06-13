@@ -4,7 +4,7 @@ public class MinimaxPlayer : Player
 {
     public override IAction Think(IObservation observable, float thinkingTime)
     {
-        int depth = 5;
+        const int depth = 10;
         BoardNode startBoard = new()
         {
             Observation = observable,
@@ -26,8 +26,10 @@ public class MinimaxPlayer : Player
  
         if (maximizing)
         {
-            BoardNode maxEval = new();
-            maxEval.Value = Mathf.NegativeInfinity;
+            BoardNode maxEval = new()
+            {
+                Value = Mathf.NegativeInfinity
+            };
             foreach (IAction action in boardState.Observation.GetActions())
             {
                 IObservation copy = boardState.Observation.Clone();
@@ -41,7 +43,7 @@ public class MinimaxPlayer : Player
                 
                 BoardNode eval = MinimaxAlphaBeta(actionPlayed, remainingDepth - 1, alpha, beta, false);
                 if (maxEval.Value < eval.Value)
-                    maxEval = eval;
+                    maxEval = actionPlayed;
 
                 alpha = Mathf.Max(alpha, eval.Value);
                 if (beta <= alpha)
@@ -67,7 +69,7 @@ public class MinimaxPlayer : Player
                 
                 BoardNode eval = MinimaxAlphaBeta(actionPlayed, remainingDepth - 1, alpha, beta, true);
                 if (minEval.Value > eval.Value)
-                    minEval = eval;
+                    minEval = actionPlayed;
 
                 beta = Mathf.Min(beta, eval.Value);
                 if (beta <= alpha)

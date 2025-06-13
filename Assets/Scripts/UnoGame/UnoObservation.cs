@@ -22,6 +22,7 @@ public class UnoObservation : IObservation
         {
             if (_topCard != null)
             {
+                if (_topCard.Number is -4 or -5) _topCard.ChangeColor(UnoColor.Wild);
                 _discardDeck.Add(_topCard);
             }
             _topCard = value;

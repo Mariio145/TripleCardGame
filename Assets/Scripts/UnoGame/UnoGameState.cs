@@ -26,8 +26,12 @@ public class UnoGameState : IGameState
             {
                 _discardDeck.Add(_topCard);
                 if (value.Color == UnoColor.Wild || value.Color != _topCard.Color) ChangeTableColor(value.Color);
+                if (_topCard.Number is -4 or -5) _topCard.ChangeColor(UnoColor.Wild);
             }
-            else ChangeTableColor(value.Color);
+            else
+            {
+                ChangeTableColor(value.Color);
+            }
             
             _topCard = value;
         }

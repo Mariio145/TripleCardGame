@@ -16,11 +16,11 @@ public class UnoForwardModel : IForwardModel
         
         unoGs.UpdateHands();
 
-        await Task.Delay(500); //Tiempo entre acciones
+        //await Task.Delay(500); //Tiempo entre acciones
         
         await ChangeTurn(unoGs);
         
-        await Task.Delay(100); //Tiempo entre acciones
+        //await Task.Delay(100); //Tiempo entre acciones
         return result;
     }
 
@@ -40,7 +40,7 @@ public class UnoForwardModel : IForwardModel
                 await new UnoForcedDrawCard().PlayAction(unoGs);
                 unoGs.UpdateHands();
                 unoGs.QuantityToDraw--;
-                await Task.Delay(200);
+                await Task.Delay(10);
             }
             
             unoGs.ChangeTurnIndex();

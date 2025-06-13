@@ -24,7 +24,7 @@ public class VirusActionDiscard : VirusAction
             discardTasks.Add(virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, i)));
         }
         
-        await Task.WhenAll(discardTasks);
+        //await Task.WhenAll(discardTasks);
         
         return await Task.FromResult(true);
     }

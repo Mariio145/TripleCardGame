@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MctsPlayer : Player
 {
-    private readonly IForwardModel _forwardModel;
     private MctsNode rootNode;
 
     public override IAction Think(IObservation observable, float thinkingTime)
@@ -50,7 +49,7 @@ public class MctsPlayer : Player
         foreach (IAction action in listPossibleActions)
         {
             IObservation newObservation = node.GetObservation().Clone();
-            _forwardModel.TestAction(newObservation, action);
+            ForwardModel.TestAction(newObservation, action);
             
             if (!newObservation.IsTerminal())
             {
@@ -61,7 +60,7 @@ public class MctsPlayer : Player
 
     private float Rollout(MctsNode node)
     {
-        int maxIterations = 50;
+        const int maxIterations = 100;
         
         IObservation newObservation = node.GetObservation().Clone();
         
@@ -72,7 +71,7 @@ public class MctsPlayer : Player
             int randomIndex = Random.Next(0, possibleActions.Count);
             IAction action = possibleActions[randomIndex];
             
-            _forwardModel.TestAction(newObservation, action);
+            ForwardModel.TestAction(newObservation, action);
             iterations++;
         }
         
@@ -91,6 +90,7 @@ public class MctsPlayer : Player
 }
 public class MctsNode
 {
+    private static readonly System.Random random = new();
     private readonly IAction _action;
     internal readonly MctsNode Parent;
     private readonly List<MctsNode> _children;
@@ -113,7 +113,7 @@ public class MctsNode
     {
         if (_visits == 0)
         {
-            return BigNumber + Random.value;
+            return BigNumber + random.Next();
         }
 
         return _wins / _visits + Mathf.Sqrt(2 * Mathf.Log(Parent._visits) / _visits);
@@ -136,7 +136,7 @@ public class MctsNode
 
         if (bestChild != null) return bestChild;
         
-        int randomIndex = Random.Range(0, _children.Count);
+        int randomIndex = random.Next(0, _children.Count);
         bestChild = _children[randomIndex];
 
         return bestChild;

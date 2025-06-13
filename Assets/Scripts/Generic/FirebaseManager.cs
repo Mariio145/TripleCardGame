@@ -43,7 +43,7 @@ public class FirebaseManager
         DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, timeZone);
 
         // Crea un nuevo documento para la partida con un ID automático
-        DocumentReference partidaRef = _db.Collection("Partidas").Document(localTime.ToString("dd-MM-yyyy || HH:mm:ss"));
+        DocumentReference partidaRef = _db.Collection("TFG").Document(localTime.ToString("dd-MM-yyyy || HH:mm:ss"));
 
         // Crea un diccionario para los datos de la partida (solo la fecha de creación)
         Dictionary<string, object> partida = new()
@@ -71,7 +71,7 @@ public class FirebaseManager
     public void AddPlayerToGame(string gameId, string nombreJugador, string nombreClase, int puntuacion)
     {
         // Obtiene la referencia al documento de la partida
-        DocumentReference partidaRef = _db.Collection("Partidas").Document(gameId);
+        DocumentReference partidaRef = _db.Collection("TFG").Document(gameId);
 
         // Crea un nuevo documento para el jugador en la subcolección "jugadores"
         DocumentReference jugadorRef = partidaRef.Collection("Jugadores").Document(nombreJugador);

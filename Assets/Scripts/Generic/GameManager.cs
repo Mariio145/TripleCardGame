@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         CancellationTokenSource = new CancellationTokenSource();
         DOTween.SetTweensCapacity(500, 50);
         IsHumanPlayer = false;
-        BotTimeToThink = botTimeToThink;
+        BotTimeToThink = 10;//botTimeToThink;
         HumanTimeToThink = humanTimeToThink;
         _players = new List<Player>();
         
@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
 
     private async void Run()
     {
+        Time.timeScale = 20;
         try
         {
             _gameState.Reset(_players);
@@ -163,15 +164,17 @@ public class GameManager : MonoBehaviour
 
             await Task.Delay(1000);
 
+            int timeDelay = 10;
+
             while (!_gameState.IsTerminal() && CancellationTokenSource.Token.IsCancellationRequested == false)
             {
-                await Task.Delay(250, CancellationTokenSource.Token);
+                await Task.Delay(timeDelay, CancellationTokenSource.Token);
                 Player playerTurn = _gameState.GetPlayer();
                 if (CancellationTokenSource.IsCancellationRequested) return;
                 playerTurn.StartTurn();
                 
                 Debug.Log(playerTurn.Name);
-                await Task.Delay(250, CancellationTokenSource.Token);
+                await Task.Delay(timeDelay, CancellationTokenSource.Token);
                 
                 IObservation observation = _gameState.GetObservationFromPlayer(playerTurn.index);
                 IAction action = null;
@@ -221,7 +224,7 @@ public class GameManager : MonoBehaviour
             ShowEndText();
             HideTutorial();
             
-            await WaitForSpace();
+            //await WaitForSpace();
             
             _gameID = _firebaseManager.CreateGame(gameToPlay);
 
@@ -230,9 +233,9 @@ public class GameManager : MonoBehaviour
                 _firebaseManager.AddPlayerToGame(_gameID, player.Player.Name, player.Player.GetType().ToString() ,player.GetPunctuation());
             }
 
-            await WaitForSpace();
+            await Task.Delay(20);
 
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         catch (OperationCanceledException)
         {

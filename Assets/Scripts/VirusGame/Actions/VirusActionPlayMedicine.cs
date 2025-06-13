@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class VirusActionPlayMedicine : VirusAction
 {
-    private readonly VirusColor _medicineColor;
+    public readonly VirusColor MedicineColor;
 
     public VirusActionPlayMedicine(VirusColor colorSelf, int playerSelf, VirusColor medicineColor, int indexCard)
     {
         ColorSelf = colorSelf;
         PlayerSelf = playerSelf;
-        _medicineColor = medicineColor;
+        MedicineColor = medicineColor;
         CardIndex = indexCard;
     }
     
@@ -27,19 +27,19 @@ public class VirusActionPlayMedicine : VirusAction
             case Status.Infected:
                 organ.Status = Status.Normal;
                 virusGs.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
-                virusGs.DiscardDeck.Add(new VirusCard(_medicineColor, VirusType.Medicine, TreatmentType.None, virusGs.DiscardGo));
+                virusGs.DiscardDeck.Add(new VirusCard(MedicineColor, VirusType.Medicine, TreatmentType.None, virusGs.DiscardGo));
                 organ.VirusColor = VirusColor.None;
                 await playerSelf.VisualBody.RemoveVirusAnimation(ColorSelf);
                 break;
             case Status.Normal:
                 organ.Status = Status.Vaccinated;
-                organ.MedicineColor = _medicineColor;
-                await playerSelf.VisualBody.PlaceMedicine1Animation(ColorSelf, _medicineColor);
+                organ.MedicineColor = MedicineColor;
+                await playerSelf.VisualBody.PlaceMedicine1Animation(ColorSelf, MedicineColor);
                 break;
             case Status.Vaccinated:
                 organ.Status = Status.Immune;
-                organ.MedicineColor2 = _medicineColor;
-                await playerSelf.VisualBody.PlaceMedicine2Animation(ColorSelf, _medicineColor);
+                organ.MedicineColor2 = MedicineColor;
+                await playerSelf.VisualBody.PlaceMedicine2Animation(ColorSelf, MedicineColor);
                 break;
         }
 
@@ -57,16 +57,16 @@ public class VirusActionPlayMedicine : VirusAction
             case Status.Infected:
                 organ.Status = Status.Normal;
                 virusOb.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus));
-                virusOb.DiscardDeck.Add(new VirusCard(_medicineColor, VirusType.Medicine));
+                virusOb.DiscardDeck.Add(new VirusCard(MedicineColor, VirusType.Medicine));
                 organ.VirusColor = VirusColor.None;
                 return true;
             case Status.Normal:
                 organ.Status = Status.Vaccinated;
-                organ.MedicineColor = _medicineColor;
+                organ.MedicineColor = MedicineColor;
                 return true;
             case Status.Vaccinated:
                 organ.Status = Status.Immune;
-                organ.MedicineColor2 = _medicineColor;
+                organ.MedicineColor2 = MedicineColor;
                 return true;
         }
         

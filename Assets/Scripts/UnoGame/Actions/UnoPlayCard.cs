@@ -2,15 +2,16 @@
 using UnityEngine;
 public class UnoPlayCard : UnoAction
 {
-    private readonly UnoType _cardType;
-    private readonly int _cardIndex;
+    private UnoType _cardType;
+    public UnoCard Card;
+    public int CardIndex { get; }
     private readonly UnoColor _changeTo;
 
     public UnoPlayCard(UnoCard card, int handIndex)
     {
-        
+        Card = card;
         _cardType = card.Type;
-        _cardIndex = handIndex;
+        CardIndex = handIndex;
     }
 
     public override async Task<bool> PlayAction(IGameState gameState)
@@ -18,9 +19,13 @@ public class UnoPlayCard : UnoAction
         if (gameState is not UnoGameState unoGs) return false;
         
         UnoPlayerStatus playerSelf = unoGs.PlayersStatus[unoGs.GetPlayerTurnIndex()];
-        Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, _cardIndex);
+        Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex);
         cardPlayed.VisualCard.ChangeUnoParent(unoGs.DiscardGo.transform, false, unoGs.TopCard.VisualCard.transform.localPosition - new Vector3(0, 0.002f, 0));
         unoGs.TopCard = (UnoCard)cardPlayed;
+
+        Debug.Log(CardIndex);
+        Debug.Log("Tipo: " + Card.Type + "| Color: " + Card.Color);
+        Debug.Log("Tipo: " + ((UnoCard)cardPlayed).Type + "| Color: " +((UnoCard)cardPlayed).Color);
 
         switch (_cardType)
         {
@@ -51,7 +56,7 @@ public class UnoPlayCard : UnoAction
         
         UnoPlayerStatus playerSelf = unoObs.PlayersStatus[unoObs.GetPlayerTurnIndex()];
         
-        Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, _cardIndex);
+        Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex);
         
         unoObs.TopCard = (UnoCard)cardPlayed;
 

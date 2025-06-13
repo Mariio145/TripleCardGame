@@ -3,10 +3,10 @@
 public class VirusAction: IAction
 {
     protected int CardIndex;
-    protected VirusColor ColorSelf;
-    protected VirusColor ColorTarget;
-    protected int PlayerSelf;
-    protected int PlayerTarget;
+    public VirusColor ColorSelf;
+    public VirusColor ColorTarget;
+    public int PlayerSelf;
+    public int PlayerTarget;
 
     protected internal VirusAction(VirusColor selfColor = VirusColor.None, VirusColor targetColor = VirusColor.None, int playerSelf = -1, int playerTarget = -1)
     {

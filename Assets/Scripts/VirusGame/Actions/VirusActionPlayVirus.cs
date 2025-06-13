@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class VirusActionPlayVirus : VirusAction
 {
-    private readonly VirusColor _virusColor;
+    public readonly VirusColor VirusColor;
     public VirusActionPlayVirus(VirusColor colorTarget, int playerTarget, VirusColor virusColor, int indexCard)
     {
         ColorTarget = colorTarget;
         PlayerTarget = playerTarget;
-        _virusColor = virusColor;
+        VirusColor = virusColor;
         CardIndex = indexCard;
     }
     public override async Task<bool> PlayAction(IGameState gameState)
@@ -27,7 +27,7 @@ public class VirusActionPlayVirus : VirusAction
         {
             case Status.Infected:
                 virusGs.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
-                virusGs.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
+                virusGs.DiscardDeck.Add(new VirusCard(VirusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
                 virusGs.DiscardDeck.Add(new VirusCard(ColorTarget, VirusType.Organ, TreatmentType.None, virusGs.DiscardGo));
                 playerTarget.RemoveOrgan(ColorTarget);
                 tasks.Add(playerTarget.VisualBody.RemoveVirusAnimation(ColorTarget));
@@ -36,13 +36,13 @@ public class VirusActionPlayVirus : VirusAction
                 break;
             case Status.Normal:
                 organ.Status = Status.Infected;
-                organ.VirusColor = _virusColor;
-                await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, _virusColor);
+                organ.VirusColor = VirusColor;
+                await playerTarget.VisualBody.PlaceVirusAnimation(ColorTarget, VirusColor);
                 break;
             case Status.Vaccinated:
                 organ.Status = Status.Normal;
                 virusGs.DiscardDeck.Add(new VirusCard(organ.MedicineColor, VirusType.Medicine, TreatmentType.None, virusGs.DiscardGo));
-                virusGs.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
+                virusGs.DiscardDeck.Add(new VirusCard(VirusColor, VirusType.Virus, TreatmentType.None, virusGs.DiscardGo));
                 organ.MedicineColor = VirusColor.None;
                 await playerTarget.VisualBody.RemoveMedicine1Animation(ColorTarget);
                 break;
@@ -63,17 +63,17 @@ public class VirusActionPlayVirus : VirusAction
         {
             case Status.Infected:
                 virusOb.DiscardDeck.Add(new VirusCard(organ.VirusColor, VirusType.Virus));
-                virusOb.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus));
+                virusOb.DiscardDeck.Add(new VirusCard(VirusColor, VirusType.Virus));
                 virusOb.DiscardDeck.Add(new VirusCard(ColorTarget, VirusType.Organ));
                 playerTarget.RemoveOrgan(ColorTarget);
                 return true;
             case Status.Normal:
                 organ.Status = Status.Infected;
-                organ.VirusColor = _virusColor;
+                organ.VirusColor = VirusColor;
                 return true;
             case Status.Vaccinated:
                 virusOb.DiscardDeck.Add(new VirusCard(organ.MedicineColor, VirusType.Medicine));
-                virusOb.DiscardDeck.Add(new VirusCard(_virusColor, VirusType.Virus));
+                virusOb.DiscardDeck.Add(new VirusCard(VirusColor, VirusType.Virus));
                 organ.Status = Status.Normal;
                 organ.MedicineColor = VirusColor.None;
                 return true;

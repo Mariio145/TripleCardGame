@@ -13,7 +13,7 @@ public class UnoDrawCard : UnoAction
 
         if (!unoGs.IsCardPlayable(drawnCard)) return true;
         
-        await Task.Delay(750);
+        //await Task.Delay(750);
         await new UnoPlayCard(drawnCard, playerSelf.Hand.Count - 1).PlayAction(unoGs);
         return true;
     }
