@@ -23,6 +23,7 @@ public class VirusActionPlayVirus : VirusAction
         List<Task> tasks = new();
         
         Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex).VisualCard.gameObject);
+        SoundManager.Instance.PlaySfx("Virus");
         switch (organ.Status)
         {
             case Status.Infected:

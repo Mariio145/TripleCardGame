@@ -4,25 +4,29 @@ using System.Collections;
 using UnityEngine.Audio;
 using UnityEngine.UIElements.Experimental;
 using System;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
     [Header("Audio Sources")] public AudioSource musicSource;
-    public AudioSource sfxSource;
 
     [Header("Audio Clips")] public List<AudioClip> musicClips;
-    public AudioMixer mixer;
     public List<AudioClip> sfxClips;
     private readonly Dictionary<string, AudioClip> _musicDictionary = new();
     private readonly Dictionary<string, AudioClip> _sfxDictionary = new();
+
+    public float sfxValue = 0.1f;
+    public float musicValue = 0.1f;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             InitializeDictionaries();
         }
         else
@@ -49,6 +53,8 @@ public class SoundManager : MonoBehaviour
 
         if (_musicDictionary.TryGetValue(clipName, out AudioClip clip))
         {
+            if (musicSource == null) musicSource = gameObject.AddComponent<AudioSource>();
+            musicSource.volume = musicValue;
             musicSource.clip = clip;
             musicSource.loop = loop;
             musicSource.Play();
@@ -64,7 +70,7 @@ public class SoundManager : MonoBehaviour
         if (_sfxDictionary.TryGetValue(clipName, out AudioClip clip))
         {
             AudioSource newSource = gameObject.AddComponent<AudioSource>();
-            newSource.outputAudioMixerGroup = sfxSource.outputAudioMixerGroup;
+            newSource.volume = sfxValue;
             newSource.PlayOneShot(clip);
             StartCoroutine(DestroySource(newSource, clip.length));
         }
@@ -85,35 +91,33 @@ public class SoundManager : MonoBehaviour
         Destroy(source);
     }
 
-    public void SetMusicVolume(float volume)
+    public void SetMusicVolume(float value)
     {
-        if(volume < 0.001)
+        musicValue = value;
+        if(musicValue < 0.001)
         {
-            volume = 0.001f;
+            musicValue = 0.001f;
         }
-        mixer.SetFloat("MusicVolume", MathF.Log10(volume) * 20f);
+        
+        if (musicSource != null) musicSource.volume = musicValue;
     }
 
-    public void SetSfxVolume(float volume)
+    public void SetSfxVolume(float value)
     {
-        if(volume < 0.001)
+        sfxValue = value;
+        if(sfxValue < 0.001)
         {
-            volume = 0.001f;
+            sfxValue = 0.001f;
         }
-        mixer.SetFloat("SFXVolume", MathF.Log10(volume) * 20f);
     }
 
     public float GetMusicVolume()
     {
-        float volume;
-        mixer.GetFloat("MusicVolume", out volume);
-        return volume;
+        return musicValue;
     }
 
-    public float GetSFXVolume()
+    public float GetSfxVolume()
     {
-        float volume;
-        mixer.GetFloat("SFXVolume", out volume);
-        return volume;
+        return sfxValue;
     }
 }

@@ -8,7 +8,6 @@ public class IntroController : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.LoadScene(1);
         videoController.loopPointReached += EndReached;
     }
 

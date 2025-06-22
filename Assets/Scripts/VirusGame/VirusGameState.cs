@@ -229,6 +229,8 @@ public class VirusGameState : IGameState
         float cardLenght = renderer.bounds.size.x;
         const float cardHeight = 0.005f;
         float cardWidth = renderer.bounds.size.z;
+        
+        SoundManager.Instance.PlaySfx("Shuffle");
 
         int index = 0;
         

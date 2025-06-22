@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 public class VirusActionOrganThief : VirusAction
 {
@@ -17,6 +18,9 @@ public class VirusActionOrganThief : VirusAction
         VirusPlayerStatus playerTarget = virusGs.PlayersStatus[PlayerTarget];
 
         VirusOrgan organToReceive = playerTarget.SearchOrganColor(ColorTarget);
+        
+        string cardEffect = "Card" + new Random().Next(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
         
         await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
         

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class VirusActionSpread : VirusAction
 {
@@ -22,6 +22,9 @@ public class VirusActionSpread : VirusAction
         
         VirusOrgan organToCure = playerSelf.SearchOrganColor(ColorSelf);
         VirusOrgan organToInfect = playerTarget.SearchOrganColor(ColorTarget);
+        
+        string cardEffect = "Card" + new Random().Next(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
         
         await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
         

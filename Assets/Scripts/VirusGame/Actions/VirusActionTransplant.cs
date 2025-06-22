@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class VirusActionTransplant : VirusAction
@@ -30,6 +31,9 @@ public class VirusActionTransplant : VirusAction
         //Se añade el otro organo y se elimina el suyo
         playerTarget.AddOrgan(organToGive);
         playerTarget.RemoveOrgan(ColorTarget);
+        
+        string cardEffect = "Card" + new Random().Next(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
         
         await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
         

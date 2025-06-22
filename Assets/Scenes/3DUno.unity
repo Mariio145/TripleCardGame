@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19895965}
-  - component: {fileID: 19895972}
   - component: {fileID: 19895975}
   - component: {fileID: 19895974}
   - component: {fileID: 19895973}
@@ -160,22 +159,6 @@ Transform:
   - {fileID: 907770296}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &19895972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19895964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e9bf6fadc8ab845b670430aabef57d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: MCTSR
-  index: 0
-  icon: {fileID: 0}
 --- !u!114 &19895973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +911,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378277292}
-  - component: {fileID: 378277297}
   - component: {fileID: 378277300}
   - component: {fileID: 378277299}
   - component: {fileID: 378277298}
@@ -960,22 +942,6 @@ Transform:
   - {fileID: 1079004206}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &378277297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378277291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e9bf6fadc8ab845b670430aabef57d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: MCTSL
-  index: 0
-  icon: {fileID: 0}
 --- !u!114 &378277298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,7 +1175,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: SetColor
         m_Mode: 3
@@ -1709,13 +1675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677208650}
-  - component: {fileID: 677208656}
-  - component: {fileID: 677208657}
-  - component: {fileID: 677208660}
-  - component: {fileID: 677208659}
-  - component: {fileID: 677208658}
-  - component: {fileID: 677208661}
-  - component: {fileID: 677208662}
+  - component: {fileID: 677208651}
   m_Layer: 9
   m_Name: PerspectivePlayer
   m_TagString: Untagged
@@ -1741,39 +1701,7 @@ Transform:
   - {fileID: 578974509}
   m_Father: {fileID: 1351489537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &677208656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f082f6dc6a4151a6e8949862574b51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: FirstP
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &677208657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e9bf6fadc8ab845b670430aabef57d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: MCTSP
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &677208658
+--- !u!114 &677208651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1782,94 +1710,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 677208649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9310266249a181840a3fa6057ca69c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
---- !u!114 &677208659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 29
-    NumStackedVectorObservations: 1
-    m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 3b000000
-    VectorActionSize: 3b000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 0
-    hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 43bedcc0f4d98044695dc2c22c57e533, type: 3}
-  m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: UnoAgent
-  TeamId: 0
-  m_UseChildSensors: 1
-  m_UseChildActuators: 1
-  m_DeterministicInference: 0
-  m_ObservableAttributeHandling: 0
---- !u!114 &677208660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b31c8199274dce49babf0faffc62e5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 541341839223ec747bc85af40b62dc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
-  Name: NNUno1
+  Name: HumanPlayer
   index: 0
   icon: {fileID: 0}
-  _UnoAgent: {fileID: 677208658}
-  _VirusAgent: {fileID: 0}
---- !u!114 &677208661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2baf65ecd445448d6235542191b9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: RandomP
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &677208662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677208649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b55650592390bb47aca497e472e1f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: OSLAP
-  index: 0
-  icon: {fileID: 0}
+  unoVisualAction: {fileID: 1040661798}
 --- !u!1 &778198151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,7 +2156,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: SetColor
         m_Mode: 3
@@ -2625,7 +2473,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1021729595}
   - component: {fileID: 1021729603}
-  - component: {fileID: 1021729604}
   - component: {fileID: 1021729607}
   - component: {fileID: 1021729606}
   - component: {fileID: 1021729605}
@@ -2663,29 +2510,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021729594}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6f082f6dc6a4151a6e8949862574b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
   Name: FirstT
-  index: 0
-  icon: {fileID: 0}
---- !u!114 &1021729604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021729594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e9bf6fadc8ab845b670430aabef57d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handSlot: {fileID: 0}
-  Name: MCTST
   index: 0
   icon: {fileID: 0}
 --- !u!114 &1021729605
@@ -3281,7 +3112,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: SetColor
         m_Mode: 3
@@ -3995,7 +3826,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: DrawCard
         m_Mode: 1
@@ -4741,7 +4572,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: SetColor
         m_Mode: 3
@@ -5576,7 +5407,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 677208651}
         m_TargetAssemblyTypeName: UnoHumanPlayer, Assembly-CSharp
         m_MethodName: PlayCard
         m_Mode: 1
@@ -6183,6 +6014,7 @@ GameObject:
   - component: {fileID: 2613220346424627445}
   - component: {fileID: 2449722104376224790}
   - component: {fileID: 4434481487584876157}
+  - component: {fileID: 5142616706181930705}
   m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
@@ -6190,6 +6022,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!81 &5142616706181930705
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5142616706181930704}
+  m_Enabled: 1
 --- !u!1 &5450523725761568743
 GameObject:
   m_ObjectHideFlags: 0

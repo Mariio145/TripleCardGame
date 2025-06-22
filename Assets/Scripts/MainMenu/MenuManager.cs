@@ -2,32 +2,43 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     private string _sceneName;
-    private Animator _animator;
+    [SerializeField] private GameObject options;
+    [SerializeField] private GameObject credits;
+    
+    [FormerlySerializedAs("volumeSlider")] [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Slider musicSlider;
+    
 
-    private void Awake()
+    private void Start()
     {
-        _animator = GetComponent<Animator>();
-        for (int i = 0; i < SceneManager.loadedSceneCount; i++)
-        {
-            //if (SceneManager.GetSceneByBuildIndex(i) != SceneManager.GetActiveScene())SceneManager.UnloadSceneAsync(i);
-        }
+        UpdateSliders();
+        SoundManager.Instance.PlayMusic("MusicaMenu");
+    }
+
+    public void ChangeVolume()
+    {
+        SoundManager.Instance.SetSfxVolume(sfxSlider.value);
+        SoundManager.Instance.SetMusicVolume(musicSlider.value);
+    }
+    
+    private void UpdateSliders()
+    {
+        float sfxValue = SoundManager.Instance.sfxValue;
+        float musicValue = SoundManager.Instance.musicValue;
+        sfxSlider.value = sfxValue;
+        musicSlider.value = musicValue;
     }
 
     public void SelectGame(string gameName)
     {
+        SoundManager.Instance.PlaySfx("Button");
         _sceneName = gameName;
-        ChangeScene();
-        // TODO: StartCoroutine(ChangeSceneAnim());
-    }
-    
-    private IEnumerator ChangeSceneAnim()
-    {
-        _animator.Play("FadeInWithSelect"); //TODO: Poner nombre de la animacion de cierre
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length + 0.5f);
         ChangeScene();
     }
 
@@ -38,16 +49,36 @@ public class MenuManager : MonoBehaviour
 
     public void ShowOptions()
     {
-        
+        SoundManager.Instance.PlaySfx("Button");
+        options.SetActive(true);
     }
-
+    
     public void HideOptions()
     {
-        
+        SoundManager.Instance.PlaySfx("Button");
+        options.SetActive(false);
     }
-
+    
+    public void ShowCredits()
+    {
+        SoundManager.Instance.PlaySfx("Button");
+        credits.SetActive(true);
+    }
+    
+    public void HideCredits()
+    {
+        SoundManager.Instance.PlaySfx("Button");
+        credits.SetActive(false);
+    }
+    public void OpenWeb(string url)
+    {
+        SoundManager.Instance.PlaySfx("Button");
+        Application.OpenURL(url);
+    }
+    
     public void ExitGame()
     {
+        SoundManager.Instance.PlaySfx("Button");
         DOTween.KillAll();
         Application.Quit();
     }

@@ -175,13 +175,13 @@ public override void CollectObservations(VectorSensor sensor)
     {
         VirusAction virusAccion = _allActions.AllPosibleActions[code];
         List<IAction> allActions = _obsVirus.GetActions();
-        Debug.Log(virusAccion.GetType());
+
         for (int i = 0; i < allActions.Count; i++)
         {
             VirusAction allAction = allActions[i] as VirusAction;
             if (allAction.GetType() == virusAccion.GetType())
             {
-                Debug.LogWarning("Ha entrado");
+
                 if (allAction.ColorSelf == virusAccion.ColorSelf && 
                     allAction.ColorTarget == virusAccion.ColorTarget &&
                     allAction.PlayerSelf == virusAccion.PlayerSelf &&
@@ -204,7 +204,6 @@ public override void CollectObservations(VectorSensor sensor)
             }
         }
         
-        Debug.LogError("Mal vamos 2");
         return null;
     }
 }

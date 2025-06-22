@@ -32,6 +32,7 @@ public class VisualUnoAction: MonoBehaviour
 
     public async void ExitGame()
     {
+        SoundManager.Instance.StopMusic();
         GameManager.CancellationTokenSource.Cancel();
         await Task.Delay(1000);
         SceneManager.LoadScene(1);

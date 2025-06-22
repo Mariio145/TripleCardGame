@@ -13,7 +13,7 @@ public class UnoHumanPlayer : Player
     
     private static SynchronizationContext _mainThreadContext;
     
-    void Awake()
+    void Start()
     {
         _mainThreadContext = SynchronizationContext.Current;
     }

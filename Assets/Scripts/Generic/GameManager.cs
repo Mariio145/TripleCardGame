@@ -24,10 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int botTimeToThink;
     [SerializeField] private int humanTimeToThink;
     [Header("Player Settings")]
-    //[SerializeField] private GameObject perspectivePlayer;
     [SerializeField] private GameObject[] players;
-    /*[SerializeField] private Player humanPlayer;
-    [SerializeField] private List<Player> botPlayers;*/
     [Header("Miscellaneous")]
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image endIcon;
@@ -72,7 +69,7 @@ public class GameManager : MonoBehaviour
         CancellationTokenSource = new CancellationTokenSource();
         DOTween.SetTweensCapacity(500, 50);
         IsHumanPlayer = false;
-        BotTimeToThink = 10;//botTimeToThink;
+        BotTimeToThink = botTimeToThink;
         HumanTimeToThink = humanTimeToThink;
         _players = new List<Player>();
         
@@ -107,23 +104,18 @@ public class GameManager : MonoBehaviour
             StartPlaying();
         }
     }
-    
-    private void OnApplicationQuit()
-    {
-        CancellationTokenSource?.Cancel();
-        CancellationTokenSource?.Dispose();
-        Application.Quit();
-    }
 
     private void StartPlaying()
     {
         switch (gameToPlay)
         {
             case GameToPlay.VirusGame:
+                SoundManager.Instance.PlayMusic("MusicaVirus");
                 _gameState = new VirusGameState(deckHolder, discardHolder);
                 _forwardModel = new VirusForwardModel();
                 break;
             case GameToPlay.UnoGame:
+                SoundManager.Instance.PlayMusic("Musica1");
                 _gameState = new UnoGameState(deckHolder, discardHolder);
                 _forwardModel = new UnoForwardModel();
                 break;
@@ -155,7 +147,6 @@ public class GameManager : MonoBehaviour
 
     private async void Run()
     {
-        Time.timeScale = 20;
         try
         {
             _gameState.Reset(_players);
@@ -163,18 +154,17 @@ public class GameManager : MonoBehaviour
             await Task.Delay(1000, CancellationTokenSource.Token);
 
             await Task.Delay(1000);
-
-            int timeDelay = 10;
+            
 
             while (!_gameState.IsTerminal() && CancellationTokenSource.Token.IsCancellationRequested == false)
             {
-                await Task.Delay(timeDelay, CancellationTokenSource.Token);
+                await Task.Delay(250, CancellationTokenSource.Token);
                 Player playerTurn = _gameState.GetPlayer();
                 if (CancellationTokenSource.IsCancellationRequested) return;
                 playerTurn.StartTurn();
                 
                 Debug.Log(playerTurn.Name);
-                await Task.Delay(timeDelay, CancellationTokenSource.Token);
+                await Task.Delay(250, CancellationTokenSource.Token);
                 
                 IObservation observation = _gameState.GetObservationFromPlayer(playerTurn.index);
                 IAction action = null;
@@ -224,7 +214,7 @@ public class GameManager : MonoBehaviour
             ShowEndText();
             HideTutorial();
             
-            //await WaitForSpace();
+            await WaitForSpace();
             
             _gameID = _firebaseManager.CreateGame(gameToPlay);
 
@@ -247,8 +237,6 @@ public class GameManager : MonoBehaviour
     {
         Player winner = _gameState.GetWinner();
         if (!winner) return;
-        
-        
         Sprite icon = winner.GetIcon();
         backgroundImage.transform.parent.gameObject.SetActive(true);
         backgroundImage.enabled = true;
@@ -259,6 +247,8 @@ public class GameManager : MonoBehaviour
         endTextShadow.alignment = TextAnchor.LowerCenter;
         endTextShadow.transform.SetParent(backgroundImage.transform.parent);
         endText.transform.SetParent(backgroundImage.transform.parent);
+        endText.color = new Color(1, 1, 1, 1);
+        endTextShadow.color = new Color(0, 0, 0, 1);
         endText.text = "HA GANADO!\nPresiona el espacio para\nun nuevo juego.";
         endTextShadow.text = "HA GANADO!\nPresiona el espacio para\nun nuevo juego.";
     }
@@ -269,16 +259,20 @@ public class GameManager : MonoBehaviour
         {
             const float alphaReduction = 0.005f;
             
+            endText.color = new Color(1, 1, 1, endText.color.a - alphaReduction);
+            endTextShadow.color = new Color(0, 0, 0, endText.color.a);
+            
             endText.text = "Tu turno";
             endTextShadow.text = "Tu turno";
             await Task.Delay(500, CancellationTokenSource.Token);
-            while (endText.color.a > 0)
+            while (endText.color.a > 0 && endText.color.a != 1)
             {
                 endText.color = new Color(1, 1, 1, endText.color.a - alphaReduction);
                 endTextShadow.color = new Color(0, 0, 0, endText.color.a);
                 await Task.Yield();
             }
             await Task.Delay(1000, CancellationTokenSource.Token);
+            if (Mathf.Approximately(endText.color.a, 1)) return;
             endText.text = "";
             endTextShadow.text = "";
             endText.color = new Color(1, 1, 1, 1);

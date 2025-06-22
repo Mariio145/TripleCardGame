@@ -17,7 +17,7 @@ public class VirusHumanPlayer : Player
     
     private static SynchronizationContext _mainThreadContext;
 
-    void Awake()
+    void Start()
     {
         _mainThreadContext = SynchronizationContext.Current;
     }

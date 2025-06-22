@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class VirusActionMedicalError : VirusAction
@@ -15,6 +16,9 @@ public class VirusActionMedicalError : VirusAction
         
         VirusPlayerStatus playerSelf = virusGs.PlayersStatus[PlayerSelf];
         VirusPlayerStatus playerTarget = virusGs.PlayersStatus[PlayerTarget];
+        
+        string cardEffect = "Card" + new Random().Next(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
         
         await virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex));
 

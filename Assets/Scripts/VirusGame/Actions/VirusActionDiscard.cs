@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class VirusActionDiscard : VirusAction
 {
@@ -24,7 +24,10 @@ public class VirusActionDiscard : VirusAction
             discardTasks.Add(virusGs.DiscardCard(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, i)));
         }
         
-        //await Task.WhenAll(discardTasks);
+        string cardEffect = "Card" + new Random().Next(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
+        
+        await Task.WhenAll(discardTasks);
         
         return await Task.FromResult(true);
     }
@@ -37,7 +40,6 @@ public class VirusActionDiscard : VirusAction
 
         if (player.Hand.Count < 3)
         {
-            Debug.LogWarning("Descartado");
             return false;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class VirusActionPlayMedicine : VirusAction
@@ -20,7 +21,9 @@ public class VirusActionPlayMedicine : VirusAction
         VirusPlayerStatus playerSelf = virusGs.PlayersStatus[PlayerSelf];
         VirusOrgan organ = playerSelf.SearchOrganColor(ColorSelf);
         
-        Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex).VisualCard.gameObject);
+        UnityEngine.Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex).VisualCard.gameObject);
+        
+        SoundManager.Instance.PlaySfx("Medicine");
 
         switch (organ.Status)
         {

@@ -19,13 +19,11 @@ public class UnoPlayCard : UnoAction
         if (gameState is not UnoGameState unoGs) return false;
         
         UnoPlayerStatus playerSelf = unoGs.PlayersStatus[unoGs.GetPlayerTurnIndex()];
+        string cardEffect = "Card" + Random.Range(1, 5);
+        SoundManager.Instance.PlaySfx(cardEffect);
         Card cardPlayed = Auxiliar<Card>.GetAndRemoveCardFromQueue(ref playerSelf.Hand, CardIndex);
         cardPlayed.VisualCard.ChangeUnoParent(unoGs.DiscardGo.transform, false, unoGs.TopCard.VisualCard.transform.localPosition - new Vector3(0, 0.002f, 0));
         unoGs.TopCard = (UnoCard)cardPlayed;
-
-        Debug.Log(CardIndex);
-        Debug.Log("Tipo: " + Card.Type + "| Color: " + Card.Color);
-        Debug.Log("Tipo: " + ((UnoCard)cardPlayed).Type + "| Color: " +((UnoCard)cardPlayed).Color);
 
         switch (_cardType)
         {

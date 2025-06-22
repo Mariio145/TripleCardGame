@@ -20,7 +20,7 @@ public class MLAgentsPlayer : Player
 
             while (_UnoAgent.ObtenerUltimaAccion() != null)
             {
-                Debug.LogWarning("ATASCADO!");
+
             }
 
             _UnoAgent.PrepararObservacion(observable);
@@ -29,12 +29,8 @@ public class MLAgentsPlayer : Player
 
             while (_UnoAgent.ObtenerUltimaAccion() == null)
             {
-
             }
-
-            Debug.Log(_UnoAgent.ObtenerUltimaAccion());
-            // Esperamos un frame para que OnActionReceived se ejecute
-            // y almacene la decisión tomada
+            
             return _UnoAgent.ObtenerUltimaAccion();
         }
         else if (game == GameToPlay.VirusGame)
@@ -43,7 +39,6 @@ public class MLAgentsPlayer : Player
 
             while (_VirusAgent.ObtenerUltimaAccion() != null)
             {
-                Debug.LogWarning("ATASCADO!");
             }
 
             _VirusAgent.PrepararObservacion(observable);
@@ -52,12 +47,8 @@ public class MLAgentsPlayer : Player
 
             while (_VirusAgent.ObtenerUltimaAccion() == null)
             {
-
             }
-
-            Debug.Log(_VirusAgent.ObtenerUltimaAccion());
-            // Esperamos un frame para que OnActionReceived se ejecute
-            // y almacene la decisión tomada
+            
             return _VirusAgent.ObtenerUltimaAccion();
         }
 

@@ -128,6 +128,8 @@ public class UnoGameState : IGameState
 
         UnoCard card = _drawDeck.DrawCard();
         
+        SoundManager.Instance.PlaySfx("DrawCard");
+        
         card.VisualCard.ChangeParent(hand.transform);
     
         return card;
@@ -278,6 +280,8 @@ public class UnoGameState : IGameState
         float cardLenght = renderer.bounds.size.x;
         const float cardHeight = 0.0065f;
         float cardWidth = renderer.bounds.size.z;
+        
+        SoundManager.Instance.PlaySfx("Shuffle");
 
         int index = 0;
         for (int i = 0; i < gridRows; i++)

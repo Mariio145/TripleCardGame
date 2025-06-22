@@ -11,9 +11,9 @@ public class VirusForwardModel : IForwardModel
         bool result;
         if (action is not null) result = await action.PlayAction(gameState);
         else result = await new VirusActionDiscard(new List<int> {0, 1, 2}, gameState.GetPlayerTurnIndex()).PlayAction(gameState);
-        await Task.Delay(10); //Tiempo entre acciones
+        await Task.Delay(1000); //Tiempo entre acciones
         await EndTurn(gameState);
-        await Task.Delay(10); //Tiempo entre acciones
+        await Task.Delay(1000); //Tiempo entre acciones
         return result;
     }
 
@@ -31,7 +31,8 @@ public class VirusForwardModel : IForwardModel
         {
             player.Hand.Enqueue(await virusGs.DrawCardFromDrawDeck(player.HandGObject));
             virusGs.UpdateHands();
-            await Task.Delay(10);
+            SoundManager.Instance.PlaySfx("DrawCard");
+            await Task.Delay(200);
         }
         
         gameState.ChangeTurnIndex();

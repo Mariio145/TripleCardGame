@@ -157,6 +157,7 @@ public class VisualVirusBody : MonoBehaviour
         OrganGameObject organ = GetOrganObject(organTarget);
         
         organ.medicineMesh.material = medColor;
+
         await organ.medicineMesh.gameObject.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
     }
     
@@ -167,20 +168,21 @@ public class VisualVirusBody : MonoBehaviour
         OrganGameObject organ = GetOrganObject(organTarget);
         
         organ.medicineMesh2.material = medColor;
+
         await organ.medicineMesh2.gameObject.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
     }
     
     public async Task RemoveMedicine1Animation(VirusColor organTarget)
     {
         OrganGameObject organ = GetOrganObject(organTarget);
-        
+
         await organ.medicineMesh.gameObject.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InElastic).AsyncWaitForCompletion();
     }
 
     private async Task RemoveMedicine2Animation(VirusColor organTarget)
     {
         OrganGameObject organ = GetOrganObject(organTarget);
-        
+
         await organ.medicineMesh2.gameObject.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InElastic).AsyncWaitForCompletion();
     }
 
@@ -191,6 +193,7 @@ public class VisualVirusBody : MonoBehaviour
         OrganGameObject organ = GetOrganObject(organTarget);
         
         organ.virusMesh.material = virColor;
+
         await organ.virusMesh.gameObject.transform.DOScale(VirusScale, 1f).SetEase(Ease.OutElastic).AsyncWaitForCompletion();
     }
 

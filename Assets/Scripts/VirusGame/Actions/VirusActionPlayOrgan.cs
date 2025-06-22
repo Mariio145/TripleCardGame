@@ -15,11 +15,13 @@ public class VirusActionPlayOrgan : VirusAction
     {
         if (gameState is not VirusGameState virusGs) return false;
         VirusPlayerStatus player = virusGs.PlayersStatus[PlayerSelf];
-
+        
+        
         Object.Destroy(Auxiliar<Card>.GetAndRemoveCardFromQueue(ref player.Hand, CardIndex).VisualCard.gameObject);
         
         player.AddOrgan(ColorSelf);
         await player.VisualBody.PlaceOrganAnimation(ColorSelf);
+        SoundManager.Instance.PlaySfx("Medicine");
         
         return true;
     }
