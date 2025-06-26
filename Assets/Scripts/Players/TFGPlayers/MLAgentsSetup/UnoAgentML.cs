@@ -68,10 +68,10 @@ public class UnoAgentML : Agent
         foreach (int count in typeCounts)
             sensor.AddObservation(count / 5f); //3. Cantidad de cartas por tipo
 
-        //4. Total de cartas en mano (puedes normalizar por 50 como ejemplo)
+        //4. Total de cartas en mano
         sensor.AddObservation(Mathf.Clamp01(hand.Count / 50f));
 
-        //5. Cartas jugables (cuántas puedes jugar ahora)
+        //5. Cartas jugables
         int jugables = hand.Count(card => _obsUno.IsCardPlayable(card));
         sensor.AddObservation(Mathf.Clamp01(jugables / 20f));
 

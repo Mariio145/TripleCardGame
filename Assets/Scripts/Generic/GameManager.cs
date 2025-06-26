@@ -215,14 +215,14 @@ public class GameManager : MonoBehaviour
             HideTutorial();
             
             await WaitForSpace();
-            
+            /*
             _gameID = _firebaseManager.CreateGame(gameToPlay);
 
             foreach (PlayerStatus player in _gameState.GetPlayerStatus())
             {
                 _firebaseManager.AddPlayerToGame(_gameID, player.Player.Name, player.Player.GetType().ToString() ,player.GetPunctuation());
             }
-
+            */
             await Task.Delay(20);
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
