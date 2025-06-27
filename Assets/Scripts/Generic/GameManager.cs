@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private IGameState _gameState;
     private IForwardModel _forwardModel;
     internal static CancellationTokenSource CancellationTokenSource;
-    private FirebaseManager _firebaseManager;
+    //private FirebaseManager _firebaseManager;
     private string _gameID;
     private double _deltaTime;
     private static bool _isPaused;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        _firebaseManager = new FirebaseManager();
+        //_firebaseManager = new FirebaseManager();
         EndText = endText;
         EndTextShadow = endTextShadow;
         ShowCardRender = showCardRenderer;

@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a9c5342-12f2-41bb-a72a-abb404f44989" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TripleCardGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DUno.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DVirus.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/TFGPlayers/MLAgentsSetup/UnoAgentML.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/TFGPlayers/MLAgentsSetup/UnoAgentML.cs" afterDir="false" />
-    </list>
+    <list default="true" id="8a9c5342-12f2-41bb-a72a-abb404f44989" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +46,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Desktop/BuildTFG/BuildDiaPresencial\CardGame.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/TFG/BuildTFG/BuildFinal\CardGame.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\Mariio\Desktop\BuildTFG\PrimeraVersionVirus" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -141,6 +136,7 @@
       <workItem from="1750718062694" duration="1045000" />
       <workItem from="1750865552512" duration="7761000" />
       <workItem from="1750929486308" duration="1013000" />
+      <workItem from="1750981505825" duration="690000" />
     </task>
     <servers />
   </component>
